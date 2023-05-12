@@ -3,32 +3,34 @@ import './App.css'
 
 function App() {
 
-  const [publi,setPublis] = useState([{
-    id:1,
-    text:'A curious cat looking for food',
-    img:'./curious-cat.jpg',
-    user: 'Luis Taliercio'
-  },{
-    id:2,
-    text:'He looks cute but if you dont pay attention he will eat you',
-    img:'./black-cat-tired.jpg',
-    user: 'Emily Attias'
-  },{
-    id:3,
-    text:'With my gimbros',
-    img:'./gimbros.jpg',
-    user: 'Santiago Blanco'
-  },{
-    id:4,
-    text:'Sky I do love you',
-    img:'./night-sky.jpg',
-    user: 'Luis Taliercio'
-  }])
+  const [publi,setPublis] = useState([
+    {
+      id:4,
+      text:'Sky I do love you',
+      img:'./night-sky.jpg',
+      user: 'Luis Taliercio'
+    },{
+      id:3,
+      text:'With my gimbros',
+      img:'./gimbros.jpg',
+      user: 'Santiago Blanco'
+    },{
+      id:2,
+      text:'He looks cute but if you dont pay attention he will eat you',
+      img:'./black-cat-tired.jpg',
+      user: 'Emily Attias'
+    },{
+      id:1,
+      text:'A curious cat looking for food',
+      img:'./curious-cat.jpg',
+      user: 'Luis Taliercio'
+    }
+  ]);
 
   const uploadPubli = (publication) =>{
     console.log(publication);
     publication.id = publi.length + 1;
-    let newPublis = [...publi,publication];
+    let newPublis = [publication,...publi];
     setPublis(newPublis);
   }
 
@@ -112,6 +114,8 @@ const MakePubli = ({uploadPubli}) =>{
     const fileUrl = URL.createObjectURL(file);
     console.log(`./${file.name}`);
 
+    //Cada publi tiene un array de tags, para esto crear un nuevo input, luego puedo filtrar publicaciones en base a los tags que estas publis poseen utilizando por ejemplo include
+
     let newPubli = {
       id:2,
       text: description,
@@ -125,7 +129,6 @@ const MakePubli = ({uploadPubli}) =>{
     refFile.current.value = '';
     refDescription.current.value = '';
   },[file]);
-
 
   return <div className='makePublication'>
     <input type='text' id='inputText' ref={refDescription}/>
