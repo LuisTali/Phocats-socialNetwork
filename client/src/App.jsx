@@ -1,50 +1,28 @@
 import { useEffect, useState, useRef } from 'react'
+import axios from 'axios';
 import './App.css'
 
 function App() {
-
-  const [publi,setPublis] = useState([
-    {
-      id:4,
-      text:'Sky I do love you',
-      img:'./night-sky.jpg',
-      user: 'Luis Taliercio'
-    },{
-      id:3,
-      text:'With my gimbros',
-      img:'./gimbros.jpg',
-      user: 'Santiago Blanco'
-    },{
-      id:2,
-      text:'He looks cute but if you dont pay attention he will eat you',
-      img:'./black-cat-tired.jpg',
-      user: 'Emily Attias'
-    },{
-      id:1,
-      text:'A curious cat looking for food',
-      img:'./curious-cat.jpg',
-      user: 'Luis Taliercio'
-    }
-  ]);
+  const [publi,setPublis] = useState([]);
+  const baseUrl = 'http://localhost:5000/publication';
 
   const uploadPubli = (publication) =>{
     console.log(publication);
-    publication.id = publi.length + 1;
     let newPublis = [publication,...publi];
     setPublis(newPublis);
   }
 
   const useFetch = async() =>{
     console.log('useFetch');
-    const response = await fetch('/api');
-    const data = await response.json();
-    console.log(data.msg);
+    const publis = await axios.get(`${baseUrl}/`);
+    console.log(publis.data.data);
+    setPublis(publis.data.data);
   }
 
   useEffect(()=>{
     console.log(...publi)
     useFetch();
-  },[publi])
+  },[])
 
   return (
     <>
@@ -52,7 +30,7 @@ function App() {
     <div className='homePage'>
       <div className='feed'>
       <MakePubli uploadPubli={uploadPubli}/>
-      {publi.map((publi) => <Publication {...publi}/>)}
+      {publi ? publi.map((publi) => <Publication {...publi}/>) : <h2>'loading...'</h2>}
       </div>
       <div className='groupsDiv'>
         <ul>
@@ -66,11 +44,11 @@ function App() {
   )
 }
 
-const Publication = ({id,text,img,user}) =>{
+const Publication = ({id,textDescription,imgSrc,idUser}) =>{
   return <article className='publication' key={id}>
-    <div className='profilePublication'>{user}</div>
-    {text}
-    <img src={img}/>
+    <div className='profilePublication'>{idUser}</div>
+    {textDescription}
+    <img src={imgSrc}/>
   </article>
 }
 
@@ -91,17 +69,28 @@ const MakePubli = ({uploadPubli}) =>{
   const[description,setDescription] = useState();
   const refFile = useRef(null);
   const refDescription = useRef(null);
+  const baseUrl = 'http://localhost:5000/publication';
 
   const handleUploadClick = () =>{
     if(!refFile.current.files[0] || !refDescription.current.value){
       alert('cargue archivo');
       return;
     }
-    console.log(refDescription.current.value);
     setDescription(refDescription.current.value);
-    
-    if(refFile.current.files[0].type == 'image/jpeg' || refFile.current.files[0].type == 'image/jpg' || refFile.current.files[0].type == 'image/png'){
     setFile(refFile.current.files[0]);
+  }
+
+  const uploadPublication = async({textDescription,file,imgName,idUser}) => { 
+    try {
+      console.log(textDescription);
+      console.log(file);
+      console.log(imgName);
+      console.log(idUser);
+      const response = await axios.post(`${baseUrl}/add`,{textDescription,file,imgName,idUser});
+      const data = await response.data.publication
+      return data;
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -110,19 +99,18 @@ const MakePubli = ({uploadPubli}) =>{
         setFile(undefined);
         return;
     }
-
-    const fileUrl = URL.createObjectURL(file);
-    console.log(`./${file.name}`);
+    const fileUrl = URL.createObjectURL(file); //Si paso esto visualizo la imagen al subirla
 
     //Cada publi tiene un array de tags, para esto crear un nuevo input, luego puedo filtrar publicaciones en base a los tags que estas publis poseen utilizando por ejemplo include
-
+    console.log(file);
     let newPubli = {
-      id:2,
-      text: description,
-      img: fileUrl,
-      user: 'Luis Taliercio' //Modificarlo luego cuando cree User
+      textDescription: description,
+      file:file,
+      imgName: file.name,
+      idUser: 3 //Modificarlo luego cuando cree User
     }
-    uploadPubli(newPubli);
+    
+    uploadPublication({...newPubli}).then((publi) => uploadPubli(publi));
 
     setFile(undefined);
     setDescription('');
@@ -134,7 +122,7 @@ const MakePubli = ({uploadPubli}) =>{
     <input type='text' id='inputText' ref={refDescription}/>
     <ul className='multimediaOptions'>
       <li>
-        <input id='fileInput' type='file' ref={refFile}/>
+        <input id='fileInput' type='file' accept="image/*" ref={refFile}/>
       </li>
     </ul>
     <button className='btn' onClick={handleUploadClick}>Send It</button>
