@@ -15,7 +15,6 @@ const dbSetting = {
 
 const getConnection = async() =>{
     try {
-        console.log(config.username);
         const pool = await sql.connect(dbSetting);
         return pool;
     } catch (error) {
