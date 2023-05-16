@@ -24,7 +24,6 @@ function Home() {
   }
 
   useEffect(()=>{
-    console.log(...publi)
     useFetch();
   },[empty])
 
@@ -33,7 +32,7 @@ function Home() {
     <div className='homePage'>
       <div className='feed'>
       <MakePubli uploadPubli={uploadPubli}/>
-      {!empty && publi.map((publi) => <Publication {...publi} id={publi.id}/>)}
+      {publi.map((publication) => <Publication {...publication} id={publication.id}/>)}
       {empty && <h2>Looks quite over here</h2>}
       </div>
       <div className='groupsDiv'>

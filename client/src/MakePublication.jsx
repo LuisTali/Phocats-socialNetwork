@@ -53,7 +53,7 @@ const MakePubli = ({uploadPubli}) =>{
         textDescription: description,
         imgName: file.name,
         file:file,
-        idUser: 3 //Modificarlo luego cuando cree User
+        idUser: 1 //Modificarlo luego cuando cree User
       }
       
       uploadPublication({...newPubli}).then((publi) => uploadPubli(publi));

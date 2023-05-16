@@ -6,7 +6,9 @@ CREATE TABLE Users(
 	email varchar(80) NOT NULL CONSTRAINT uqUsers1 UNIQUE,
 	username  varchar(50) NOT NULL CONSTRAINT uqUsers2 UNIQUE,
 	[password] varchar(50) CONSTRAINT ckUsers CHECK([password] LIKE '[a-z,0-9][a-z,0-9][a-z,0-9][a-z,0-9][a-z,0-9][a-z,0-9][a-z,0-9][a-z,0-9]%'),
-	completeName varchar(100) NOT NULL
+	completeName varchar(100) NOT NULL,
+	age int NOT NULL,
+	madeIn datetime /*Registrado el dd/mm/yy hh/mm/ss*/
 );
 
 CREATE TABLE Publications(
@@ -14,5 +16,5 @@ CREATE TABLE Publications(
 	idUser int CONSTRAINT fkPublications1 FOREIGN KEY REFERENCES Users(id),
 	textDescription varchar(200),
 	imgName varchar(100),
-	madeIn datetime
+	madeIn datetime /*Creada el dd/mm/yy hh/mm/ss*/
 );

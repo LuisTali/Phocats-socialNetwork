@@ -1,11 +1,15 @@
 import React,{useEffect} from "react";
 
-const Modal = () =>{
+const Modal = ({modalContent,setModalOpen,successModal}) =>{
     useEffect(()=>{
         setTimeout(()=>{
-            //closeModal;
+            setModalOpen(false);
         },3000)
     })
+
+    return <div className={successModal ? 'successModal' : "failureModal"}>
+        <h2>{modalContent}</h2>
+    </div>
 }
 
 export default Modal;

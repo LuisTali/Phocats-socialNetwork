@@ -19,7 +19,7 @@ export const newPublication = async(req,res) =>{
         console.log(req.encryptedName);
         const {textDescription,imgName,idUser} = req.body;
         const pool = await getConnection();
-        const response = await pool.request().input("idUser",sql.Int,idUser).input("textDescription",sql.VarChar,textDescription).input("imgSrc",sql.VarChar,req.encryptedName).query(querys.newPublication);
+        const response = await pool.request().input("idUser",sql.Int,idUser).input("textDescription",sql.VarChar,textDescription).input("imgSrc",sql.VarChar,req.encryptedName).input("tags",sql.VarChar,JSON.stringify([])).query(querys.newPublication);
         
         if(response.rowsAffected >= 1){
             const response2 = await pool.request().query(querys.getLastPublication); //Obtener la ultima publicationinsertada
@@ -28,6 +28,6 @@ export const newPublication = async(req,res) =>{
             res.json({success:true,response,publication:publi});
         }
     } catch (error) {
-        res.status(404).json({success:false,error:error});
+        res.status(200).json({success:false,error:error});
     }
 }
