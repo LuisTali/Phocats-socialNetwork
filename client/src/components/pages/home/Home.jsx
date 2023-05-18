@@ -1,10 +1,11 @@
 import { useEffect, useState, useRef } from 'react'
-
-import MakePubli from './MakePublication.jsx';
-import Publication from './Publication.jsx';
 import axios from 'axios';
+import './Home.css'
 
-function Home() {
+import MakePubli from '../../common/makePublication/MakePublication.jsx';
+import Publication from '../../common/publication/Publication.jsx';
+
+function Home({username,id}) {
   const [publi,setPublis] = useState([]);
   const [empty,setEmpty] = useState(true);
   const baseUrl = 'http://localhost:5000/publication';
@@ -31,9 +32,9 @@ function Home() {
     <>
     <div className='homePage'>
       <div className='feed'>
-      <MakePubli uploadPubli={uploadPubli}/>
-      {publi.map((publication) => <Publication {...publication} id={publication.id}/>)}
-      {empty && <h2>Looks quite over here</h2>}
+      <MakePubli uploadPubli={uploadPubli} id={id} username={username}/>
+      {publi.map((publication) => <Publication {...publication} id={publication.id} userCreator={publication.userCreator}/>)}
+      {empty && <h2 style={{marginTop:'2rem'}}>Looks quite over here</h2>}
       </div>
       <div className='groupsDiv'>
         <ul>

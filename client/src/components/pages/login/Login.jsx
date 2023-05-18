@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
-import Modal from './Modal.jsx'
 import axios from "axios";
+import './Login.css'
+
+import Modal from '../../common/modal/Modal.jsx'
 
 const Login = ({setLogged}) => {
     const [user,setUser] = useState({username:'',password:''});
@@ -28,7 +30,7 @@ const Login = ({setLogged}) => {
         let user2 = {username:user.username,password:user.password};
         const response = await axios.post(`${baseUrl}user/auth`,{...user2});
         if(!response.data.success){
-            setModalContent('Error en la autenticacion, compruebe sus datos');
+            setModalContent(response.data.msg);
             setSuccessModal(false);
             setModalOpen(true);
             return;

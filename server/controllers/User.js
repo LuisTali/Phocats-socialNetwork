@@ -1,4 +1,4 @@
-import { query } from 'express';
+import { query, response } from 'express';
 import {getConnection,sql} from '../database/Connection.js';
 import { querys } from '../database/querys.js';
 
@@ -43,9 +43,26 @@ export const authLogin = async(req,res) =>{
         if(response.recordset.length >= 1){
             console.log(response.recordset[0]);
             res.status(200).json({success:true,user:response.recordset[0]})
+        }else{
+            res.status(200).json({success:false,msg:'No hubo coincidencias, compruebe sus datos'});
         }
     } catch (error) {
         res.status(200).json({success:false,error:error});
     }
 }
+
+export const getById = async(id)=>{
+
+    try {
+        const pool = await getConnection();
+        const response = await pool.request().input("id",sql.Int,id).query(querys.getUserById);
+        return response.recordset[0];
+    } catch (error) {
+        return null;
+    }
+}
+//(req,res){}
+//const {id} = req.params;
+//res.status(200).json({success:true,user:response.recordset[0]})
+//res.status(200).json({success:false,error:error});
 

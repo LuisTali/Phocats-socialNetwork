@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import Modal from "./Modal.jsx";
 import {useNavigate} from 'react-router-dom'
 import axios from "axios";
+import './Register.css'
+import Modal from "../../common/modal/Modal.jsx";
 
 const Register = () =>{
     const [user,setUser] = useState({username:'',email:'',password:'',completeName:'',age:0});

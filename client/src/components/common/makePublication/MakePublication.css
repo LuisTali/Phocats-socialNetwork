@@ -1,0 +1,31 @@
+.makePublication{
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    background-color: black;
+    border-radius: 10px;
+    padding: 1rem 0.5rem;
+    align-items: start;
+  }
+  .makePublication #inputText{
+    border-radius: 10px;
+    width: 80%;
+    margin-left: 10%;
+    height: 50px;
+    padding: 0.5rem;
+    word-wrap: break-word;
+  }
+  .makePublication .multimediaOptions li{
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    margin: 0rem 1rem;
+  }
+  .makePublication .multimediaOptions li #fileInput{
+    margin-left: 20%;
+  }
+  .makePublication .btn{
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    margin-left: 50%;
+    transform: translate(-50%); 
+  }

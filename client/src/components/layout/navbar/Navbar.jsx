@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Modal from "./Modal.jsx";
+import Modal from '../../common/modal/Modal.jsx';
+
+import './Navbar.css'
 
 const Navbar = ({username,setLogged,setUser}) =>{
     const navigate = useNavigate();
@@ -26,6 +28,7 @@ const Navbar = ({username,setLogged,setUser}) =>{
         <Link to='/'>Home</Link>
         <a>Notifications</a>
         <a>Friends</a>
+        {username && <Link to='/'>My Profile</Link>}
         {username ? <Link onClick={(e)=>logOut(e)}>Log Out</Link> : <Link to='/login'>Log In</Link>}
       </div>
     </nav>

@@ -1,7 +1,8 @@
 import React,{useEffect,useState,useRef} from 'react';
 import axios from 'axios';
+import './MakePublication.css'
 
-const MakePubli = ({uploadPubli}) =>{
+const MakePubli = ({uploadPubli, id, username}) =>{
     const[file,setFile] = useState();
     const[description,setDescription] = useState();
     const refFile = useRef(null);
@@ -9,12 +10,12 @@ const MakePubli = ({uploadPubli}) =>{
     const baseUrl = 'http://localhost:5000/publication';
   
     const handleUploadClick = () =>{
-      if(!refFile.current.files[0] || !refDescription.current.value){
+      if(!refFile.current.files[0] && !refDescription.current.value){
         alert('cargue archivo');
         return;
       }
-      setDescription(refDescription.current.value);
-      setFile(refFile.current.files[0]);
+      if(refDescription.current.value) setDescription(refDescription.current.value);
+      if(refFile.current.files[0]) setFile(refFile.current.files[0]);
     }
   
     const uploadPublication = async({textDescription,file,imgName,idUser}) => { 
@@ -24,6 +25,7 @@ const MakePubli = ({uploadPubli}) =>{
         console.log(imgName);
         console.log(idUser);
         const formData = new FormData();
+        if(file)
         formData.append('img',file);
         formData.append('textDescription',textDescription);
         formData.append('imgName',imgName);
@@ -53,7 +55,7 @@ const MakePubli = ({uploadPubli}) =>{
         textDescription: description,
         imgName: file.name,
         file:file,
-        idUser: 1 //Modificarlo luego cuando cree User
+        idUser: id //Modificarlo luego cuando cree User
       }
       
       uploadPublication({...newPubli}).then((publi) => uploadPubli(publi));
@@ -68,10 +70,11 @@ const MakePubli = ({uploadPubli}) =>{
       <input type='text' id='inputText' ref={refDescription}/>
       <ul className='multimediaOptions'>
         <li>
-          <input id='fileInput' type='file' accept="image/*" ref={refFile}/>
+          {username ? <input id='fileInput' type='file' accept="image/*" ref={refFile}/> : <input id='fileInput' type='file' accept="image/*" disabled ref={refFile}/>}
+          
         </li>
       </ul>
-      <button className='btn' onClick={handleUploadClick}>Send It</button>
+      {username ? <button className='btn' onClick={handleUploadClick}>Send It</button> : <h2 style={{margin:'0 auto'}}>Inicia sesion para realizar publicaciones</h2>}
     </div>
   }
 
