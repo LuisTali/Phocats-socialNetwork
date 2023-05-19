@@ -1,6 +1,6 @@
 export const querys = {
     getAllUsers: 'SELECT * FROM Users',
-    insertNewUser: 'INSERT INTO Users VALUES (@email,@username,@password,@completename,@age,GETDATE())',
+    insertNewUser: 'INSERT INTO Users VALUES (@email,@username,@password,@completename,GETDATE(),null,@birthdate)',
     authenticateUser: 'SELECT * FROM Users WHERE username = @username AND password = @password',
     getUserById: 'SELECT * FROM Users WHERE id = @id',
     getUserByUsername: 'SELECT * FROM Users WHERE username = @username',

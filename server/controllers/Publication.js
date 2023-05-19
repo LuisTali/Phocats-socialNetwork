@@ -45,7 +45,6 @@ export const getPublicationsByIdUser = async(req,res) =>{
         const pool = await getConnection();
         const response = await pool.request().input("idUser",sql.Int,id).query(querys.getPublicationsByIdUser);
         const publications = response.recordset;
-        console.log(response);
         res.status(200).json({success:true,publications});
     } catch (error) {
         res.status(200).json({success:false,error:error});

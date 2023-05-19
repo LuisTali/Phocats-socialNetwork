@@ -16,6 +16,7 @@ const App = () =>{
         const loggedInUser = localStorage.getItem('user');
         if(loggedInUser){
             setUser(JSON.parse(loggedInUser));
+            console.log(JSON.parse(loggedInUser));
         }
     },[logged]);
 
@@ -26,7 +27,7 @@ const App = () =>{
                 <Route exact path='/' element={<Home {...user}/>}/>
                 <Route path='/login' element={<Login setLogged={setLogged}/>}/>
                 <Route path='/register' element={<Register/>}/>
-                <Route path='/user/:id' element={<UserProfile/>}/>
+                <Route path='/user/:id' element={<UserProfile idUserLogged={user.id}/>}/>
             </Routes>
         </Router>
     )

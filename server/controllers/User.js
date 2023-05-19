@@ -14,18 +14,16 @@ export const showUsers = async(req,res) =>{
 }
 
 export const registerUser = async(req,res) =>{
-    const {username,password,email,completeName,age} = req.body;
-    console.log(username,password,email,completeName,age);
+    const {username,password,email,completeName,birthDate} = req.body;
+    
+    let age = new Date().getFullYear() - new Date(birthDate).getFullYear();
     
     try {
         const pool = await getConnection();
-        const response = await pool.request().input("email",sql.VarChar,email).input("username",sql.VarChar,username).input("password",sql.VarChar,password).input("completename",sql.VarChar,completeName).input("age",sql.Int,age).query(querys.insertNewUser);
+        const response = await pool.request().input("email",sql.VarChar,email).input("username",sql.VarChar,username).input("password",sql.VarChar,password).input("completename",sql.VarChar,completeName).input("birthdate",sql.Date,birthDate).query(querys.insertNewUser);
 
         if(response.rowsAffected >= 1){
-            const user = {
-                username,password,email,completeName,age
-            }
-            res.status(200).json({success:true,user:user});
+            res.status(200).json({success:true});
         }
     } catch (error) {
         console.log(error.message);
@@ -35,7 +33,7 @@ export const registerUser = async(req,res) =>{
 
 export const authLogin = async(req,res) =>{
     const {username,password} = req.body;
-    console.log(username,password);
+    
     try {
         const pool = await getConnection();
         const response = await pool.request().input("username",sql.VarChar,username).input("password",sql.VarChar,password).query(querys.authenticateUser);
@@ -54,10 +52,12 @@ export const authLogin = async(req,res) =>{
 //Usada por el cliente al realizar una peticion para obtener como respuesta la info del usuario
 export const getUserById = async(req,res) =>{
     const {id} = req.params;
-    console.log(id);
     try {
         const pool = await getConnection();
         const response = await pool.request().input("id",sql.Int,id).query(querys.getUserById);
+        
+        //Paso la fecha a la funcion formatDate y la formatea
+        response.recordset[0].birthDate = formatDate(response.recordset[0].birthDate);
         res.status(200).json({success:true,user:response.recordset[0]});
     } catch (error) {
         res.status(200).json({success:false,error});
@@ -67,11 +67,8 @@ export const getUserById = async(req,res) =>{
 export const getByUsername = async(req,res) =>{
     const {username} = req.body;
     try {
-        console.log('Username');
-        console.log(username);
         const pool = await getConnection();
         const response = await pool.request().input("username",sql.VarChar,username).query(querys.getUserByUsername);
-        console.log(response);
         if(response.recordset.length > 0){
             res.status(200).json({success:true,user:response.recordset[0]});
         }else{
@@ -91,6 +88,17 @@ export const getById = async(id)=>{
     } catch (error) {
         return null;
     }
+}
+
+const formatDate = (date) =>{
+        let birthDate = new Date(date);
+        let birthYear = birthDate.getFullYear();
+        let birthMonth = '' + (birthDate.getMonth()+1);
+        if(birthMonth.length < 2) birthMonth = `0${birthMonth}`;
+        let birthDay = '' + (birthDate.getDate()+1);
+        if(birthDay.length<2) birthDay = `0${birthDay}`;
+        birthDate = birthYear + '-' + birthMonth + '-' + birthDay ;
+        return birthDate;
 }
 
 

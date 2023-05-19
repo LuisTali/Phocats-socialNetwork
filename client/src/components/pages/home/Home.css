@@ -11,7 +11,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-radius: 10px;
+    border-radius: 20px;
     padding: 2rem 0rem;
     width: 80%;
   }
@@ -21,7 +21,7 @@
     background-color: rgb(20,20,20);
     width: 20%;
     justify-content: center;
-    border-radius: 10px;
+    border-radius: 20px;
     margin-left: calc(1rem + 10px);
   }
   .groupsDiv ul li{

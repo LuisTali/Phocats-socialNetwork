@@ -11,4 +11,16 @@
     margin-left: 10%;
     margin-top: 2rem;
     border-radius: 10px;
+    
+    /* A modo de probarlo quise introducirlo
+    background-image:url('/night-sky.jpg') ;
+    background-position: center center;
+    background-size: cover;*/
+}
+
+.userProfile #profilePic{
+    background-color: aliceblue;
+    width: 300px;
+    border-radius: 50%;
+    
 }

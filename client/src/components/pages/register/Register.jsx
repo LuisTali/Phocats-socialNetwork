@@ -5,7 +5,7 @@ import './Register.css'
 import Modal from "../../common/modal/Modal.jsx";
 
 const Register = () =>{
-    const [user,setUser] = useState({username:'',email:'',password:'',completeName:'',age:0});
+    const [user,setUser] = useState({username:'',email:'',password:'',completeName:'',birthDate:''});
     const [isModalOpen,setModalOpen] = useState(false);
     const [modalContent,setModalContent] = useState('');
     const [succesModal,setSuccessModal] = useState(false);
@@ -22,7 +22,7 @@ const Register = () =>{
 
     const handleSubmit = async(e) =>{
         e.preventDefault();
-        if(!user.username || !user.password || !user.email || !user.completeName || !user.age){
+        if(!user.username || !user.password || !user.email || !user.completeName || !user.birthDate){
             setModalContent('Llene todos los campos');
             setModalOpen(true);
             return; 
@@ -37,14 +37,19 @@ const Register = () =>{
             setModalOpen(true);
             return;
         }
-        if(user.age < 18){
+        if(new Date().getFullYear() - new Date(user.birthDate).getFullYear() < 18){
             setModalContent('Debes ser mayor de 18 para poder registrarte en Phocats');
             setModalOpen(true);
             return;
         }
-        
+
+        //Formateo la fecha ingresada para pasarla al formato que posee SQL Server respecto a la variable Date
+        let birthDateFormat = `${new Date(user.birthDate).getFullYear()}-${new Date(user.birthDate).getMonth() + 1}-${new Date(user.birthDate).getDate()+1}`;
+
+        setUser({...user,['birthDate']:birthDateFormat}); //Actualizo birthDate con la fecha formateada
+    
         const response = await axios.post(`${baseUrl}user/register`,{...user});
-        console.log(response.data);
+
         if(!response.data.success){
             setModalContent(response.data.error);
             setSuccessModal(false);
@@ -56,7 +61,7 @@ const Register = () =>{
         setModalOpen(true);
         setTimeout(()=>{
             navigate('/login');
-        },3000)
+        },3000);
     }
 
     return <div className="accountsForms">
@@ -79,8 +84,8 @@ const Register = () =>{
             <input type="text" name="completeName" onChange={(e)=>handleChange(e)}/>
         </div>
         <div className="inputGroup">
-            <label>Age</label>
-            <input type="number" name="age" onChange={(e)=>handleChange(e)}/>
+            <label>Birth Date</label>
+            <input type="date" name="birthDate" onChange={(e)=>handleChange(e)}/>
         </div>
         <button className="btn" onClick={handleSubmit}>submit</button>
         </form>
