@@ -1,11 +1,12 @@
 import React,{useEffect, useState} from 'react';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
-import './App.css'
+import './Index.css'
 
 import Navbar from './components/layout/navbar/Navbar.jsx';
 import Home from './components/pages/home/Home.jsx';
 import Login from './components/pages/login/Login.jsx'
 import Register from './components/pages/register/Register.jsx'
+import UserProfile from './components/pages/user/UserProfile';
 
 const App = () =>{
     const [user,setUser] = useState({});
@@ -25,6 +26,7 @@ const App = () =>{
                 <Route exact path='/' element={<Home {...user}/>}/>
                 <Route path='/login' element={<Login setLogged={setLogged}/>}/>
                 <Route path='/register' element={<Register/>}/>
+                <Route path='/user/:id' element={<UserProfile/>}/>
             </Routes>
         </Router>
     )

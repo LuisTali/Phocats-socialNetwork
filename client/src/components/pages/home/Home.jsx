@@ -33,7 +33,7 @@ function Home({username,id}) {
     <div className='homePage'>
       <div className='feed'>
       <MakePubli uploadPubli={uploadPubli} id={id} username={username}/>
-      {publi.map((publication) => <Publication {...publication} id={publication.id} userCreator={publication.userCreator}/>)}
+      {publi.map((publication) => <Publication {...publication}/>)}
       {empty && <h2 style={{marginTop:'2rem'}}>Looks quite over here</h2>}
       </div>
       <div className='groupsDiv'>

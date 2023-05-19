@@ -29,3 +29,7 @@ nav a{
   font-weight: 600;
   text-decoration: none;
 }
+nav .failureModal{
+  margin-top: 0px;
+  margin-bottom: 0px;
+}

@@ -3,6 +3,7 @@ import { getConnection, sql } from "../database/Connection.js";
 import {getById} from './User.js'
 import {querys} from '../database/querys.js';
 import path from 'path';
+import { query } from "express";
 
 export const getPublications = async(req,res) =>{
     try {
@@ -33,6 +34,19 @@ export const newPublication = async(req,res) =>{
             publi.userCreator = userCreator.username; //Se lo añado antes de enviarle la respuesta al cliente
             res.status(200).json({success:true,response,publication:publi});
         }
+    } catch (error) {
+        res.status(200).json({success:false,error:error});
+    }
+}
+
+export const getPublicationsByIdUser = async(req,res) =>{
+    const {id} = req.params;
+    try {
+        const pool = await getConnection();
+        const response = await pool.request().input("idUser",sql.Int,id).query(querys.getPublicationsByIdUser);
+        const publications = response.recordset;
+        console.log(response);
+        res.status(200).json({success:true,publications});
     } catch (error) {
         res.status(200).json({success:false,error:error});
     }

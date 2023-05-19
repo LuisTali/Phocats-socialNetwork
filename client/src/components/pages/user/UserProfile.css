@@ -1,0 +1,14 @@
+.userProfile{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(20,20,20);
+    /*background-color: rgb(83, 89, 89);*/
+    color: rgb(255, 255, 255);
+    align-items: center;
+    justify-content: space-around;
+    padding: 1rem;
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 2rem;
+    border-radius: 10px;
+}

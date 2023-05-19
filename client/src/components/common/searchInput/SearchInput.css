@@ -1,0 +1,33 @@
+#searchForm{
+    all: unset !important; 
+}
+
+#searchGroup{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid whitesmoke;
+    margin-top: 15px;
+    border-radius: 10px;
+}
+
+#searchGroup label{
+    height: 30px;
+    border-left: 2px solid whitesmoke;
+    background-color: rgb(83, 89, 89);
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    padding: 0.25rem 1rem;
+}
+
+#searchInput{
+    width: 300px;
+    padding: 0.25rem 1rem;
+    font-weight: 500;
+    height: 30px;
+    background-color: rgb(83, 89, 89);
+    border: 0px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    color: white;
+}

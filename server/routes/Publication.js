@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import { getPublications, newPublication} from '../controllers/Publication.js';
+import { getPublications, newPublication, getPublicationsByIdUser} from '../controllers/Publication.js';
 import path from 'path';
 import multer from 'multer';
 
@@ -19,5 +19,6 @@ export const upload = multer({storage:storage});
 
 router.get('/',getPublications);
 router.post('/add',upload.single('img'),newPublication);
+router.get('/publicationsByUser/:id',getPublicationsByIdUser);
 
 export default router;

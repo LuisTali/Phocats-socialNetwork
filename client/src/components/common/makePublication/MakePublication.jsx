@@ -1,17 +1,22 @@
 import React,{useEffect,useState,useRef} from 'react';
 import axios from 'axios';
 import './MakePublication.css'
+import Modal from '../modal/Modal.jsx'
 
 const MakePubli = ({uploadPubli, id, username}) =>{
     const[file,setFile] = useState();
     const[description,setDescription] = useState();
+    const [isModalOpen,setModalOpen] = useState(false);
+    const [modalContent,setModalContent] = useState('');
+    const [succesModal,setSuccessModal] = useState(false);
     const refFile = useRef(null);
     const refDescription = useRef(null);
     const baseUrl = 'http://localhost:5000/publication';
   
     const handleUploadClick = () =>{
       if(!refFile.current.files[0] && !refDescription.current.value){
-        alert('cargue archivo');
+        setModalContent('Cargue una imagen previamente');
+        setModalOpen(true);
         return;
       }
       if(refDescription.current.value) setDescription(refDescription.current.value);
@@ -74,6 +79,7 @@ const MakePubli = ({uploadPubli, id, username}) =>{
           
         </li>
       </ul>
+      {isModalOpen && <Modal setModalOpen={setModalOpen} modalContent={modalContent} successModal={succesModal}/>}
       {username ? <button className='btn' onClick={handleUploadClick}>Send It</button> : <h2 style={{margin:'0 auto'}}>Inicia sesion para realizar publicaciones</h2>}
     </div>
   }
