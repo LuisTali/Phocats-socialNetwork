@@ -15,6 +15,7 @@
     height: 50px;
     padding: 0.5rem;
     word-wrap: break-word;
+    font-weight: 500;
   }
   .makePublication .multimediaOptions li{
     display: inline-block;
@@ -29,6 +30,7 @@
     padding: 0.5rem 1rem;
     margin-left: 50%;
     width: 20%;
+    font-weight: 500;
     transform: translate(-50%); 
     border: 3px solid blueviolet;
   }

@@ -7,8 +7,17 @@ CREATE TABLE Users(
 	username  varchar(50) NOT NULL CONSTRAINT uqUsers2 UNIQUE,
 	[password] varchar(50) CONSTRAINT ckUsers CHECK([password] LIKE '[a-z,0-9][a-z,0-9][a-z,0-9][a-z,0-9][a-z,0-9][a-z,0-9][a-z,0-9][a-z,0-9]%'),
 	completeName varchar(100) NOT NULL,
-	age int NOT NULL,
-	madeIn datetime /*Registrado el dd/mm/yy hh/mm/ss*/
+	/*age int NOT NULL, sustituido por birthDate*/
+	madeIn datetime,
+	/*Añadido recientemente*/
+	userDescription varchar(200),
+	birthDate date,
+);
+
+CREATE TABLE Followers(
+	idUser1 int NOT NULL CONSTRAINT pfkFriends1 FOREIGN KEY REFERENCES Users(id),
+	idUser2 int NOT NULL CONSTRAINT pfkFriends2 FOREIGN KEY REFERENCES Users(id),
+	followSince datetime NOT NULL 
 );
 
 CREATE TABLE Publications(
@@ -16,5 +25,6 @@ CREATE TABLE Publications(
 	idUser int CONSTRAINT fkPublications1 FOREIGN KEY REFERENCES Users(id),
 	textDescription varchar(200),
 	imgName varchar(100),
-	madeIn datetime /*Creada el dd/mm/yy hh/mm/ss*/
+	tags varchar(100),
+	madeIn datetime
 );

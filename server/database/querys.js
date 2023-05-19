@@ -9,4 +9,10 @@ export const querys = {
     getLastPublication: 'SELECT top 1 * FROM Publications ORDER BY madeIN DESC',
     getAllPublications: 'SELECT * FROM Publications ORDER BY madeIn DESC',
     getPublicationsByIdUser: 'SELECT * FROM Publications WHERE idUser = @idUser',
+
+    //idFollower es la cuenta desde la que sigo al idFollowing
+    followAccount: 'INSERT INTO Followers VALUES (@idFollower, @idFollowing,GETDATE())',
+    checkFollow: 'SELECT id FROM Users AS u2 WHERE EXISTS (SELECT * FROM Users AS u1 INNER JOIN Followers AS f ON f.idUser1 = u1.id WHERE f.idUser2 = u2.id AND f.idUser1 = @idFollower) AND id=@idFollowing;',
+    unfollowAccount: 'DELETE FROM Followers WHERE idUser1 = @idFollower AND idUser2 = @idFollowing;'
+
 }

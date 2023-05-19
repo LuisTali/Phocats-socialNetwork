@@ -14,7 +14,7 @@ const MakePubli = ({uploadPubli, id, username}) =>{
     const baseUrl = 'http://localhost:5000/publication';
   
     const handleUploadClick = () =>{
-      if(!refFile.current.files[0] && !refDescription.current.value){
+      if(!refFile.current.files[0]){
         setModalContent('Cargue una imagen previamente');
         setModalOpen(true);
         return;
@@ -72,7 +72,7 @@ const MakePubli = ({uploadPubli, id, username}) =>{
     },[file]);
   
     return <div className='makePublication'>
-      <input type='text' id='inputText' ref={refDescription}/>
+      <input type='text' id='inputText' ref={refDescription} />
       <ul className='multimediaOptions'>
         <li>
           {username ? <input id='fileInput' type='file' accept="image/*" ref={refFile}/> : <input id='fileInput' type='file' accept="image/*" disabled ref={refFile}/>}

@@ -22,5 +22,12 @@
     background-color: aliceblue;
     width: 300px;
     border-radius: 50%;
-    
+}
+
+.userProfile .followBtn{
+    width: fit-content;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    border: 3px solid blueviolet;
 }

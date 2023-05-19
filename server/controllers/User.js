@@ -79,7 +79,57 @@ export const getByUsername = async(req,res) =>{
     }
 }
 
+export const followAccount = async(req,res) =>{
+    const {idFollower,idFollowing} = req.body;
+    try {
+        const pool = await getConnection();
+        const response = await pool.request().input("idFollower",sql.Int,idFollower).input("idFollowing",sql.Int,idFollowing).query(querys.followAccount);
+        console.log(response);
+        if(response.rowsAffected.length > 0){
+            res.status(200).json({success:true,msg:'Usuario seguido'});
+        }else{
+            res.status(200).json({success:true,msg:'Ya seguias a este usuario'});
+        }
+    } catch (error) {
+        res.status(200).json({success:false,error:error.originalError.info.message});
+    }
+}
+
+export const unfollowAccount = async(req,res) =>{
+    const {idFollower,idFollowing} = req.body;
+    try {
+        const pool = await getConnection();
+        const response = await pool.request().input("idFollower",sql.Int,idFollower).input("idFollowing",sql.Int,idFollowing).query(querys.unfollowAccount);
+        console.log(response);
+        if(response.rowsAffected[0] == 1){
+            res.status(200).json({success:true,msg:'Usuario dejado de seguir'});
+        }else{
+            res.status(200).json({success:true,msg:'No seguias a este usuario'});
+        }
+    } catch (error) {
+        res.status(200).json({success:false,error:error.originalError.info.message});
+    }
+}
+
+export const checkFollow = async(req,res) =>{
+    const {idFollower,idFollowing} = req.body;
+    try {
+        const pool = await getConnection();
+        const response = await pool.request().input("idFollower",sql.Int,idFollower).input("idFollowing",sql.Int,idFollowing).query(querys.checkFollow);
+        if(response.recordset.length > 0){ //Si hubo coincidencias
+            if(response.recordset[0].id === Number(idFollowing)){ //Chequeo nuevamente que el id retornado sea igual al del usuario seguido por seguridad
+                res.status(200).json({success:true,following:true});
+            }
+        }else{ //No hubo coincidencias, por lo tanto no se siguen
+            res.status(200).json({success:true,following:false})
+        }
+    } catch (error) {
+        res.status(200).json({success:false,error});
+    }
+}
+
 //Usada por otros controladores del lado servidor
+
 export const getById = async(id)=>{
     try {
         const pool = await getConnection();
