@@ -31,3 +31,19 @@
     border-bottom-left-radius: 5px;
     color: white;
 }
+
+@media screen and (max-width:1140px) {
+    #searchForm{
+        display: flex !important;
+        align-items: center !important;
+    }
+    #searchGroup{
+        margin-right: 1rem;
+        display: flex;
+        margin-top: 0px;
+        margin-left: 1rem;
+    }
+    #searchInput{
+        width: 90%;
+    }
+}

@@ -14,6 +14,8 @@ const Navbar = ({username,setLogged,setUser,id,notifications,newFollowers}) =>{
     const [isNotificacionsOpen,setNotificacionsOpen] = useState(false);
     const [areNewFollowers,setNewFollowers] = useState(undefined);
 
+    const [clicked,setClicked] = useState(false); //Cliquee la navbar en responsive design o aun no
+
     const logOut = (e) =>{
       e.preventDefault(); 
       setUser({});
@@ -41,19 +43,33 @@ const Navbar = ({username,setLogged,setUser,id,notifications,newFollowers}) =>{
       }
       setNewFollowers(flag);
     }  
+
+    const handleClick = () =>{
+      if(clicked){
+        setNotificacionsOpen(false);
+        setClicked(!clicked);
+      }else setClicked(!clicked);
+    }
     
     return <nav>
       <img src='./black-cat-logo.jpg'/>
       {isModalOpen && <Modal setModalOpen={setModalOpen} modalContent={modalContent}/>}
       <SearchInput setModalOpen={setModalOpen} setModalContent={setModalContent}/>
-      <div>
+      <div id="links" className={clicked ? '' : 'inactive'}>
         <Link to='/'>Home</Link>
-        <a>Friends</a>
+        <Link to='/friends'>Friends</Link>
         {username && <Link to={`/user/${id}`}>MyProfile</Link>}
-        {username && <a onClick={(e)=>handleNotificationsClick(e)}>Notifications {areNewFollowers && <label id="newFollowers"/>} </a>}
+        {username && <a onClick={(e)=>handleNotificationsClick(e)}>
+          Notifications {areNewFollowers && <label id="newFollowers"/>} 
+        </a>}
         {username ? <Link onClick={(e)=>logOut(e)}>Log Out</Link> : <Link to='/login'>Log In</Link>}
       </div>
       {username && <Notifications isNotificacionsOpen={isNotificacionsOpen} notifications={notifications} idAccount={id} checkNotNotified={checkNotNotified}/>}
+
+      <div id="mobile">
+        <i onClick={()=>handleClick()} className={clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
+      </div>
+
     </nav>
   }
 

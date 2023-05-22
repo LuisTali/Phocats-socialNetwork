@@ -1,4 +1,4 @@
-.homePage{
+  .homePage{
     display: flex;
     width: 98%;
     margin-left: 1%;
@@ -26,4 +26,15 @@
   }
   .groupsDiv ul li{
     margin-top: 1rem;
+  }
+
+  @media screen and (max-width:1140px) {
+    .homePage{
+      flex-direction: column;
+      width: 100%;
+      margin-left: 0;
+    }
+    .homePage .feed{
+      width: 100%;
+    }
   }

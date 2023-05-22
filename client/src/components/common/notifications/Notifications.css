@@ -40,7 +40,6 @@
     font-weight: 600;
 }
 #notifications ul .notNotificated a label{
-    
     color: white;
     font-weight: 600;
     border-radius: 50%;
@@ -55,11 +54,17 @@
     width: 90%;
     display: flex;
     margin: 0%;
-    
     justify-content: space-between;
     font-weight: 600;
 }
 #notifications ul .notificated a label{ 
     width: 25px;
     height: 25px;
+}
+
+@media screen and (max-width:1140px) {
+    #notifications{
+        margin-top: 320px;
+       /* position: fixed;*/
+    }
 }

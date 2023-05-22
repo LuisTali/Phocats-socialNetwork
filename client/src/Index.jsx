@@ -6,7 +6,8 @@ import Navbar from './components/layout/navbar/Navbar.jsx';
 import Home from './components/pages/home/Home.jsx';
 import Login from './components/pages/login/Login.jsx'
 import Register from './components/pages/register/Register.jsx'
-import UserProfile from './components/pages/user/UserProfile';
+import UserProfile from './components/pages/user/UserProfile.jsx';
+import Friends from './components/pages/friends/Friends.jsx'
 
 const App = () =>{
     const [user,setUser] = useState({});
@@ -26,6 +27,7 @@ const App = () =>{
             <Routes>
                 <Route exact path='/' element={<Home {...user}/>}/>
                 <Route path='/login' element={<Login setLogged={setLogged}/>}/>
+                <Route path='/friends' element={<Friends/>}/>
                 <Route path='/register' element={<Register/>}/>
                 <Route path='/user/:id' element={<UserProfile idUserLogged={user.id}/>}/>
             </Routes>
