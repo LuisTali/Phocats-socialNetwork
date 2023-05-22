@@ -1,0 +1,65 @@
+#notifications{
+    position: absolute;
+    max-height: fit-content;
+    display: flex;
+    justify-content: center;
+    width: 400px;
+    background-color: aliceblue;
+    color: black;
+    padding: 0.25rem;
+    top: 0;
+    right: 0;
+    margin-top: 100px;
+    margin-right: 1%;
+    border-radius: 20px;
+    border: 3px solid blueviolet;
+}
+#notifications ul{
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    width: 90%;
+}
+#notifications ul li{
+    display: flex;
+    word-wrap: normal;
+    word-break: normal;
+    width: 100%;
+    justify-content: center;
+    margin-top: 0.5rem ;
+    margin-bottom: 0.5rem ;
+    padding: 0rem 0.5rem;
+}
+#notifications ul .notNotificated a{
+    background-color: rgb(20,20,20) !important; 
+    color: white !important;
+    display: flex;
+    margin: 0%;
+    width: 90%;
+    justify-content: space-between;
+    font-weight: 600;
+}
+#notifications ul .notNotificated a label{
+    
+    color: white;
+    font-weight: 600;
+    border-radius: 50%;
+    padding: 0.5rem 0.5rem;
+    width: 25px;
+    height: 25px;
+    background-color: rgb(140, 0, 255);
+}
+#notifications ul .notificated a{
+    background-color: white !important;
+    color: black !important;
+    width: 90%;
+    display: flex;
+    margin: 0%;
+    
+    justify-content: space-between;
+    font-weight: 600;
+}
+#notifications ul .notificated a label{ 
+    width: 25px;
+    height: 25px;
+}

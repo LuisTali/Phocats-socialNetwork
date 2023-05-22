@@ -17,7 +17,8 @@ CREATE TABLE Users(
 CREATE TABLE Followers(
 	idUser1 int NOT NULL CONSTRAINT pfkFriends1 FOREIGN KEY REFERENCES Users(id),
 	idUser2 int NOT NULL CONSTRAINT pfkFriends2 FOREIGN KEY REFERENCES Users(id),
-	followSince datetime NOT NULL 
+	followSince datetime NOT NULL,
+	notificated bit null DEFAULT 0 /*Handle notifications*/ 
 );
 
 CREATE TABLE Publications(
@@ -26,5 +27,5 @@ CREATE TABLE Publications(
 	textDescription varchar(200),
 	imgName varchar(100),
 	tags varchar(100),
-	madeIn datetime
+	madeIn datetime,
 );

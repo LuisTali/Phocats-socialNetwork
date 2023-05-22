@@ -4,6 +4,7 @@ import {getById} from './User.js'
 import {querys} from '../database/querys.js';
 import path from 'path';
 import { query } from "express";
+import { formatDate } from "./User.js";
 
 export const getPublications = async(req,res) =>{
     try {
@@ -12,6 +13,8 @@ export const getPublications = async(req,res) =>{
         let data = response.recordset;
         for(const publi of data){ //Para cada publicacion averiguo su Usuario creador
             let userCreator = await getById(publi.idUser);
+            let formatedDate = formatDate(publi.madeIn)
+            publi.madeIn = formatedDate;
             publi.userCreator = userCreator.username; //Se lo añado antes de enviarle la respuesta al cliente
         }
         res.json({success:true,data})
@@ -45,6 +48,10 @@ export const getPublicationsByIdUser = async(req,res) =>{
         const pool = await getConnection();
         const response = await pool.request().input("idUser",sql.Int,id).query(querys.getPublicationsByIdUser);
         const publications = response.recordset;
+        for(const publi of publications){
+            let formatedDate = formatDate(publi.madeIn)
+            publi.madeIn = formatedDate;
+        }
         res.status(200).json({success:true,publications});
     } catch (error) {
         res.status(200).json({success:false,error:error});

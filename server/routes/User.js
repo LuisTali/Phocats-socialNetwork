@@ -1,7 +1,7 @@
 import { Router } from "express";
 const router = Router();
 
-import { showUsers, registerUser, authLogin, getUserById, getByUsername, followAccount, unfollowAccount, checkFollow } from "../controllers/User.js";
+import { showUsers, registerUser, authLogin, getUserById, getByUsername, followAccount, unfollowAccount, checkFollow, updateNotificatedStatus } from "../controllers/User.js";
 
 router.get('/users',showUsers);
 
@@ -16,6 +16,8 @@ router.post('/follow',followAccount);
 router.post('/unfollow',unfollowAccount);
 
 router.post('/checkFollow',checkFollow);
+
+router.post('/updateNotificated',updateNotificatedStatus);
 
 router.post('/auth',authLogin);
 

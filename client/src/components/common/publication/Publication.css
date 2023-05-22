@@ -11,12 +11,14 @@
     color: rgb(255, 255, 255);
   }
   .publication .profilePublication{
+    display: flex;
     background-color: blueviolet;
     width: 100%;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     padding: 0.5rem;
     margin-bottom: 1rem;  
+    justify-content: space-between;
   }
   .publication img{
     max-width: 80%;

@@ -16,8 +16,6 @@ export const showUsers = async(req,res) =>{
 export const registerUser = async(req,res) =>{
     const {username,password,email,completeName,birthDate} = req.body;
     
-    let age = new Date().getFullYear() - new Date(birthDate).getFullYear();
-    
     try {
         const pool = await getConnection();
         const response = await pool.request().input("email",sql.VarChar,email).input("username",sql.VarChar,username).input("password",sql.VarChar,password).input("completename",sql.VarChar,completeName).input("birthdate",sql.Date,birthDate).query(querys.insertNewUser);
@@ -39,7 +37,20 @@ export const authLogin = async(req,res) =>{
         const response = await pool.request().input("username",sql.VarChar,username).input("password",sql.VarChar,password).query(querys.authenticateUser);
         
         if(response.recordset.length >= 1){
-            console.log(response.recordset[0]);
+            let user = response.recordset[0];
+            const responseNotis = await pool.request().input("idUser",sql.Int,user.id).query(querys.makeNotificacionsForUser); //Obtengo los nuevos seguidores y los paso como notificaciones
+            const notifications= responseNotis.recordset;
+            user.notifications = notifications;
+
+            let flag = false;
+            for(const noti of notifications){ //Por cada notificacion chequeo si hay alguna nueva
+                if(noti.notificated == false){
+                    flag=true; //Si hay una sin notificar modifico estado a true
+                    break;
+                } 
+                if(flag) break;
+            }
+            user.newFollowers = flag; //Seteo la prop del user al valor de la flag, si hay nuevos follows == true
             res.status(200).json({success:true,user:response.recordset[0]})
         }else{
             res.status(200).json({success:false,msg:'No hubo coincidencias, compruebe sus datos'});
@@ -84,7 +95,6 @@ export const followAccount = async(req,res) =>{
     try {
         const pool = await getConnection();
         const response = await pool.request().input("idFollower",sql.Int,idFollower).input("idFollowing",sql.Int,idFollowing).query(querys.followAccount);
-        console.log(response);
         if(response.rowsAffected.length > 0){
             res.status(200).json({success:true,msg:'Usuario seguido'});
         }else{
@@ -100,7 +110,6 @@ export const unfollowAccount = async(req,res) =>{
     try {
         const pool = await getConnection();
         const response = await pool.request().input("idFollower",sql.Int,idFollower).input("idFollowing",sql.Int,idFollowing).query(querys.unfollowAccount);
-        console.log(response);
         if(response.rowsAffected[0] == 1){
             res.status(200).json({success:true,msg:'Usuario dejado de seguir'});
         }else{
@@ -128,6 +137,19 @@ export const checkFollow = async(req,res) =>{
     }
 }
 
+export const updateNotificatedStatus = async(req,res) =>{
+    const {idAccount, idFollower} = req.body;
+    try {
+        const pool = await getConnection();
+        const response = await pool.request().input("idAccount",sql.Int,idAccount).input("idFollower",sql.Int,idFollower).query(querys.updateNotifiedFollow);
+        if(response.rowsAffected[0] === 1){
+            res.status(200).json({success:true,notificated:true});
+        }
+    } catch (error) {
+        res.status(200).json({success:false,error});
+    }
+}
+
 //Usada por otros controladores del lado servidor
 
 export const getById = async(id)=>{
@@ -140,15 +162,15 @@ export const getById = async(id)=>{
     }
 }
 
-const formatDate = (date) =>{
-        let birthDate = new Date(date);
-        let birthYear = birthDate.getFullYear();
-        let birthMonth = '' + (birthDate.getMonth()+1);
-        if(birthMonth.length < 2) birthMonth = `0${birthMonth}`;
-        let birthDay = '' + (birthDate.getDate()+1);
-        if(birthDay.length<2) birthDay = `0${birthDay}`;
-        birthDate = birthYear + '-' + birthMonth + '-' + birthDay ;
-        return birthDate;
+export const formatDate = (date) =>{
+    let birthDate = new Date(date);
+    let birthYear = birthDate.getFullYear();
+    let birthMonth = '' + (birthDate.getMonth()+1);
+    if(birthMonth.length < 2) birthMonth = `0${birthMonth}`;
+    let birthDay = '' + (birthDate.getDate()+1);
+    if(birthDay.length<2) birthDay = `0${birthDay}`;
+    birthDate = birthYear + '-' + birthMonth + '-' + birthDay ;
+    return birthDate;
 }
 
 
