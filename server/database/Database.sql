@@ -26,6 +26,15 @@ CREATE TABLE Publications(
 	idUser int CONSTRAINT fkPublications1 FOREIGN KEY REFERENCES Users(id),
 	textDescription varchar(200),
 	imgName varchar(100),
-	tags varchar(100),
-	madeIn datetime,
+	madeIn datetime
+);
+
+CREATE TABLE Tags(
+	id int IDENTITY(1,1) CONSTRAINT PRIMARY KEY,
+	nameTag varchar(50) NOT NULL CONSTRAINT uqTags UNIQUE
+);
+
+CREATE TABLE Publications_X_Tag(
+	idPublication int IDENTITY(1,1) CONSTRAINT pfkPxT1 FOREIGN KEY REFERENCES Publications(id),
+	idTag int NOT NULL CONSTRAINT pfkPxT2 FOREIGN KEY REFERENCES Tags(id)
 );

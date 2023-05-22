@@ -5,7 +5,7 @@ export const querys = {
     getUserById: 'SELECT * FROM Users WHERE id = @id',
     getUserByUsername: 'SELECT * FROM Users WHERE username = @username',
     
-    newPublication: 'INSERT INTO Publications VALUES (@idUser,@textDescription,@imgSrc,@tags,GETDATE())',
+    newPublication: 'INSERT INTO Publications VALUES (@idUser,@textDescription,@imgSrc,GETDATE())',
     getLastPublication: 'SELECT top 1 * FROM Publications ORDER BY madeIN DESC',
     getAllPublications: 'SELECT * FROM Publications ORDER BY madeIn DESC',
     getPublicationsByIdUser: 'SELECT * FROM Publications WHERE idUser = @idUser ORDER BY madeIn DESC',

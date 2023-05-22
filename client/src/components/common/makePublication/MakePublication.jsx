@@ -25,10 +25,6 @@ const MakePubli = ({uploadPubli, id, username}) =>{
   
     const uploadPublication = async({textDescription,file,imgName,idUser}) => { 
       try {
-        console.log(textDescription);
-        console.log(file);
-        console.log(imgName);
-        console.log(idUser);
         const formData = new FormData();
         if(file)
         formData.append('img',file);

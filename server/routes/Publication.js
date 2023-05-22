@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import { getPublications, newPublication, getPublicationsByIdUser} from '../controllers/Publication.js';
+import { getPublications, newPublication, getPublicationsByIdUser, newPublicationTryingTags} from '../controllers/Publication.js';
 import path from 'path';
 import multer from 'multer';
 
@@ -18,7 +18,10 @@ const storage = multer.diskStorage({
 export const upload = multer({storage:storage});
 
 router.get('/',getPublications);
+
+//¡¡¡Cambiar luego a para probar router.post('/add',newPublicationTryingTags) 
 router.post('/add',upload.single('img'),newPublication);
+
 router.get('/publicationsByUser/:id',getPublicationsByIdUser);
 
 export default router;
