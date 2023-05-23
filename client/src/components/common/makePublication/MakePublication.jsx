@@ -68,11 +68,10 @@ const MakePubli = ({uploadPubli, id, username}) =>{
     },[file]);
   
     return <div className='makePublication'>
-      <input type='text' id='inputText' ref={refDescription} />
+      <input type='text' id='inputText' ref={refDescription} placeholder='Para añadir hashtags, coloquelos al final con un # y un espacio entre tag y tag. Ej: This is my cat #cat #photo'/>
       <ul className='multimediaOptions'>
         <li>
           {username ? <input id='fileInput' type='file' accept="image/*" ref={refFile}/> : <input id='fileInput' type='file' accept="image/*" disabled ref={refFile}/>}
-          
         </li>
       </ul>
       {username ? <button className='btn' onClick={handleUploadClick}>Send It</button> : <h2 style={{margin:'0 auto'}}>Inicia sesion para realizar publicaciones</h2>}

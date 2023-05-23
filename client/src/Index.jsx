@@ -7,7 +7,9 @@ import Home from './components/pages/home/Home.jsx';
 import Login from './components/pages/login/Login.jsx'
 import Register from './components/pages/register/Register.jsx'
 import UserProfile from './components/pages/user/UserProfile.jsx';
-import Friends from './components/pages/friends/Friends.jsx'
+import Friends from './components/pages/friends/Friends.jsx';
+import PublicationsPerTag from './components/pages/publisPerTag/PublicationsPerTag';
+import PublicationPage from './components/pages/publicationPage/PublicationPage';
 
 const App = () =>{
     const [user,setUser] = useState({});
@@ -30,6 +32,8 @@ const App = () =>{
                 <Route path='/friends' element={<Friends/>}/>
                 <Route path='/register' element={<Register/>}/>
                 <Route path='/user/:id' element={<UserProfile idUserLogged={user.id}/>}/>
+                <Route path='/publication/:id' element={<PublicationPage/>}/>
+                <Route path='/tags/:nameTag' element={<PublicationsPerTag/>}/>
             </Routes>
         </Router>
     )

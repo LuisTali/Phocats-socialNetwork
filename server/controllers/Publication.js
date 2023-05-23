@@ -23,18 +23,6 @@ export const getPublications = async(req,res) =>{
     }
 }
 
-export const newPublicationTryingTags = async(req,res) =>{
-    try {
-        let {textDescription,imgName,idUser} = req.body;
-        let tags = getArrayTags(textDescription);
-        console.log(tags);
-        ((tags === undefined) ? tags = 'vacio' : tags = tags);
-        res.status(200).json({success:true,tags})
-    } catch (error) {
-        
-    }
-}
-
 export const newPublication = async(req,res) =>{
     try {
         console.log(req.encryptedName); //Llega desde la funcion storage en el router Publication
@@ -44,14 +32,26 @@ export const newPublication = async(req,res) =>{
         
         if(response.rowsAffected >= 1){
             
-            const response2 = await pool.request().query(querys.getLastPublication); //Obtener la ultima publication insertada
+            const responseLastPublication = await pool.request().query(querys.getLastPublication); //Obtener la ultima publication insertada
+            const publi = responseLastPublication.recordset[0];
 
             //Finalizar, añadiendo tags a sus respectivas tablas
             let tags = getArrayTags(textDescription); 
-            //Si no hay tags == undefined
-            console.log(tags);
+            for(const tag of tags){
+                
+                const responseTagExist = await pool.request().input("tag",sql.VarChar,tag).query(querys.checkExistsTag);
 
-            const publi = response2.recordset[0];
+                if(responseTagExist.rowsAffected[0] == 0){
+                    await pool.request().input("tag",sql.VarChar,tag).query(querys.newTag);
+                    const responseIdTag = await pool.request().input("nameTag",sql.VarChar,tag).query(querys.getIdTagByName);
+
+                    await pool.request().input("idPublication",sql.Int,publi.id).input("idTag",sql.Int,responseIdTag.recordset[0].id).query(querys.addTagPerPublication);
+                }else{
+                    await pool.request().input("idPublication",sql.Int,publi.id).input("idTag",sql.Int,responseTagExist.recordset[0].id).query(querys.addTagPerPublication);
+                }
+            }
+            //Si no hay tags == undefined
+
             let userCreator = await getById(publi.idUser); //Obtengo el username del usuario creador
             publi.userCreator = userCreator.username; //Se lo añado antes de enviarle la respuesta al cliente
             let formatedDate = formatDate(publi.madeIn)
@@ -80,6 +80,41 @@ export const getPublicationsByIdUser = async(req,res) =>{
     }
 }
 
+export const getPublicationsByNameTag = async(req,res) =>{
+    const {tag} = req.params;
+    try {
+        const pool = await getConnection();
+        const response = await pool.request().input("nameTag",sql.VarChar,tag).query(querys.getPublicationsByNameTag);
+        if(response.rowsAffected[0] > 0){
+            res.status(200).json({success:true,publications:response.recordset});
+        }else{
+            res.status(200).json({success:false});
+        }
+        
+    } catch (error) {
+        res.status(200).json({success:false,error:error});
+    }
+}
+
+export const getPublicationById = async(req,res) =>{
+    const {id} = req.params;
+    try {
+        const pool = await getConnection();
+        const response = await pool.request().input("id",sql.Int,id).query(querys.getPublicationById);
+        let publi = response.recordset[0]
+        if(response.rowsAffected[0] > 0){
+            let formatedDate = formatDate(publi.madeIn)
+            publi.madeIn = formatedDate;
+            let userCreator = await getById(publi.idUser); //Obtengo el username del usuario creador
+            publi.userCreator = userCreator.username;
+            res.status(200).json({success:true,publication:publi});
+        }else{
+            res.status(200).json({success:false});
+        }
+    } catch (error) {
+        res.status(200).json({success:false,error:error});
+    }
+}
 
 //Metodos que utiliza el server
 
@@ -92,10 +127,7 @@ const getArrayTags = (textDescription) =>{
             arr = textDescription.split(' '); //Creo un arreglo cortanto los espacios entre cada tag
         }else return;
 
-        for(const tag of arr){
-            //Por cada tag, corto desde la posicion 1, omitiendo el # en la posicion 0
-            tags = arr.map((tag) => tag.slice(1)) 
-        }
-        console.log(tags); //Log de los tags
+        //Por cada tag, corto desde la posicion 1, omitiendo el # en la posicion 0
+        tags = arr.map((tag) => tag.slice(1)) 
         return tags;
 }

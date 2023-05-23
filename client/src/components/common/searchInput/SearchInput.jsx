@@ -12,15 +12,29 @@ const SearchInput = ({setModalOpen,setModalContent}) =>{
     const handleSubmit = async(e) =>{
         if(search == '') return;
         e.preventDefault();
-        console.log(search);
-        const response = await axios.post(`${baseUrl}user/byUsername`,{username:search});
-        if(response.data.success){
-            const userId = response.data.user.id;
-            navigate(`/user/${userId}`);
-            setSearch('');
+        if(search.charAt(0) == '#'){
+            console.log(search.slice(1));
+            const nameTag = search.slice(1);
+            const response = await axios.get(`${baseUrl}publication/publicationsByTag/${nameTag}`);
+            console.log(response);
+            if(response.data.success){
+                navigate(`/tags/${nameTag}`);
+                setSearch('');
+            }else{
+                setModalContent('No publications with that tag');
+                setModalOpen(true);
+            }
+            
         }else{
-            setModalContent('No users with that username');
-            setModalOpen(true);
+            const response = await axios.post(`${baseUrl}user/byUsername`,{username:search});
+            if(response.data.success){
+                const userId = response.data.user.id;
+                navigate(`/user/${userId}`);
+                setSearch('');
+            }else{
+                setModalContent('No users with that username');
+                setModalOpen(true);
+            }
         }
     }
 
