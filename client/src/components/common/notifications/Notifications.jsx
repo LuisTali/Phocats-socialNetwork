@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import './Notifications.css'
@@ -14,6 +14,10 @@ const Notifications = ({isNotificacionsOpen,notifications,idAccount,checkNotNoti
         checkNotNotified();
         const response = await axios.post(`${baseUrl}user/updateNotificated`,{idAccount,idFollower});
     }
+
+    useEffect(()=>{
+        checkNotNotified();
+    },[])
 
     if(isNotificacionsOpen === true){
         return <div id="notifications">
