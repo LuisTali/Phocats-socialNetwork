@@ -22,6 +22,7 @@ export const querys = {
     checkExistsTag: 'SELECT id FROM Tags WHERE nameTag = @tag',
     newTag:'INSERT INTO Tags VALUES (@tag)',
     addTagPerPublication: 'INSERT INTO Publications_X_Tag VALUES (@idPublication,@idTag)',
-    getIdTagByName:'SELECT id FROM Tags WHERE nameTag=@nameTag'
+    getIdTagByName:'SELECT id FROM Tags WHERE nameTag=@nameTag',
+    getTop3MostUsedTags: 'SELECT TOP 3 count(*) AS cantUsados, t.nameTag FROM Tags AS t INNER JOIN Publications_X_Tag AS pxt ON t.id = pxt.idTag GROUP BY t.nameTag ORDER BY cantUsados DESC'
     
 }

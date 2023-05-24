@@ -6,17 +6,17 @@ const Friends = () =>{
     //following you follow them
 
     return <div id="friendsPage">
-        <div id="friends">
+        <div class="containerFriendsPage" id="friends">
             <ul>
                 <li>1</li>
             </ul>
         </div>
-        <div id="followers">
+        <div class="containerFriendsPage" id="followers">
             <ul>
                 <li>1</li>
             </ul>
         </div>
-        <div id="following">
+        <div class="containerFriendsPage" id="following">
             <ul>
                 <li>1</li>
             </ul>

@@ -1,0 +1,25 @@
+#footer{
+    display: none;
+    pointer-events: none;
+}
+
+@media screen and (max-width:1140px){
+    #footer{
+        position: fixed;
+        bottom: 0;
+        height: 50px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        pointer-events: all;
+        background-color: #452c63;
+        z-index:2000;
+    }
+    #footer a{
+        color: white;
+        font-weight: 500;
+        text-decoration: none;
+    }
+}
+

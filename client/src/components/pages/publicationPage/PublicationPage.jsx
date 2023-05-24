@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import {useParams} from 'react-router-dom';
-import Publication from "../../common/publication/Publication.jsx";
+import {useParams, Link} from 'react-router-dom';
+import ButtonBack from "../../common/buttonBack/ButtonBack.jsx";
 import axios from "axios";
+import './PublicationPage.css';
 
-const PublicationPage = () =>{
+const PublicationPage = ({previousUrl}) =>{
     const {id} = useParams();
     const [publication,setPublication] = useState({});
     const baseUrl = 'http://localhost:5000/';
@@ -18,11 +19,13 @@ const PublicationPage = () =>{
         getPublication();
     },[id]);
 
-    return <div>
-        <h1>{publication.userCreator}</h1>
+    return <div className="publicationPage">
+        <article className="publicationContent">
+        <h1><Link to={`/user/${publication.idUser}`}>{publication.userCreator}</Link></h1>
+        <img src={`http://localhost:5000/${publication.imgName}`}/>
         <h2>{publication.textDescription}</h2>
         <h3>{publication.madeIn}</h3>
-        <img src={`http://localhost:5000/${publication.imgName}`}/>
+        </article>
     </div>
 }
 export default PublicationPage;

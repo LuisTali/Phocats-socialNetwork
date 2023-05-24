@@ -1,7 +1,21 @@
 #friendsPage{
     display: flex;
+    flex-direction: column;
     width: 98%;
     margin-left: 1%;
     padding: 1rem;
     margin-top: 10px;
+    height: 100vh;
+}
+.containerFriendsPage{
+    padding: 1rem;
+    background-color: rgb(20,20,20);
+    margin: 0.5rem 0rem;
+}
+.containerFriendsPage ul{
+    background-color: rgb(80,80,80);
+}
+.containerFriendsPage li{
+    display: flex;
+    padding: 0.8rem;
 }

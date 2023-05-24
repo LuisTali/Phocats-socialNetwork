@@ -1,12 +1,19 @@
 nav{
-  background-color: blueviolet;
-  width: 98%;
+  background-color: #452c63;
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  margin-left: 1%;
   padding: 1rem 0rem;
-  border-radius: 20px;
-  margin-top: 0.25rem;
+  /*border-radius: 20px;
+  margin-left: 1%;
+  margin-top: 0.25rem;*/
+}
+nav #imageLogo{
+  padding: 0rem;
+  margin-right: 0rem;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
 }
 nav div{
   display: flex;
@@ -60,13 +67,26 @@ nav a #newFollowers{
   nav #links{
     flex-direction: column;
     position: absolute;
-    right: 10px;
-    margin-top: 20rem;
-    background-color: black;
-    border-radius: 20px;
+    /*Si quito width:100% y dejo right, se crea una mini ventana a la derecha; right: 10px;*/
+    width: 100%;
+    margin-top: 351px;
+    background-color: rgb(20, 20, 20);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
   }
-  nav #links a{
+  nav #linksNotLogged{
+    flex-direction: column;
+    position: absolute;
+    /*Si quito width:100% y dejo right, se crea una mini ventana a la derecha; right: 10px;*/
+    width: 100%;
+    margin-top: 245px;
+    background-color: rgb(20, 20, 20);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+  nav #links a, nav #linksNotLogged a{
     margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
     background-color: transparent;
     box-shadow: none;
   }
@@ -76,7 +96,8 @@ nav a #newFollowers{
     align-items: center;
   }
   #mobile i{
-    width: 60px;
+    width: 45px;
+    margin-left: 10px;
     color: white;
   }
   .inactive{

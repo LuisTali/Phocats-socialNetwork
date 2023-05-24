@@ -10,6 +10,7 @@ import UserProfile from './components/pages/user/UserProfile.jsx';
 import Friends from './components/pages/friends/Friends.jsx';
 import PublicationsPerTag from './components/pages/publisPerTag/PublicationsPerTag';
 import PublicationPage from './components/pages/publicationPage/PublicationPage';
+import Footer from './components/layout/footer/Footer';
 
 const App = () =>{
     const [user,setUser] = useState({});
@@ -19,7 +20,6 @@ const App = () =>{
         const loggedInUser = localStorage.getItem('user');
         if(loggedInUser){
             setUser(JSON.parse(loggedInUser));
-            console.log(JSON.parse(loggedInUser));
         }
     },[logged]);
 

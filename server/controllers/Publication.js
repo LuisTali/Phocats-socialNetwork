@@ -1,9 +1,7 @@
-import { log } from "console";
 import { getConnection, sql } from "../database/Connection.js";
 import {getById} from './User.js'
 import {querys} from '../database/querys.js';
 import path from 'path';
-import { query } from "express";
 import { formatDate } from "./User.js";
 
 export const getPublications = async(req,res) =>{
@@ -86,6 +84,12 @@ export const getPublicationsByNameTag = async(req,res) =>{
         const pool = await getConnection();
         const response = await pool.request().input("nameTag",sql.VarChar,tag).query(querys.getPublicationsByNameTag);
         if(response.rowsAffected[0] > 0){
+            for(const publi of response.recordset){ //Para cada publicacion averiguo su Usuario creador
+                let userCreator = await getById(publi.idUser);
+                let formatedDate = formatDate(publi.madeIn)
+                publi.madeIn = formatedDate;
+                publi.userCreator = userCreator.username; //Se lo añado antes de enviarle la respuesta al cliente
+            }
             res.status(200).json({success:true,publications:response.recordset});
         }else{
             res.status(200).json({success:false});

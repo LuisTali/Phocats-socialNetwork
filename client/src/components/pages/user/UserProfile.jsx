@@ -5,6 +5,7 @@ import Publication from "../../common/publication/Publication";
 import ModifyProfile from '../modifyProfile/ModifyProfile.jsx'
 import './UserProfile.css'
 
+
 const UserProfile = ({idUserLogged}) =>{
     const {id} = useParams();
     const [user,setUser] = useState({});
@@ -22,14 +23,15 @@ const UserProfile = ({idUserLogged}) =>{
         return ;
     }
 
-    const getPublicationsByUserId = async() =>{
+    const getPublicationsByUserId = async() =>{ //Obtiene las publicaciones del usuario deseado
         const response = await axios.get(`${baseUrl}publication/publicationsByUser/${id}`);
         if(response.data.success){
             setPublications(response.data.publications);
         }
     }
 
-    const handleFollow = async() =>{
+    //Si lo sigue y cliqueo el boton follow lo dejo de seguir, caso contrario lo empiezo a seguir
+    const handleFollow = async() =>{ 
         if(!following){
             const response = await axios.post(`${baseUrl}user/follow`,{idFollower:idUserLogged,idFollowing:id});
             if(response.data.success){
@@ -43,6 +45,7 @@ const UserProfile = ({idUserLogged}) =>{
         }
     }
 
+    //Chequea si sigo o no al usuario buscado
     const checkFollow = async() =>{
         const response = await axios.post(`${baseUrl}user/checkFollow`,{idFollower:idUserLogged,idFollowing:id});
         setFollowing(response.data.following);
@@ -52,7 +55,8 @@ const UserProfile = ({idUserLogged}) =>{
         if(id){
             getById();
             getPublicationsByUserId();
-            if(!loggedUser){
+            if(!loggedUser){ 
+                //Si el usuario encontrado, no es el mismo que esta logueado ejecuta checkFollow para pasar la info al boton Follow
                 checkFollow();
             }
         }

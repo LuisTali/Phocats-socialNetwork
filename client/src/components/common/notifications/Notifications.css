@@ -64,7 +64,11 @@
 
 @media screen and (max-width:1140px) {
     #notifications{
-        margin-top: 320px;
+        margin-top: 350px;
+        right: unset;
+        width: 95%;
+        margin-left: 2.5%;
+        margin-right: 0%;
        /* position: fixed;*/
     }
 }

@@ -52,13 +52,13 @@ const Navbar = ({username,setLogged,setUser,id,notifications,newFollowers}) =>{
     }
     
     return <nav>
-      <img src='./black-cat-logo.jpg'/>
+      <Link to='/' id="imageLogo"><img src='./black-cat-logo.jpg'/></Link>
       {isModalOpen && <Modal setModalOpen={setModalOpen} modalContent={modalContent}/>}
       <SearchInput setModalOpen={setModalOpen} setModalContent={setModalContent}/>
-      <div id="links" className={clicked ? '' : 'inactive'}>
-        <Link to='/'>Home</Link>
-        <Link to='/friends'>Friends</Link>
-        {username && <Link to={`/user/${id}`}>MyProfile</Link>}
+      <div id={username ? 'links' : 'linksNotLogged'} className={clicked ? '' : 'inactive'}>
+        <Link onClick={handleClick} to='/'>Home</Link>
+        <Link onClick={handleClick} to='/friends'>Friends</Link>
+        {username && <Link onClick={handleClick} to={`/user/${id}`}>MyProfile</Link>}
         {username && <a onClick={(e)=>handleNotificationsClick(e)}>
           Notifications {areNewFollowers && <label id="newFollowers"/>} 
         </a>}

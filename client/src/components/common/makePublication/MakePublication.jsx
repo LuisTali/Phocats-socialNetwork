@@ -67,7 +67,7 @@ const MakePubli = ({uploadPubli, id, username}) =>{
       refDescription.current.value = '';
     },[file]);
   
-    return <div className='makePublication'>
+    return <div className='makePublication' id='makePublicationDiv'>
       <input type='text' id='inputText' ref={refDescription} placeholder='Para añadir hashtags, coloquelos al final con un # y un espacio entre tag y tag. Ej: This is my cat #cat #photo'/>
       <ul className='multimediaOptions'>
         <li>

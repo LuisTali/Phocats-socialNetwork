@@ -1,0 +1,18 @@
+.liTag{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 1rem;
+  background-color:  rgb(83, 89, 89);
+  padding: 0.25rem 1rem;
+  border-radius: 10px;
+}
+.liTag h3{
+  width: 45%;
+}
+.liTag .nameTag{
+  text-align: start;
+}
+.liTag h3{
+  text-align: end;
+}

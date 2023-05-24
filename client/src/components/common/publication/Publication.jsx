@@ -12,10 +12,14 @@ const Publication = ({id,textDescription,imgName,idUser,userCreator,madeIn}) =>{
       navigate(`/publication/${id}`);
     }
 
-    return <article className='publication' key={id} onClick={handleClick}>
-      <div className='profilePublication'><Link to={`/user/${idUser}`}>{userCreator}</Link> <h4>{madeIn}</h4></div>
-      {textDescription}
-      <img src={`http://localhost:5000/${imgName}`}/>
+    return <article className='publication' key={id} >
+      <div className='profilePublication'>
+        <Link to={`/user/${idUser}`}>{userCreator}</Link> <h4>{madeIn}</h4>
+      </div>
+      <div className="publicationContent" onClick={handleClick}>
+        {textDescription}
+        <img src={`http://localhost:5000/${imgName}`} />
+      </div>
     </article>
 }
 

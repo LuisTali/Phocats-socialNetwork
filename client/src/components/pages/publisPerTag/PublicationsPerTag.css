@@ -1,5 +1,29 @@
+.tagPage{
+    height: 100vh;
+}
 .publicationsPerTag{
     display: grid;
-    grid-template-columns: repeat(2,1fr);
-   
+    grid-template-columns:repeat(3,1fr);
+    justify-self: center;
+
+}
+.publicationsPerTag button{
+    grid-column: 1/4;
+    width: 20%;
+    margin-left: 40%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    padding: 0.5rem 0.5rem;
+}
+.publicationsPerTag .publication{
+    margin-left: 50%;
+    transform: translate(-50%);
+    width: 80%;
+}
+
+@media screen and (max-width:1140px){
+    .publicationsPerTag{
+        display: flex;
+        flex-direction: column;
+    }
 }

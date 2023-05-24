@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {useParams} from 'react-router-dom';
 import Publication from "../../common/publication/Publication";
 import axios from "axios";
+import ButtonBack from "../../common/buttonBack/ButtonBack";
 import './PublicationsPerTag.css'
 
 const PublicationsPerTag = () =>{
@@ -11,7 +12,6 @@ const PublicationsPerTag = () =>{
 
     const getPublication = async() =>{
         const response = await axios.get(`${baseUrl}publication/publicationsByTag/${nameTag}`);
-        console.log(response.data.publications);
         setPublications(response.data.publications)
     }
 
@@ -19,10 +19,13 @@ const PublicationsPerTag = () =>{
             getPublication();
     },[nameTag]);
 
-    return <div className="publicationsPerTag">
-        {publications.map((publication) =>
-            <Publication {...publication}/>
-        )}
+    return <div className="tagPage">
+        <div className="publicationsPerTag">
+            <ButtonBack previousUrl={'/'}/>
+            {publications.map((publication) =>
+                <Publication {...publication}/>
+            )}
+        </div>
     </div>;
 }
 export default PublicationsPerTag;

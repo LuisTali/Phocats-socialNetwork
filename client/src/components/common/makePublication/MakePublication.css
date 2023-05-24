@@ -6,7 +6,6 @@
     border-radius: 10px;
     padding: 1rem 0.5rem;
     align-items: start;
-    
   }
   .makePublication #inputText{
     border-radius: 5px;
@@ -32,7 +31,7 @@
     width: 20%;
     font-weight: 500;
     transform: translate(-50%); 
-    border: 3px solid blueviolet;
+    border: 3px solid #452c63;
   }
   .makePublication .failureModal{
     margin-left: 50%;
@@ -43,4 +42,31 @@
   .makePublication .failureModal h2{
     font-size: 1.2rem;
     word-wrap: normal;
+  }
+
+  @media screen and (max-width:1140px){
+    .makePublication{
+      align-items: center;
+      width: 90%;
+      margin: 1rem;
+    }
+    .makePublication #inputText{
+      margin-left: 0%;
+      width: 100%;
+    }
+    .makePublication .multimediaOptions li{
+      width: 100%;
+      margin-left: 0%;
+      margin-right: 0%;
+    }
+    .makePublication .multimediaOptions li #fileInput{
+      width: 100%;
+      margin-left: 0%;
+      margin-right: 0%;
+    }
+    .makePublication .btn{
+      width: 100%;
+      margin-left: 0%;
+      transform: none;
+    }
   }
