@@ -23,7 +23,7 @@ router.get('/publicationsByTag/:tag',getPublicationsByNameTag);
 
 router.get('/:id',getPublicationById);
 
-router.get('/feed/:id',getPublicationsFromFollowedUsers)
+router.get('/feed/:id',getPublicationsFromFollowedUsers);
 
 router.post('/add',upload.single('img'),newPublication);
 

@@ -22,6 +22,11 @@ export const querys = {
     makeNotificacionsForUser: 'SELECT u1.id as idFollower, u1.username as follower, f.notificated FROM Users as u1 INNER JOIN Followers AS f on f.idUser1 = u1.id INNER JOIN Users AS u2 ON f.idUser2 = u2.id WHERE f.idUser2 = @idUser ORDER BY f.followSince DESC;',
     updateNotifiedFollow: 'UPDATE Followers SET notificated = 1 WHERE idUser2 = @idAccount AND idUser1 = @idFollower',
     
+    getFriends: 'SELECT * FROM Users AS u INNER JOIN Followers AS f ON u.id = f.idUser2 WHERE u.id IN (SELECT idUser1 FROM Followers AS f INNER JOIN Users As u2 ON u2.id = f.idUser1 WHERE idUser1 = u.id )AND idUser1= @idUser',
+    getFollowers: '',
+    
+    getFollowing: '',
+    
     checkExistsTag: 'SELECT id FROM Tags WHERE nameTag = @tag',
     newTag:'INSERT INTO Tags VALUES (@tag)',
     addTagPerPublication: 'INSERT INTO Publications_X_Tag VALUES (@idPublication,@idTag)',
