@@ -20,11 +20,13 @@ function Home({username,id}) {
   }
 
   const useFetch = async() =>{
-    const publis = await axios.get(`${baseUrl}publication/`);
-    if(publis.data.data.length > 0){
-      setPublis(publis.data.data);
-      setEmpty(false);
-    } 
+    if(id){
+      const publis = await axios.get(`${baseUrl}publication/feed/${id}`);
+      if(publis.data.data.length > 0){
+        setPublis(publis.data.data);
+        setEmpty(false);
+      } 
+    }
   }
 
   const getMostUsedTags = async() =>{
@@ -36,11 +38,11 @@ function Home({username,id}) {
   useEffect(()=>{
     useFetch();
     getMostUsedTags();
-  },[empty])
+  },[empty,id])
 
   return (
     <>
-    <div className='homePage'>
+    <div className='homePage' style={publi.length <= 1 ? {height:'100vh'} : {height:'100%'}}>
       <div className='feed'>
       <MakePubli uploadPubli={uploadPubli} id={id} username={username}/>
 

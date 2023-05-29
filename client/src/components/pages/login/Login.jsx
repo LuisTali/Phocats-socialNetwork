@@ -63,8 +63,8 @@ const Login = ({setLogged}) => {
             <button className="btn" onClick={handleSubmit}>submit</button>
         </form>
         {isModalOpen && <Modal modalContent={modalContent} setModalOpen={setModalOpen} successModal={succesModal}/>}
-        <label>Do not you have an account?</label>
-        <Link to='/register'>Register</Link>
+        <h3>Do not you have an account?</h3>
+        <h3><Link to='/register'>Register</Link></h3>
     </div>
 }
 

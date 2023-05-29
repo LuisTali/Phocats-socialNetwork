@@ -60,7 +60,7 @@ const Register = () =>{
         setSuccessModal(true);
         setModalOpen(true);
         setTimeout(()=>{
-            navigate('/login');
+            navigate('/');
         },3000);
     }
 

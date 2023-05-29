@@ -18,13 +18,15 @@ const Navbar = ({username,setLogged,setUser,id,notifications,newFollowers}) =>{
 
     const logOut = (e) =>{
       e.preventDefault(); 
-      setUser({});
-      localStorage.clear();
-      setLogged(false);
-      navigate('/');
       setModalOpen(true);
       setSuccessModal(true);
       setModalContent('Log Out exitoso');
+      setTimeout(()=>{
+        setUser({});
+        localStorage.clear();
+        setLogged(false);
+        navigate('/');
+      },2000)
     }
 
     const handleNotificationsClick = (e) =>{
@@ -50,7 +52,33 @@ const Navbar = ({username,setLogged,setUser,id,notifications,newFollowers}) =>{
         setClicked(!clicked);
       }else setClicked(!clicked);
     }
-    
+    if(username){
+      return <nav>
+      <Link to='/' id="imageLogo"><img src='./black-cat-logo.jpg'/></Link>
+      {isModalOpen && <Modal setModalOpen={setModalOpen} modalContent={modalContent}/>}
+      <SearchInput setModalOpen={setModalOpen} setModalContent={setModalContent}/>
+      <div id={username ? 'links' : 'linksNotLogged'} className={clicked ? '' : 'inactive'}>
+        <Link onClick={handleClick} to='/'>Home</Link>
+        <Link onClick={handleClick} to='/friends'>Friends</Link>
+        <Link onClick={handleClick} to={`/user/${id}`}>MyProfile</Link>
+        <a onClick={(e)=>handleNotificationsClick(e)}>
+          Notifications {areNewFollowers && <label id="newFollowers"/>} 
+        </a>
+        <Link onClick={(e)=>logOut(e)}>Log Out</Link>
+      </div>
+      <Notifications isNotificacionsOpen={isNotificacionsOpen} notifications={notifications} idAccount={id} checkNotNotified={checkNotNotified}/>
+
+      <div id="mobile">
+        <i onClick={()=>handleClick()} className={clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
+      </div>
+
+    </nav>
+    }else{
+      return <nav className="unloggedNavbar">
+          <Link to='/' id="imageLogo"><img src='./black-cat-logo.jpg'/></Link>
+          <Link to='/'>Log In</Link>
+      </nav>
+    }
     return <nav>
       <Link to='/' id="imageLogo"><img src='./black-cat-logo.jpg'/></Link>
       {isModalOpen && <Modal setModalOpen={setModalOpen} modalContent={modalContent}/>}

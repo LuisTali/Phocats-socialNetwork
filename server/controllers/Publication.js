@@ -120,6 +120,21 @@ export const getPublicationById = async(req,res) =>{
     }
 }
 
+export const getPublicationsFromFollowedUsers = async(req,res) =>{
+    const {id} = req.params;
+    try {
+        const pool = await getConnection();
+        const response = await pool.request().input("idUser",sql.Int,id).query(querys.getPostsFromFollowedUsers);
+        for(const publi of response.recordset){
+            let formatedDate = formatDate(publi.madeIn)
+            publi.madeIn = formatedDate;
+        }
+        res.json({success:true,data:response.recordset});
+    } catch (error) {
+        res.status(200).json({success:false,error:error});
+    }
+}
+
 //Metodos que utiliza el server
 
 const getArrayTags = (textDescription) =>{

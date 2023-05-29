@@ -1,0 +1,59 @@
+.popUp{
+    display: flex;
+    width: 98%;
+    height: 95%;
+    background-color: rgb(80, 80, 80);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-right: 1%;
+    transform: translate(-50%, -50%);
+    padding: 1.5rem;
+    align-items: center;
+}
+.popUp .popUpBack{
+    margin-left: 0%;
+    width: 5%;
+    margin-top: 0;
+    position: absolute;
+    border-radius: 5px;
+    margin-bottom: 45.5%;
+    padding: 0.8rem 1.2rem;
+    border: 2px solid black;
+    font-weight: 600;
+    white-space: nowrap;
+}
+.popUp .imgContainer{
+    height: 90%;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(20,20,20);
+    padding: 1rem;
+    border-radius: 5px;
+}
+.popUp .imgContainer img{
+    width: auto;
+    max-width: none;
+    height: 90%;
+    margin-top: 1rem;
+    box-shadow: none;
+    object-fit: contain;
+    object-position: center center;
+    border-radius: 2.5px;
+}
+.popUp .userContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 20%;
+    height: 90%;
+    padding: 1rem;
+}
+
+
+@media screen and ( max-width:1140px ){
+    .popUp{
+        flex-direction: column;
+    }
+}

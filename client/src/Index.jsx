@@ -23,20 +23,31 @@ const App = () =>{
         }
     },[logged]);
 
-    return(
-        <Router>
-            <Navbar {...user} setUser={setUser} setLogged={setLogged}/>
+    if(Object.entries(user).length === 0){ //Si user no tiene pares clave-valor esta vacio
+        return <Router>
+            <Navbar/>
             <Routes>
-                <Route exact path='/' element={<Home {...user}/>}/>
-                <Route path='/login' element={<Login setLogged={setLogged}/>}/>
-                <Route path='/friends' element={<Friends/>}/>
+                <Route path='/' element={<Login setLogged={setLogged}/>}/>
                 <Route path='/register' element={<Register/>}/>
-                <Route path='/user/:id' element={<UserProfile idUserLogged={user.id}/>}/>
-                <Route path='/publication/:id' element={<PublicationPage/>}/>
-                <Route path='/tags/:nameTag' element={<PublicationsPerTag/>}/>
             </Routes>
         </Router>
-    )
+    }else{
+        return(
+            <Router>
+                <Navbar {...user} setUser={setUser} setLogged={setLogged}/>
+                <Routes>
+                    <Route exact path='/' element={<Home {...user}/>}/>
+                    <Route path='/login' element={<Login setLogged={setLogged}/>}/>
+                    <Route path='/friends' element={<Friends/>}/>
+                    <Route path='/register' element={<Register/>}/>
+                    <Route path='/user/:id' element={<UserProfile idUserLogged={user.id}/>}/>
+                    <Route path='/publication/:id' element={<PublicationPage/>}/>
+                    <Route path='/tags/:nameTag' element={<PublicationsPerTag/>}/>
+                </Routes>
+            </Router>
+        )
+    }
+    
 }
 
 export default App;

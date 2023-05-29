@@ -68,7 +68,7 @@ const MakePubli = ({uploadPubli, id, username}) =>{
     },[file]);
   
     return <div className='makePublication' id='makePublicationDiv'>
-      <input type='text' id='inputText' ref={refDescription} placeholder='Para añadir hashtags, coloquelos al final con un # y un espacio entre tag y tag. Ej: This is my cat #cat #photo'/>
+      <input type='text' id='inputText' ref={refDescription} placeholder='Para añadir hashtags, coloquelos al final con un espacio entre tag y tag. Ej: This is my cat #cat #photo'/>
       <ul className='multimediaOptions'>
         <li>
           {username ? <input id='fileInput' type='file' accept="image/*" ref={refFile}/> : <input id='fileInput' type='file' accept="image/*" disabled ref={refFile}/>}

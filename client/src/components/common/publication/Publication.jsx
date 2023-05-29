@@ -1,15 +1,18 @@
-import React from "react"
+import React,{useState} from "react"
 import { Link, useNavigate } from "react-router-dom"
 import PropTypes from 'prop-types';
+import PublicationPopUp from "../publicationPopUp/PublicationPopUp";
 import './Publication.css'
 
 const Publication = ({id,textDescription,imgName,idUser,userCreator,madeIn}) =>{
   const navigate = useNavigate();
+  const [showPopUp,setShowPopUp] = useState(false);
   
   if(textDescription == 'undefined') textDescription = null;
     
     const handleClick = () =>{
-      navigate(`/publication/${id}`);
+      //navigate(`/publication/${id}`);
+      setShowPopUp(!showPopUp);
     }
 
     return <article className='publication' key={id} >
@@ -20,6 +23,7 @@ const Publication = ({id,textDescription,imgName,idUser,userCreator,madeIn}) =>{
         {textDescription}
         <img src={`http://localhost:5000/${imgName}`} />
       </div>
+      {showPopUp && <PublicationPopUp imgsrc={`http://localhost:5000/${imgName}`} textDescription={textDescription} idUser={idUser} userCreator={userCreator} madeIn={madeIn} setShowPopUp={setShowPopUp}/>}
     </article>
 }
 

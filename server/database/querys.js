@@ -7,6 +7,9 @@ export const querys = {
     
     newPublication: 'INSERT INTO Publications VALUES (@idUser,@textDescription,@imgSrc,GETDATE())',
     getLastPublication: 'SELECT top 1 * FROM Publications ORDER BY madeIN DESC',
+
+    getPostsFromFollowedUsers: 'SELECT p.id, p.idUser, textDescription, imgName, p.madeIn, username as userCreator, followSince FROM Publications AS p INNER JOIN Followers AS f ON f.idUser2 = p.idUser INNER JOIN Users AS u ON u.id = p.idUser WHERE f.idUser1 = @idUser',
+    
     getAllPublications: 'SELECT * FROM Publications ORDER BY madeIn DESC',
     getPublicationsByIdUser: 'SELECT * FROM Publications WHERE idUser = @idUser ORDER BY madeIn DESC',
     getPublicationsByNameTag: 'SELECT p.id,idUser,textDescription,imgName,madeIn FROM Publications AS p INNER JOIN Publications_X_Tag AS pxt ON p.id = pxt.idPublication INNER JOIN Tags AS t ON pxt.idTag = t.id WHERE t.nameTag = @nameTag',

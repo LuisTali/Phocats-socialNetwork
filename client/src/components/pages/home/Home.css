@@ -4,6 +4,7 @@
     margin-left: 1%;
     padding: 1rem;
     margin-top: 10px;
+    height: 100%;
   }
   
   .feed{
@@ -14,6 +15,7 @@
     border-radius: 20px;
     padding: 2rem 0rem;
     width: 80%;
+    height: fit-content;
   }
   
   .groupsDiv{
