@@ -38,7 +38,7 @@ const App = () =>{
                 <Routes>
                     <Route exact path='/' element={<Home {...user}/>}/>
                     <Route path='/login' element={<Login setLogged={setLogged}/>}/>
-                    <Route path='/friends' element={<Friends/>}/>
+                    <Route path='/friends' element={<Friends {...user}/>}/>
                     <Route path='/register' element={<Register/>}/>
                     <Route path='/user/:id' element={<UserProfile idUserLogged={user.id}/>}/>
                     <Route path='/publication/:id' element={<PublicationPage/>}/>

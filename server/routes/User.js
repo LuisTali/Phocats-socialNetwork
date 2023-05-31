@@ -1,11 +1,13 @@
 import { Router } from "express";
 const router = Router();
 
-import { showUsers, registerUser, authLogin, getUserById, getByUsername, followAccount, unfollowAccount, checkFollow, updateNotificatedStatus } from "../controllers/User.js";
+import { showUsers, registerUser, authLogin, getUserById, getByUsername, followAccount, unfollowAccount, checkFollow, updateNotificatedStatus, poblateFriendsPage } from "../controllers/User.js";
 
 router.get('/users',showUsers);
 
 router.get('/id/:id',getUserById);
+
+router.get('/friends/:id',poblateFriendsPage);
 
 router.post('/byUsername',getByUsername);
 

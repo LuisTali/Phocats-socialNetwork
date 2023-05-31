@@ -1,11 +1,11 @@
 .tagPage{
-    height: 100vh;
+    height: fit-content;
 }
 .publicationsPerTag{
     display: grid;
     grid-template-columns:repeat(3,1fr);
     justify-self: center;
-
+    grid-template-rows: repeat(auto-fill);
 }
 .publicationsPerTag button{
     grid-column: 1/4;
@@ -24,10 +24,13 @@
     /*transform: translate(-50%);*/
     width: 80%;
 }
+.publicationsPerTag .publication img{
+}
 
 @media screen and (max-width:1140px){
     .publicationsPerTag{
         display: flex;
         flex-direction: column;
     }
+    
 }

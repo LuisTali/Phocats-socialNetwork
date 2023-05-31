@@ -12,12 +12,12 @@
     align-items: center;
 }
 .popUp .popUpBack{
-    margin-left: 0%;
-    width: 5%;
-    margin-top: 0;
     position: absolute;
+    margin-left: 0%;
+    width: fit-content;
+    top: 0;
+    margin-top: 0.5rem;
     border-radius: 5px;
-    margin-bottom: 45.5%;
     padding: 0.8rem 1.2rem;
     border: 2px solid black;
     font-weight: 600;
@@ -31,15 +31,17 @@
     background-color: rgb(20,20,20);
     padding: 1rem;
     border-radius: 5px;
+    object-fit: contain;
+    object-position: center center;
 }
 .popUp .imgContainer img{
     width: auto;
     max-width: none;
     height: 90%;
-    margin-top: 1rem;
+    margin-top: 2rem;
     box-shadow: none;
     object-fit: contain;
-    object-position: center center;
+    object-position: center;
     border-radius: 2.5px;
 }
 .popUp .userContainer{
@@ -50,10 +52,38 @@
     height: 90%;
     padding: 1rem;
 }
-
-
-@media screen and ( max-width:1140px ){
-    .popUp{
+@media screen and ( max-width:768px ){
+   .popUp{
         flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        height: 80%;
+   }
+   
+   .popUp .userContainer{
+        display: none;
+   }
+   .popUp .userContainer.showInfo{
+        position: absolute;
+        width: fit-content;
+        display: flex;
+        margin-top: 16rem;
+        justify-content: center;
+        text-align: left;
+        width: 60%;
+   }
+    .popUp .userContainer.showInfo .date{
+        white-space: nowrap;
     }
+   .popUp .imgContainer{
+        height: 100%;
+   }
+   .popUp .popUpBack{
+        opacity: 1;
+        background-color: black;
+        color: aliceblue;
+        left: 0;
+        margin-left: 1rem;
+        margin-top: 1rem;
+   }
 }

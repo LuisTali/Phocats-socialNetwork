@@ -1,24 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import axios from 'axios';
 import './Friends.css'
-const Friends = () =>{
-    //friends, you follow them and they follow you
-    //followers they follow you
-    //following you follow them
+const Friends = ({id}) =>{
+    const [friends,setFriends] = useState([]);
+    const [followers,setFollowers] = useState([]);
+    const [following,setFollowing] = useState([]);
+    
+    const baseUrl = 'http://localhost:5000/';
+
+    const getData = async() =>{
+        const response = await axios.get(`${baseUrl}user/friends/${id}`);
+        console.log(response.data);
+        setFriends(response.data.friends);
+        setFollowers(response.data.followers);
+        setFollowing(response.data.following);
+    }
+
+    useEffect(()=>{
+        getData();
+    },[]);
 
     return <div id="friendsPage">
-        <div class="containerFriendsPage" id="friends">
+        <div className="containerFriendsPage" id="friends">
             <ul>
-                <li>1</li>
+                {friends.map((friend)=> <li><Link to={`/user/${friend.id}`}>{friend.username}</Link></li>)}
             </ul>
         </div>
-        <div class="containerFriendsPage" id="followers">
+        <div className="containerFriendsPage" id="followers">
             <ul>
-                <li>1</li>
+                {followers.map((follower)=> <li><Link to={`/user/${follower.id}`}>{follower.username}</Link></li>)}
             </ul>
         </div>
-        <div class="containerFriendsPage" id="following">
+        <div className="containerFriendsPage" id="following">
             <ul>
-                <li>1</li>
+                {following.map((follow)=> <li><Link to={`/user/${follow.id}`}>{follow.username}</Link></li>)}
             </ul>
         </div>
     </div>

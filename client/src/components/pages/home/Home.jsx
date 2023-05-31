@@ -31,14 +31,13 @@ function Home({username,id}) {
 
   const getMostUsedTags = async() =>{
     const responseTags = await axios.get(`${baseUrl}tag/top3`);
-    console.log(responseTags.data.tags);
     setTags(responseTags.data.tags);
   }
 
   useEffect(()=>{
     useFetch();
     getMostUsedTags();
-  },[empty,id])
+  },[empty,id,uploadPubli])
 
   return (
     <>

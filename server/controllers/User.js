@@ -150,6 +150,19 @@ export const updateNotificatedStatus = async(req,res) =>{
     }
 }
 
+export const poblateFriendsPage = async(req,res) =>{
+    const {id} = req.params;
+    try {
+        const pool = await getConnection();
+        const friendsResponse = await pool.request().input("idUser",sql.VarChar,id).query(querys.getFriends); 
+        const followersResponse = await pool.request().input("idUser",sql.VarChar,id).query(querys.getFollowers); 
+        const followingResponse = await pool.request().input("idUser",sql.VarChar,id).query(querys.getFollowing); 
+        res.status(200).json({success:true,friends:friendsResponse.recordset,followers:followersResponse.recordset,following:followingResponse.recordset});
+    } catch (error) {
+        res.status(200).json({success:false,error});
+    }
+}
+
 //Usada por otros controladores del lado servidor
 
 export const getById = async(id)=>{

@@ -24,12 +24,12 @@ export const getPublications = async(req,res) =>{
 export const newPublication = async(req,res) =>{
     try {
         console.log(req.encryptedName); //Llega desde la funcion storage en el router Publication
-        const {textDescription,imgName,idUser} = req.body;
+        const {textDescription,idUser} = req.body;
         const pool = await getConnection();
         const response = await pool.request().input("idUser",sql.Int,idUser).input("textDescription",sql.VarChar,textDescription).input("imgSrc",sql.VarChar,req.encryptedName).query(querys.newPublication);
-        
+        console.log(response);
         if(response.rowsAffected >= 1){
-            
+
             const responseLastPublication = await pool.request().query(querys.getLastPublication); //Obtener la ultima publication insertada
             const publi = responseLastPublication.recordset[0];
 
@@ -42,7 +42,7 @@ export const newPublication = async(req,res) =>{
                 if(responseTagExist.rowsAffected[0] == 0){
                     await pool.request().input("tag",sql.VarChar,tag).query(querys.newTag);
                     const responseIdTag = await pool.request().input("nameTag",sql.VarChar,tag).query(querys.getIdTagByName);
-
+                    
                     await pool.request().input("idPublication",sql.Int,publi.id).input("idTag",sql.Int,responseIdTag.recordset[0].id).query(querys.addTagPerPublication);
                 }else{
                     await pool.request().input("idPublication",sql.Int,publi.id).input("idTag",sql.Int,responseTagExist.recordset[0].id).query(querys.addTagPerPublication);
@@ -124,7 +124,7 @@ export const getPublicationsFromFollowedUsers = async(req,res) =>{
     const {id} = req.params;
     try {
         const pool = await getConnection();
-        const response = await pool.request().input("idUser",sql.Int,id).query(querys.getPostsFromFollowedUsers);
+        const response = await pool.request().input("idUser",sql.Int,id).query(querys.makeFeed);
         for(const publi of response.recordset){
             let formatedDate = formatDate(publi.madeIn)
             publi.madeIn = formatedDate;
