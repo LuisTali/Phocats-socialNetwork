@@ -35,6 +35,6 @@ CREATE TABLE Tags(
 );
 
 CREATE TABLE Publications_X_Tag(
-	idPublication int NOT NULL IDENTITY(1,1) CONSTRAINT pfkPxT1 FOREIGN KEY REFERENCES Publications(id),
+	idPublication int NOT NULL CONSTRAINT pfkPxT1 FOREIGN KEY REFERENCES Publications(id),
 	idTag int NOT NULL CONSTRAINT pfkPxT2 FOREIGN KEY REFERENCES Tags(id)
 );
