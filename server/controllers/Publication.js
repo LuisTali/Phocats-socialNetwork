@@ -27,7 +27,6 @@ export const newPublication = async(req,res) =>{
         const {textDescription,idUser} = req.body;
         const pool = await getConnection();
         const response = await pool.request().input("idUser",sql.Int,idUser).input("textDescription",sql.VarChar,textDescription).input("imgSrc",sql.VarChar,req.encryptedName).query(querys.newPublication);
-        console.log(response);
         if(response.rowsAffected >= 1){
 
             const responseLastPublication = await pool.request().query(querys.getLastPublication); //Obtener la ultima publication insertada
@@ -35,7 +34,6 @@ export const newPublication = async(req,res) =>{
 
             //Finalizar, añadiendo tags a sus respectivas tablas
             let tags = getArrayTags(textDescription); 
-            console.log(tags);
             for(const tag of tags){
                 
                 const responseTagExist = await pool.request().input("tag",sql.VarChar,tag).query(querys.checkExistsTag);
@@ -43,7 +41,7 @@ export const newPublication = async(req,res) =>{
                 if(responseTagExist.rowsAffected[0] == 0){
                     await pool.request().input("tag",sql.VarChar,tag).query(querys.newTag);
                     const responseIdTag = await pool.request().input("nameTag",sql.VarChar,tag).query(querys.getIdTagByName);
-                    
+
                     await pool.request().input("idPublication",sql.Int,publi.id).input("idTag",sql.Int,responseIdTag.recordset[0].id).query(querys.addTagPerPublication);
                 }else{
                     await pool.request().input("idPublication",sql.Int,publi.id).input("idTag",sql.Int,responseTagExist.recordset[0].id).query(querys.addTagPerPublication);
