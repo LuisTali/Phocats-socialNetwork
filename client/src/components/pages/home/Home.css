@@ -4,7 +4,8 @@
     margin-left: 1%;
     padding: 1rem;
     margin-top: 10px;
-    height: 100%;
+    min-height: 100vh;
+    max-height: fit-content;
   }
   
   .feed{

@@ -149,5 +149,6 @@ const getArrayTags = (textDescription) =>{
 
         //Por cada tag, corto desde la posicion 1, omitiendo el # en la posicion 0
         tags = arr.map((tag) => tag.slice(1)) 
+        tags = tags.filter((tag) => tag != '');
         return tags;
 }
