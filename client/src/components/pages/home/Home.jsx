@@ -10,22 +10,28 @@ import Footer from '../../layout/footer/Footer';
 function Home({username,id}) {
   const [publi,setPublis] = useState([]); //publications in the feed
   const [tags,setTags] = useState([]); //top3 most used tags
-  const [empty,setEmpty] = useState(true); 
+  const [loading,setLoading] = useState(true);
+  const [empty,setEmpty] = useState(false); 
+  const [forceRender,setForceRender] = useState(0); //sumo 1 para forzar re-render
   const baseUrl = 'http://localhost:5000/';
 
   const uploadPubli = (publication) =>{
     let newPublis = [publication,...publi];
     setPublis(newPublis);
     setEmpty(false);
+    setForceRender(forceRender + 1);
   }
 
   const useFetch = async() =>{
     if(id){
       const publis = await axios.get(`${baseUrl}publication/feed/${id}`);
+      setLoading(false);
       if(publis.data.data.length > 0){
         setPublis(publis.data.data);
         setEmpty(false);
-      } 
+      }else{
+        setEmpty(true);
+      }
     }
   }
 
@@ -37,7 +43,7 @@ function Home({username,id}) {
   useEffect(()=>{
     useFetch();
     getMostUsedTags();
-  },[empty,id,uploadPubli])
+  },[forceRender,id])
 
   return (
     <>
@@ -47,6 +53,7 @@ function Home({username,id}) {
 
       <hr id="lineaMoviles"/>
 
+      {(loading && !empty) && <h2 style={{marginTop:'2rem'}}>Loading...</h2>}
       {publi.map((publication) => <Publication {...publication}/>)}
       {empty && <h2 style={{marginTop:'2rem'}}>Looks quite over here</h2>}
       </div>

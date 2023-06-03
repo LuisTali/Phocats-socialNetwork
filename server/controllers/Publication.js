@@ -35,6 +35,7 @@ export const newPublication = async(req,res) =>{
 
             //Finalizar, añadiendo tags a sus respectivas tablas
             let tags = getArrayTags(textDescription); 
+            console.log(tags);
             for(const tag of tags){
                 
                 const responseTagExist = await pool.request().input("tag",sql.VarChar,tag).query(querys.checkExistsTag);

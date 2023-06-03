@@ -11,7 +11,6 @@ const dbSetting = {
         trustServerCertificate: true 
     }
 }
-//`Server=${config.serverName},${config.dbport0};Database=${config.database};User Id=${config.username};Password=${config.password};Encrypt=false`
 
 const getConnection = async() =>{
     try {
