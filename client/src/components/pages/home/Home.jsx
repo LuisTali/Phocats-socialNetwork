@@ -24,6 +24,7 @@ function Home({username,id}) {
 
   const useFetch = async() =>{
     if(id){
+      //borrar
       const publis = await axios.get(`${baseUrl}publication/feed/${id}`);
       setLoading(false);
       if(publis.data.data.length > 0){
