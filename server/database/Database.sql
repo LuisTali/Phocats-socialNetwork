@@ -38,3 +38,12 @@ CREATE TABLE Publications_X_Tag(
 	idPublication int NOT NULL CONSTRAINT pfkPxT1 FOREIGN KEY REFERENCES Publications(id),
 	idTag int NOT NULL CONSTRAINT pfkPxT2 FOREIGN KEY REFERENCES Tags(id)
 );
+
+//Triggers
+//Al editar textdescription de publication, eliminar su asociacion con los tags anteriores
+CREATE TRIGGER updateTagsPublication ON Publications AFTER UPDATE
+AS
+if UPDATE(textDescription)
+BEGIN
+DELETE Publications_X_Tag FROM Publications_X_Tag INNER JOIN INSERTED ON INSERTED.id = Publications_X_Tag.idPublication;
+END

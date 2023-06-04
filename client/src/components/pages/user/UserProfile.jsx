@@ -15,6 +15,12 @@ const UserProfile = ({idUserLogged}) =>{
     const baseUrl = 'http://localhost:5000/';
     const [following,setFollowing] = useState(false);
 
+    window.addEventListener(onclick,(e)=>{
+        const clickOut = e.target.closest('#userPageId');
+        if(clickOut) return;
+        else setShowModifyProfile(false);   
+    })
+
     const getById = async() =>{
         const response = await axios.get(`${baseUrl}user/id/${id}`);
         if(response.data.success){
@@ -65,7 +71,7 @@ const UserProfile = ({idUserLogged}) =>{
     if(showModifyProfile){
         return <ModifyProfile user={user} setShowModifyProfile={setShowModifyProfile}/>
     }
-    return <div className="userProfile" key={id}>
+    return <div id="userPageId" className="userProfile" key={id}>
         {loggedUser ? <img title="Click para Editar" id="profilePic" src="/user-avatar.png" onClick={()=>setShowModifyProfile(true)}/> : <img id="profilePic" src="/user-avatar.png"/>}
         {!loggedUser && <button className="followBtn" onClick={handleFollow}>{following ? 'Unfollow' : 'Follow'}</button>}
         <h2>{user.username}</h2>

@@ -15,6 +15,7 @@ export const querys = {
     getPublicationsByIdUser: 'SELECT * FROM Publications WHERE idUser = @idUser ORDER BY madeIn DESC',
     getPublicationsByNameTag: 'SELECT p.id,idUser,textDescription,imgName,madeIn FROM Publications AS p INNER JOIN Publications_X_Tag AS pxt ON p.id = pxt.idPublication INNER JOIN Tags AS t ON pxt.idTag = t.id WHERE t.nameTag = @nameTag',
     getPublicationById: 'SELECT * FROM Publications WHERE id = @id',
+    editPublication:'UPDATE Publications SET textDescription = @textDescription WHERE id = @id',
 
     //idFollower es la cuenta desde la que sigo al idFollowing
     followAccount: 'INSERT INTO Followers VALUES (@idFollower, @idFollowing,GETDATE(),DEFAULT)',

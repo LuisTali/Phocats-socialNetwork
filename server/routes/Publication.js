@@ -1,5 +1,5 @@
 import {Router} from 'express';
-import { getPublications, newPublication, getPublicationsByIdUser, getPublicationsByNameTag, getPublicationById, getPublicationsFromFollowedUsers} from '../controllers/Publication.js';
+import { getPublications, newPublication, getPublicationsByIdUser, getPublicationsByNameTag, getPublicationById, getPublicationsFromFollowedUsers, editPublication} from '../controllers/Publication.js';
 import path from 'path';
 import multer from 'multer';
 
@@ -28,5 +28,7 @@ router.get('/feed/:id',getPublicationsFromFollowedUsers);
 router.post('/add',upload.single('img'),newPublication);
 
 router.get('/publicationsByUser/:id',getPublicationsByIdUser);
+
+router.post('/edit',editPublication);
 
 export default router;
