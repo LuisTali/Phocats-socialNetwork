@@ -138,7 +138,7 @@ export const editPublication = async(req,res)=>{
     try {
         const pool = await getConnection();
         const response = await pool.request().input("id",sql.Int,id).input("textDescription",sql.VarChar,textDescription).query(querys.editPublication);
-        handleTagsOfPublication(textDescription);
+        handleTagsOfPublication(id,textDescription);
         res.status(200).json({success:true,response})
     } catch (error) {
         res.status(200).json({success:false,error:error});
@@ -162,7 +162,7 @@ const getArrayTags = (textDescription) =>{
         return tags;
 }
 
-const handleTagsOfPublication = async(textDescription) =>{
+const handleTagsOfPublication = async(idPubli,textDescription) =>{
     try {
         const pool = await getConnection();
 
@@ -176,13 +176,12 @@ const handleTagsOfPublication = async(textDescription) =>{
                     await pool.request().input("tag",sql.VarChar,tag).query(querys.newTag);
                     const responseIdTag = await pool.request().input("nameTag",sql.VarChar,tag).query(querys.getIdTagByName);
 
-                    await pool.request().input("idPublication",sql.Int,publi.id).input("idTag",sql.Int,responseIdTag.recordset[0].id).query(querys.addTagPerPublication);
+                    await pool.request().input("idPublication",sql.Int,idPubli).input("idTag",sql.Int,responseIdTag.recordset[0].id).query(querys.addTagPerPublication);
                 }else{
-                    await pool.request().input("idPublication",sql.Int,publi.id).input("idTag",sql.Int,responseTagExist.recordset[0].id).query(querys.addTagPerPublication);
+                    await pool.request().input("idPublication",sql.Int,idPubli).input("idTag",sql.Int,responseTagExist.recordset[0].id).query(querys.addTagPerPublication);
                 }
             }
             //Si no hay tags == undefined
-        return true;
     } catch (error) {
         return error;
     }
