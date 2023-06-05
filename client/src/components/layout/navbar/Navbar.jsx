@@ -47,7 +47,7 @@ const Navbar = ({username,setLogged,setUser,id,notifications,newFollowers}) =>{
     }  
 
     const handleClick = () =>{
-      if(clicked){
+      if(isNotificacionsOpen){
         setNotificacionsOpen(false);
         setClicked(!clicked);
       }else setClicked(!clicked);

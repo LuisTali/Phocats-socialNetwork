@@ -11,9 +11,11 @@
     padding: 1rem;
     background-color: rgb(20,20,20);
     margin: 0.5rem 0rem;
+    border-radius: 10px;
 }
 .containerFriendsPage ul{
     background-color: rgb(80,80,80);
+    border-radius: 5px;
 }
 .containerFriendsPage li{
     display: flex;
@@ -24,5 +26,8 @@
     text-decoration: none;
     font-weight: 600;
     border-left: 2px solid black;
-    padding-left: 1rem;
+    padding: 0.25rem 1rem 0.25rem 0.85rem;
+}
+.containerFriendsPage .title{
+    padding-bottom: 0.5rem;
 }
