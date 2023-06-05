@@ -1,11 +1,12 @@
 import React, {useState} from "react";
 import './OptionsDropdown.css';
 
-const OptionsDropdown = ({setShowEdit}) =>{
+const OptionsDropdown = ({setShowEdit,setShowInfo}) =>{
     const [clicked,setClicked] = useState(false);
 
     const handleClick = () =>{
         setShowEdit(true);
+        setShowInfo(true);
         setClicked(!clicked);
     }
     return <>

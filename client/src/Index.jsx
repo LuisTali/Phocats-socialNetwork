@@ -12,10 +12,12 @@ import PublicationsPerTag from './components/pages/publisPerTag/PublicationsPerT
 import PublicationPage from './components/pages/publicationPage/PublicationPage';
 import Footer from './components/layout/footer/Footer';
 
+export const AppContext = React.createContext(); //Creo context, luego a cada elemento se lo paso con los valores deseados, lo importo en ese componente y lo utilizo, como hice en PublicationPopUp.
+const baseUrl = 'http://localhost:5000/';
+
 const App = () =>{
     const [user,setUser] = useState({});
     const [logged,setLogged] = useState(false);
-    const AppContext = React.createContext();
 
     useEffect(()=>{
         const loggedInUser = localStorage.getItem('user');
@@ -37,13 +39,19 @@ const App = () =>{
             <Router>
                 <Navbar {...user} setUser={setUser} setLogged={setLogged}/>
                 <Routes>
-                    <Route exact path='/' element={<Home {...user}/>}/>
+                    <Route exact path='/' element={<AppContext.Provider value={{baseUrl:baseUrl,idLogged:user.id}}>
+                        <Home {...user}/>
+                    </AppContext.Provider> }/>
                     <Route path='/login' element={<Login setLogged={setLogged}/>}/>
                     <Route path='/friends' element={<Friends {...user}/>}/>
                     <Route path='/register' element={<Register/>}/>
-                    <Route path='/user/:id' element={<UserProfile idUserLogged={user.id}/>}/>
+                    <Route path='/user/:id' element={<AppContext.Provider value={{baseUrl:baseUrl,idLogged:user.id}}>
+                        <UserProfile idUserLogged={user.id}/>
+                    </AppContext.Provider>}/>
                     <Route path='/publication/:id' element={<PublicationPage/>}/>
-                    <Route path='/tags/:nameTag' element={<PublicationsPerTag/>}/>
+                    <Route path='/tags/:nameTag' element={<AppContext.Provider value={{baseUrl:baseUrl,idLogged:user.id}}>
+                        <PublicationsPerTag/>
+                    </AppContext.Provider>}/>
                 </Routes>
             </Router>
         )

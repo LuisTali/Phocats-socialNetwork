@@ -22,7 +22,6 @@
     margin-left: 10%;
     /*transform: translate(-50%);*/
     width: 80%;
-    height: 500px;
 }
 .publicationsPerTag .publication img{
     object-fit: contain;

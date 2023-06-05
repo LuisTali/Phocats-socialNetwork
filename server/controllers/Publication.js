@@ -136,15 +136,18 @@ const getArrayTags = (textDescription) =>{
     let index = textDescription.indexOf('#'); 
         let tags = [];
         let arr = [];
-        if (index > 0){ //Si se encuentra la posicion de # hay tags.
+        if (index >= 0){ //Si se encuentra la posicion de # hay tags.
             textDescription = textDescription.slice(index); //Se extrae desde el primer # hasta el final
             arr = textDescription.split(' '); //Creo un arreglo cortanto los espacios entre cada tag
         }else return;
 
         //Por cada tag, corto desde la posicion 1, omitiendo el # en la posicion 0
         tags = arr.map((tag) => tag.slice(1)) 
+        //Omito los tags vacios si es que el usuario ingresa "# "
         tags = tags.filter((tag) => tag != '');
-        return tags;
+        //Quito los tags repetidos si el usuario ingresa #cat #cat
+        let lastTags = tags.filter((value,index) => tags.indexOf(value) === index);
+        return lastTags;
 }
 
 const handleTagsOfPublication = async(idPubli,textDescription) =>{
@@ -152,7 +155,6 @@ const handleTagsOfPublication = async(idPubli,textDescription) =>{
         const pool = await getConnection();
 
         let tags = getArrayTags(textDescription); 
-        console.log(tags);
             for(const tag of tags){
                 
                 const responseTagExist = await pool.request().input("tag",sql.VarChar,tag).query(querys.checkExistsTag);

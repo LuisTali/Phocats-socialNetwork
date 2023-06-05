@@ -1,11 +1,11 @@
 import { useEffect, useState, useRef } from 'react'
 import axios from 'axios';
-import './Home.css'
 
 import MakePubli from '../../common/makePublication/MakePublication.jsx';
 import Publication from '../../common/publication/Publication.jsx';
 import Tag from '../../common/tag/Tag.jsx';
 import Footer from '../../layout/footer/Footer';
+import './Home.css'
 
 function Home({username,id}) {
   const [publi,setPublis] = useState([]); //publications in the feed

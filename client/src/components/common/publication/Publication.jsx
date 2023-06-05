@@ -7,7 +7,6 @@ import './Publication.css'
 const Publication = ({id,textDescription,imgName,idUser,userCreator,madeIn}) =>{
   const navigate = useNavigate();
   const [showPopUp,setShowPopUp] = useState(false);
-  
   if(textDescription == 'undefined') textDescription = null;
     
     const handleClick = () =>{
@@ -23,7 +22,7 @@ const Publication = ({id,textDescription,imgName,idUser,userCreator,madeIn}) =>{
         {textDescription}
         <img src={`http://localhost:5000/${imgName}`} />
       </div>
-      {showPopUp && <PublicationPopUp imgsrc={`http://localhost:5000/${imgName}`} textDescription={textDescription} idUser={idUser} userCreator={userCreator} madeIn={madeIn} setShowPopUp={setShowPopUp}/>}
+      {showPopUp && <PublicationPopUp id={id} imgsrc={`http://localhost:5000/${imgName}`} textDescription={textDescription} idUser={idUser} userCreator={userCreator} madeIn={madeIn} setShowPopUp={setShowPopUp}/>}
     </article>
 }
 
