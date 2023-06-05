@@ -31,22 +31,7 @@ export const newPublication = async(req,res) =>{
             const responseLastPublication = await pool.request().query(querys.getLastPublication); //Obtener la ultima publication insertada
             const publi = responseLastPublication.recordset[0];
 
-            //Finalizar, añadiendo tags a sus respectivas tablas
-            let tags = getArrayTags(textDescription); 
-            for(const tag of tags){
-                
-                const responseTagExist = await pool.request().input("tag",sql.VarChar,tag).query(querys.checkExistsTag);
-
-                if(responseTagExist.rowsAffected[0] == 0){
-                    await pool.request().input("tag",sql.VarChar,tag).query(querys.newTag);
-                    const responseIdTag = await pool.request().input("nameTag",sql.VarChar,tag).query(querys.getIdTagByName);
-
-                    await pool.request().input("idPublication",sql.Int,publi.id).input("idTag",sql.Int,responseIdTag.recordset[0].id).query(querys.addTagPerPublication);
-                }else{
-                    await pool.request().input("idPublication",sql.Int,publi.id).input("idTag",sql.Int,responseTagExist.recordset[0].id).query(querys.addTagPerPublication);
-                }
-            }
-            //Si no hay tags == undefined
+            handleTagsOfPublication(publi.id,textDescription);
 
             let userCreator = await getById(publi.idUser); //Obtengo el username del usuario creador
             publi.userCreator = userCreator.username; //Se lo añado antes de enviarle la respuesta al cliente

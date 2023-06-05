@@ -15,6 +15,7 @@ import Footer from './components/layout/footer/Footer';
 const App = () =>{
     const [user,setUser] = useState({});
     const [logged,setLogged] = useState(false);
+    const AppContext = React.createContext();
 
     useEffect(()=>{
         const loggedInUser = localStorage.getItem('user');

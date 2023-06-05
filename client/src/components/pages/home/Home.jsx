@@ -48,7 +48,7 @@ function Home({username,id}) {
 
   return (
     <>
-    <div className='homePage' style={publi.length <= 1 ? {height:'100vh'} : {height:'100%'}}>
+    <div className='homePage'>
       <div className='feed'>
       <MakePubli uploadPubli={uploadPubli} id={id} username={username}/>
 
