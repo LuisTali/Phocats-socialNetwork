@@ -51,7 +51,7 @@ const Register = () =>{
         const response = await axios.post(`${baseUrl}user/register`,{...user});
 
         if(!response.data.success){
-            setModalContent(response.data.error);
+            setModalContent(response.data.msg);
             setSuccessModal(false);
             setModalOpen(true);
             return;

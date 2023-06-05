@@ -13,19 +13,25 @@ export const showUsers = async(req,res) =>{
     res.json({success:true,data:result.recordset});
 }
 
+
 export const registerUser = async(req,res) =>{
     const {username,password,email,completeName,birthDate} = req.body;
-    
     try {
-        const pool = await getConnection();
-        const response = await pool.request().input("email",sql.VarChar,email).input("username",sql.VarChar,username).input("password",sql.VarChar,password).input("completename",sql.VarChar,completeName).input("birthdate",sql.Date,birthDate).query(querys.insertNewUser);
-
-        if(response.rowsAffected >= 1){
-            res.status(200).json({success:true});
+        if(esCorreoElectronico(email)){
+            const pool = await getConnection();
+            const response = await pool.request().input("email",sql.VarChar,email).input("username",sql.VarChar,username).input("password",sql.VarChar,password).input("completename",sql.VarChar,completeName).input("birthdate",sql.Date,birthDate).query(querys.insertNewUser);
+            if(response.rowsAffected >= 1){
+                res.status(200).json({success:true});
+            }
+        }else{
+            res.status(200).json({success:false,msg:'Formato email invalido'});
         }
     } catch (error) {
-        console.log(error.message);
-        res.status(200).json({success:false,error:error.message});
+        if(error.message == "Violation of UNIQUE KEY constraint 'uqUsers2'. Cannot insert duplicate key in object 'dbo.Users'. The duplicate key value is (luisTali)."){
+            res.status(200).json({success:false,msg:'Ya hay un usuario con ese Username, modifiquelo'});
+        }else if(error.message == "Violation of UNIQUE KEY constraint 'uqUsers1'. Cannot insert duplicate key in object 'dbo.Users'. The duplicate key value is (luis@gmail.com)."){
+            res.status(200).json({success:false,msg:'Ese mail ya esta asociado a una cuenta, ingrese uno nuevo'});
+        }else res.status(200).json({success:false,msg:error.message});
     }
 }
 
@@ -185,5 +191,7 @@ export const formatDate = (date) =>{
     birthDate = birthYear + '-' + birthMonth + '-' + birthDay ;
     return birthDate;
 }
+
+const esCorreoElectronico = correoElectronico => /\S+@\S+/.test(correoElectronico);
 
 
