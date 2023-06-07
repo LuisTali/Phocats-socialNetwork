@@ -24,7 +24,7 @@
     width: 30%;
     border-radius: 10px;
     margin: 0.5rem;
-    background-color: rgb(83, 89, 89);
+    background-color: rgb(89, 89, 89);
   }
   .inputGroup label{
     font-size: 1.5rem;
@@ -40,7 +40,48 @@
     background-color: whitesmoke;
     font-weight: 500;
   }
+  .inputGroup .inputPassword{
+    width: 60%;
+    background: whitesmoke;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border: 1px solid black;
+    color: black;
+    display: flex;
+    align-items: center;
+  }
+  .inputGroup .inputPassword input{
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border: none;
+    width: 90%;
+    padding: 0.25rem 0.5rem;
+  }
+  .inputGroup .inputPassword svg{
+    padding: 0.25rem;
+  }
   h3{
     margin-top: 0.25rem;
     font-weight: 500;
+  }
+  
+  @media screen and (max-width:1000px) {
+    .accountsForms{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .inputGroup{
+      width: 80% !important;
+    }
+    .inputGroup input{
+      width: 100%;
+    }
+  }
+
+  @media screen and (max-width: 320px){
+    .inputGroup .inputPassword svg{
+      width: 15px;
+    }
   }

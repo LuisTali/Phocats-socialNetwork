@@ -1,4 +1,4 @@
-.fas{
+.optionsDropDownPublication .fas{
     position: absolute;
     top: 0;
     right: 0;
@@ -8,14 +8,20 @@
 .optionsPubli{
     position: absolute;
     display: flex;
+    flex-direction: column;
     top: 0;
     right: 0;
     margin: 3rem 1rem 0rem 0rem;
     background-color: black;
+    padding: 0.5rem;
 }
 .optionsPubli li{
-    margin: 0.5rem 1rem;
+    display: flex;
+    margin: 0rem 1rem;
+    padding: 0.50rem 1rem;
+    align-items: center;
     cursor: pointer;
+    border-bottom: 1px solid white;
 }
 .show{
     display: flex;

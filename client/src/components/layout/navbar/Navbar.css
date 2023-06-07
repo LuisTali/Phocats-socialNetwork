@@ -114,15 +114,26 @@ nav a #newFollowers{
     display: flex;
     pointer-events: all;
     align-items: center;
-  }
-  #mobile i{
     width: 45px;
     margin-left: 10px;
+    color: white;
+    height: 50px;
+  }
+  #mobile i{
     color: white;
   }
   .inactive{
     display: none;
     opacity: 0;
     pointer-events: none;
+  }
+}
+@media screen and (max-width:500px) {
+  nav{
+    justify-content: space-between;
+    align-items: center;
+  }
+  #mobile{
+    width: 45px;
   }
 }

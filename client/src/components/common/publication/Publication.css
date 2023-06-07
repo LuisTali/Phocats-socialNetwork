@@ -39,6 +39,9 @@
     flex-direction: column;
     align-items: center;
   }
+  .publicationContent .textDescription{
+    padding: 0rem 0.5rem;
+  }
 
   @media screen and (max-width:1140px){
     .publication{

@@ -13,7 +13,7 @@ const PublicationPopUp = ({id,imgsrc,madeIn,idUser,userCreator,textDescription,s
     const refInput = useRef(textDescription);
     const navigate = useNavigate();
 
-    const {baseUrl,idLogged} = React.useContext(AppContext); //Obtiene el Id del usuario loggeado para comprobar y habilitar el boton Edit
+    const {baseUrl,idLogged,lastLocation} = React.useContext(AppContext); //Obtiene el Id del usuario loggeado para comprobar y habilitar el boton Edit
 
     const handleEditClick = async() =>{
         //Logica al finalizar de editar la descripcion, enviarla con axios al server y cerrar showEdit
@@ -22,7 +22,7 @@ const PublicationPopUp = ({id,imgsrc,madeIn,idUser,userCreator,textDescription,s
             setShowEdit(false);
             const response = await axios.post(`${baseUrl}publication/edit`,{id,textDescription:valueI});
             setTextPublication(valueI);
-            navigate('/');
+            navigate(lastLocation);
             window.location.reload(true);
         }else{
             setShowEdit(false);

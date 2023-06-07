@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import './Login.css'
 
 import Modal from '../../common/modal/Modal.jsx'
@@ -10,7 +11,9 @@ const Login = ({setLogged}) => {
     const [isModalOpen,setModalOpen] = useState(false);
     const [modalContent,setModalContent] = useState('');
     const [succesModal,setSuccessModal] = useState(false);
+    const [showPass,setShowPass] = useState(false);
     const baseUrl = 'http://localhost:5000/';
+    const refPass = useRef('');
     const navigate = useNavigate();
 
     const handleChange = (e) =>{
@@ -18,7 +21,7 @@ const Login = ({setLogged}) => {
         const name = e.target.name;
         const value = e.target.value;
         setUser({...user, [name]:value});
-    }
+    } 
 
     const handleSubmit = async(e) =>{
         e.preventDefault();
@@ -49,16 +52,16 @@ const Login = ({setLogged}) => {
     return <div className="accountsForms">
         <form>
         <h2>Log In</h2>
-            {user.username && <h2>{user.username}</h2>} 
-            {user.password && <h2>{user.password}</h2>}
-            
             <div className="inputGroup">
                 <label>Username</label>
                 <input type="text" name="username" onChange={(e)=>handleChange(e)}/>
             </div>
             <div className="inputGroup">
                 <label>Password</label>
-                <input type="password" name="password" onChange={(e)=>handleChange(e)}/>
+                <div className="inputPassword">
+                    <input type={showPass ? 'text' : 'password'} name="password" onChange={(e)=>handleChange(e)}/>
+                    <VisibilityIcon onClick={()=>setShowPass(!showPass)}/>
+                </div>
             </div>
             <button className="btn" onClick={handleSubmit}>submit</button>
         </form>

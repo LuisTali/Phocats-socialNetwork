@@ -171,7 +171,7 @@ export const poblateFriendsPage = async(req,res) =>{
 
 export const editProfile = async(req,res)=>{
     const {username,completeName,userDescription,id,encryptedName} = req.body;
-    const img = req.encryptedName || encryptedName;
+    const img = req.encryptedName || encryptedName; 
     try {
         const pool = await getConnection();
         const response = await pool.request().input("username",sql.VarChar,username).input("completename",sql.VarChar,completeName).input("userDescription",sql.VarChar,userDescription).input("profileImg",sql.VarChar,img).input("idUser",sql.Int,id).query(querys.editProfile);
@@ -204,7 +204,7 @@ export const formatDate = (date) =>{
     if(birthMonth.length < 2) birthMonth = `0${birthMonth}`;
     let birthDay = '' + (birthDate.getDate()+1);
     if(birthDay.length<2) birthDay = `0${birthDay}`;
-    birthDate = birthYear + '-' + birthMonth + '-' + birthDay ;
+    birthDate = birthDay + '-' + birthMonth + '-' +  birthYear;
     return birthDate;
 }
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import {useParams} from 'react-router-dom';
+import {useParams, useLocation} from 'react-router-dom';
+import { AppContext } from "../../../Index.jsx";
 import axios from 'axios';
 import Publication from "../../common/publication/Publication";
 import ModifyProfile from '../modifyProfile/ModifyProfile.jsx'
@@ -10,11 +11,13 @@ const UserProfile = ({idUserLogged}) =>{
     const {id} = useParams();
     const [user,setUser] = useState({});
     const [publications,setPublications] = useState([]);
-    let loggedUser = idUserLogged == id ? true : false; //Para setear si al cliquear mi foto puedo editar mi perfil o no
     const [showModifyProfile,setShowModifyProfile] = useState(false);
-    const baseUrl = 'http://localhost:5000/';
     const [following,setFollowing] = useState(false);
-    console.log(user);
+    const {lastLocation,setLastLocation} = React.useContext(AppContext);
+    let location = useLocation();
+    const baseUrl = 'http://localhost:5000/';
+    let loggedUser = idUserLogged == id ? true : false; //Para setear si al cliquear mi foto puedo editar mi perfil o no
+    
     window.addEventListener(onclick,(e)=>{
         const clickOut = e.target.closest('#userPageId');
         if(clickOut) return;
@@ -65,6 +68,7 @@ const UserProfile = ({idUserLogged}) =>{
                 //Si el usuario encontrado, no es el mismo que esta logueado ejecuta checkFollow para pasar la info al boton Follow
                 checkFollow();
             }
+            setLastLocation(location.pathname);
         }
     },[id,showModifyProfile,following]);
 

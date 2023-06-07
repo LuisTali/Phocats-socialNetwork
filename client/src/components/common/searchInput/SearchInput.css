@@ -36,6 +36,7 @@
     #searchForm{
         display: flex !important;
         align-items: center !important;
+        width: fit-content;
     }
     #searchGroup{
         margin-right: 1rem;
@@ -47,3 +48,10 @@
         width: 90%;
     }
 }
+@media screen and (max-width:500px) {
+    #searchForm{
+        display: flex !important;
+        align-items: center !important;
+        width: fit-content;
+    }
+  }

@@ -4,11 +4,12 @@ import Publication from "../../common/publication/Publication";
 import axios from "axios";
 import ButtonBack from "../../common/buttonBack/ButtonBack";
 import './PublicationsPerTag.css'
+import { AppContext } from "../../../Index.jsx";
 
 const PublicationsPerTag = () =>{
     const {nameTag} = useParams();
     const [publications,setPublications] = useState([]);
-    const baseUrl = 'http://localhost:5000/';
+    const {baseUrl,lastLocation} = React.useContext(AppContext);
 
     const getPublication = async() =>{
         const response = await axios.get(`${baseUrl}publication/publicationsByTag/${nameTag}`);
@@ -21,7 +22,7 @@ const PublicationsPerTag = () =>{
 
     return <div className="tagPage">
         <div className="publicationsPerTag">
-            <ButtonBack previousUrl={'/'}/>
+            <ButtonBack previousUrl={lastLocation}/>
             {publications.map((publication) =>
                 <Publication {...publication}/>
             )}

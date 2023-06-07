@@ -54,7 +54,7 @@ const Navbar = ({username,setLogged,setUser,id,notifications,newFollowers}) =>{
     }
     if(username){
       return <nav>
-      <Link to='/' id="imageLogo"><img src='./black-cat-logo.jpg'/></Link>
+      <Link to='/' id="imageLogo"><img src={'http://localhost:5000/black-cat-logo.jpg' ||'./black-cat-logo.jpg'}/></Link>
       {isModalOpen && <Modal setModalOpen={setModalOpen} modalContent={modalContent}/>}
       <SearchInput setModalOpen={setModalOpen} setModalContent={setModalContent}/>
       <div id={username ? 'links' : 'linksNotLogged'} className={clicked ? '' : 'inactive'}>

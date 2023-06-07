@@ -24,7 +24,6 @@ const SearchInput = ({setModalOpen,setModalContent}) =>{
                 setModalContent('No publications with that tag');
                 setModalOpen(true);
             }
-            
         }else{
             const response = await axios.post(`${baseUrl}user/byUsername`,{username:search});
             if(response.data.success){
