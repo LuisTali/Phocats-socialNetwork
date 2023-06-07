@@ -1,31 +1,78 @@
 import React, { useState } from "react";
+import {AppContext} from '../../../Index.jsx'
 import './ModifyProfile.css'
+import axios from "axios";
 
 const ModifyProfile = ({user,setShowModifyProfile}) =>{
-    const [infoUser,setInfoUser] = useState(user)
-
+    const [infoUser,setInfoUser] = useState(user);
+    const [file,setFile] = useState(null);
+    const {baseUrl} = React.useContext(AppContext);
+    
     const handleChange = (e) =>{
-        const name = e.target.name;
-        const value = e.target.value;
-        setInfoUser({...infoUser,[name]:value});
+        if(e.target.type != 'file'){
+            const name = e.target.name;
+            const value = e.target.value;
+            setInfoUser({...infoUser,[name]:value});  
+        }else{
+            console.log(e.target.files[0]);
+            setFile(e.target.files[0]);
+            console.log(infoUser);
+        }
     }
 
-    const handleSubmit = async() =>{
+    const handleSubmit = async(e) =>{
+        e.preventDefault();
+        try {
+            if(file){
+                let formData = new FormData();
+                formData.append('profileImg',file);
+                formData.append('username',infoUser.username);
+                formData.append('userDescription',infoUser.userDescription);
+                formData.append('completeName',infoUser.completeName);
+                formData.append('id',infoUser.id);
+                const config = {
+                    headers: {
+                        'content-type': 'multipart/form-data'
+                    }
+                };
+                const response = await axios.post(`${baseUrl}user/edit`,formData,config);
+                if(response.data.success == true) setShowModifyProfile(false);  
+            }else{
+                const response = await axios.post(`${baseUrl}user/editNoPhoto`,{encryptedName:infoUser.profileImg,username:infoUser.username,userDescription:infoUser.userDescription,completeName:infoUser.completeName,id:infoUser.id});
+                if(response.data.success == true) setShowModifyProfile(false); 
+            }
+            
+        } catch (error) {
+            console.log(error);
+        }
         //Enviar info user y que actualice todos los parametros, al tener los datos anteriores, si alguno no se modifico se actualizara pero quedaran iguales en la base de datos
     }
 
     return <div id="editProfile">
         <button onClick={()=>setShowModifyProfile(false)}>back</button>
-        <div className="inputGroup">
-            <label>{infoUser.username}</label>
-            <input placeholder={infoUser.username} onChange={(e)=>handleChange(e)} name="username"/>
-        </div>
-        <div className="inputGroup">
-            <label>{infoUser.completeName}</label>
-            <input placeholder={infoUser.completeName} onChange={(e)=>handleChange(e)} name="completeName"/>
-        </div>
-        <h5>{infoUser.birthDate}</h5>
-        <button onClick={()=>handleSubmit}>submit</button>
+        <form>
+            <div className="inputGroup inputFile">
+                <label>ProfileImg</label>
+                <input type="file" name="profileImg" onChange={(e)=>handleChange(e)} accept="image/*"/>
+            </div>
+            <div className="inputGroup">
+                <label>Username</label>
+                <input placeholder={infoUser.username} onChange={(e)=>handleChange(e)} name="username"/>
+            </div>
+            <div className="inputGroup">
+                <label>UserDescription</label>
+                <input placeholder={infoUser.userDescription} onChange={(e)=>handleChange(e)} name="userDescription"/>
+            </div>
+            <div className="inputGroup">
+                <label>Complete Name</label>
+                <input placeholder={infoUser.completeName} onChange={(e)=>handleChange(e)} name="completeName"/>
+            </div>
+            <div className="inputGroup">
+            <label>BirthDate</label>
+            <input placeholder={infoUser.birthDate}/>
+            </div>
+            <button className="confirmEdit" onClick={(e)=>handleSubmit(e)}>Edit</button>
+        </form>
     </div>
 }
 

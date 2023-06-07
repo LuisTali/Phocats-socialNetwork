@@ -7,26 +7,25 @@ CREATE TABLE Users(
 	username  varchar(50) NOT NULL CONSTRAINT uqUsers2 UNIQUE,
 	[password] varchar(50) CONSTRAINT ckUsers CHECK([password] LIKE '[a-z,0-9][a-z,0-9][a-z,0-9][a-z,0-9][a-z,0-9][a-z,0-9][a-z,0-9][a-z,0-9]%'),
 	completeName varchar(100) NOT NULL,
-	/*age int NOT NULL, sustituido por birthDate*/
 	madeIn datetime,
-	/*Añadido recientemente*/
 	userDescription varchar(200),
 	birthDate date,
+	profileImg varchar(1000)
 );
 
 CREATE TABLE Followers(
-	idUser1 int NOT NULL CONSTRAINT pfkFriends1 FOREIGN KEY REFERENCES Users(id),
-	idUser2 int NOT NULL CONSTRAINT pfkFriends2 FOREIGN KEY REFERENCES Users(id),
+	idUser1 int NOT NULL CONSTRAINT pfkFriends1 FOREIGN KEY REFERENCES Users(id), /*idFollower*/
+	idUser2 int NOT NULL CONSTRAINT pfkFriends2 FOREIGN KEY REFERENCES Users(id), /*idFollowing*/
 	followSince datetime NOT NULL,
-	notificated bit null DEFAULT 0 /*Handle notifications*/ 
+	notificated bit null DEFAULT 0 /*Handle notifications*/
 );
 
 CREATE TABLE Publications(
 	id int IDENTITY(1,1) CONSTRAINT pkPublications PRIMARY KEY,
 	idUser int CONSTRAINT fkPublications1 FOREIGN KEY REFERENCES Users(id),
-	textDescription varchar(200),
+	textDescription varchar(300),
 	imgName varchar(1000),
-	madeIn datetime
+	madeIn datetime,
 );
 
 CREATE TABLE Tags(

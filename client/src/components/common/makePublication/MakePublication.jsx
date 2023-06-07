@@ -49,9 +49,8 @@ const MakePubli = ({uploadPubli, id, username}) =>{
           setFile(undefined);
           return;
       }
-      const fileUrl = URL.createObjectURL(file); //Si paso esto visualizo la imagen al subirla
+      //const fileUrl = URL.createObjectURL(file); //Si paso esto visualizo la imagen al subirla
   
-      //Cada publi tiene un array de tags, para esto crear un nuevo input, luego puedo filtrar publicaciones en base a los tags que estas publis poseen utilizando por ejemplo include
       let newPubli = {
         textDescription: description,
         imgName: file.name,

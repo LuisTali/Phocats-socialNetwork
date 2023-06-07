@@ -18,7 +18,7 @@ const PublicationPopUp = ({id,imgsrc,madeIn,idUser,userCreator,textDescription,s
     const handleEditClick = async() =>{
         //Logica al finalizar de editar la descripcion, enviarla con axios al server y cerrar showEdit
         const valueI = refInput.current.value;
-        if(valueI != textDescription){
+        if(valueI != textDescription && valueI != ""){
             setShowEdit(false);
             const response = await axios.post(`${baseUrl}publication/edit`,{id,textDescription:valueI});
             setTextPublication(valueI);
@@ -27,7 +27,7 @@ const PublicationPopUp = ({id,imgsrc,madeIn,idUser,userCreator,textDescription,s
         }else{
             setShowEdit(false);
             return;
-        } 
+        }
     }
     const handleClickShowInfo = () =>{
         setShowInfo(!showInfo);

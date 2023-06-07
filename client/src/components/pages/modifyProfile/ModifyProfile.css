@@ -4,3 +4,21 @@
     margin-top: 10px;
     height: 100vh;
 }
+#editProfile .inputGroup{
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(60,60,60);
+    padding: 0.5rem 1rem;
+    margin: 0.5rem;
+}
+.inputGroup.inputFile input{
+    color: black;
+}
+form .confirmEdit{
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    font-weight: 500;
+    border: 2px solid black;
+    text-transform: uppercase;
+}

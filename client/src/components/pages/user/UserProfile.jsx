@@ -14,7 +14,7 @@ const UserProfile = ({idUserLogged}) =>{
     const [showModifyProfile,setShowModifyProfile] = useState(false);
     const baseUrl = 'http://localhost:5000/';
     const [following,setFollowing] = useState(false);
-
+    console.log(user);
     window.addEventListener(onclick,(e)=>{
         const clickOut = e.target.closest('#userPageId');
         if(clickOut) return;
@@ -72,7 +72,7 @@ const UserProfile = ({idUserLogged}) =>{
         return <ModifyProfile user={user} setShowModifyProfile={setShowModifyProfile}/>
     }
     return <div id="userPageId" className="userProfile" key={id}>
-        {loggedUser ? <img title="Click para Editar" id="profilePic" src="/user-avatar.png" onClick={()=>setShowModifyProfile(true)}/> : <img id="profilePic" src="/user-avatar.png"/>}
+        <img title="Click para Editar" id="profilePic" src={user.profileImg ? `${baseUrl}profilePictures/${user.profileImg}` : "/user-avatar.png"} onClick={()=>{loggedUser ? setShowModifyProfile(true) : null}}/>
         {!loggedUser && <button className="followBtn" onClick={handleFollow}>{following ? 'Unfollow' : 'Follow'}</button>}
         <h2>{user.username}</h2>
         <h3>{user.completeName}</h3>
