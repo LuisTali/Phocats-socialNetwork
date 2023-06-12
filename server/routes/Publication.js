@@ -7,7 +7,7 @@ const router = Router();
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, path.resolve('./server/image'));
+        cb(null, path.resolve('./server/image/publicationPictures'));
     },
     filename: (req, file, cb) => {
         req.encryptedName = Date.now()+'-'+file.originalname; //En Middleware puedo modificar Res y Req, por lo tanto agrego como parametro el nombre del archivo ya encriptado para luego guardarlo asi en SQL Server

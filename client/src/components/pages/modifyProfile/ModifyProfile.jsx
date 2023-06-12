@@ -36,7 +36,9 @@ const ModifyProfile = ({user,setShowModifyProfile}) =>{
                     }
                 };
                 const response = await axios.post(`${baseUrl}user/edit`,formData,config);
+                console.log(response);
                 if(response.data.success == true) setShowModifyProfile(false);  
+                else alert('algo anduvo mal')
             }else{
                 const response = await axios.post(`${baseUrl}user/editNoPhoto`,{encryptedName:infoUser.profileImg,username:infoUser.username,userDescription:infoUser.userDescription,completeName:infoUser.completeName,id:infoUser.id});
                 if(response.data.success == true) setShowModifyProfile(false); 

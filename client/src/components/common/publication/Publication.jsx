@@ -19,9 +19,9 @@ const Publication = ({id,textDescription,imgName,idUser,userCreator,madeIn}) =>{
       </div>
       <div className="publicationContent">
         <span className="textDescription">{textDescription}</span>
-        <img src={`http://localhost:5000/${imgName}`}  onClick={handleClick}/>
+        <img src={`http://localhost:5000/publicationPictures/${imgName}`}  onClick={handleClick}/>
       </div>
-      {showPopUp && <PublicationPopUp id={id} imgsrc={`http://localhost:5000/${imgName}`} textDescription={textDescription} idUser={idUser} userCreator={userCreator} madeIn={madeIn} setShowPopUp={setShowPopUp}/>}
+      {showPopUp && <PublicationPopUp id={id} imgsrc={`http://localhost:5000/publicationPictures/${imgName}`} textDescription={textDescription} idUser={idUser} userCreator={userCreator} madeIn={madeIn} setShowPopUp={setShowPopUp}/>}
     </article>
 }
 

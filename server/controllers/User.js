@@ -172,9 +172,11 @@ export const poblateFriendsPage = async(req,res) =>{
 export const editProfile = async(req,res)=>{
     const {username,completeName,userDescription,id,encryptedName} = req.body;
     const img = req.encryptedName || encryptedName; 
+    console.log(img);
     try {
         const pool = await getConnection();
         const response = await pool.request().input("username",sql.VarChar,username).input("completename",sql.VarChar,completeName).input("userDescription",sql.VarChar,userDescription).input("profileImg",sql.VarChar,img).input("idUser",sql.Int,id).query(querys.editProfile);
+        console.log(response);
         if(response.rowsAffected >= 1){
             return res.status(200).json({success:true,username});
         }else{
