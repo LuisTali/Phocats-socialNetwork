@@ -130,19 +130,46 @@ export const editPublication = async(req,res)=>{
     }
 }
 
+export const deletePublication = async(req,res) =>{
+    const {id} = req.params;
+    const {textDescription} = req.body;
+    try {
+        const pool = await getConnection();
+        if(getArrayTags(textDescription)){
+            const response = await pool.request().input("id",sql.Int,id).query(querys.deletePxT);
+            console.log(response);
+        }
+        const response2 = await pool.request().input("id",sql.Int,id).query(querys.deletePublication);
+        console.log(response2);
+        res.status(200).json({success:true,response:id});
+    } catch (error) {
+        res.status(200).json({success:false,error:error.message});
+    }
+}
+
 //Metodos que utiliza el server
 
 const getArrayTags = (textDescription) =>{
     let index = textDescription.indexOf('#'); 
         let tags = [];
         let arr = [];
+        let temporaryArray = [];
         if (index >= 0){ //Si se encuentra la posicion de # hay tags.
-            textDescription = textDescription.slice(index); //Se extrae desde el primer # hasta el final
             arr = textDescription.split(' '); //Creo un arreglo cortanto los espacios entre cada tag
+            for(const tag of arr){
+                if(tag[0] == '#'){
+                    //Si ultimo caracter del tag no es ni numero ni letra lo elimino y pusheo el tag asi
+                    if(isNaN(tag[tag.length-1]) && (!(tag[tag.length-1].toUpperCase().charCodeAt(0) > 64 && tag[tag.length-1].toUpperCase().charCodeAt(0) < 91))){
+                            temporaryArray.push(tag.slice(0,tag.length-1));
+                    }else{
+                        temporaryArray.push(tag);
+                    } 
+                } 
+            }
         }else return;
 
         //Por cada tag, corto desde la posicion 1, omitiendo el # en la posicion 0
-        tags = arr.map((tag) => tag.slice(1)) 
+        tags = temporaryArray.map((tag) => tag.slice(1));
         //Omito los tags vacios si es que el usuario ingresa "# "
         tags = tags.filter((tag) => tag != '');
         //Quito los tags repetidos si el usuario ingresa #cat #cat

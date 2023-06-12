@@ -33,10 +33,19 @@ const PublicationPopUp = ({id,imgsrc,madeIn,idUser,userCreator,textDescription,s
         setShowInfo(!showInfo);
         setShowEdit(false);
     }
+    const deletePublication = async() =>{
+        try {
+            console.log(`${baseUrl}publication/delete/${id}`);
+            const response = await axios.post(`${baseUrl}publication/delete/${id}`,{textDescription});
+            window.location.reload(true);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return <div className="popUp" >
         <button className="popUpBack" onClick={()=>setShowPopUp(false)}>{`<-- back`}</button>
-        {idLogged == idUser && <OptionsDropdown setShowEdit={setShowEdit} setShowInfo={setShowInfo}/>}
+        {idLogged == idUser && <OptionsDropdown setShowEdit={setShowEdit} setShowInfo={setShowInfo} deletePublication={deletePublication}/>}
         <div className="imgContainer" onClick={()=>handleClickShowInfo()}>
             <img src={imgsrc}/>
         </div>

@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import './OptionsDropdown.css';
 
-const OptionsDropdown = ({setShowEdit,setShowInfo}) =>{
+const OptionsDropdown = ({setShowEdit,setShowInfo,deletePublication}) =>{
     const [clicked,setClicked] = useState(false);
 
     const handleClickEdit = () =>{
@@ -10,7 +10,7 @@ const OptionsDropdown = ({setShowEdit,setShowInfo}) =>{
         setClicked(!clicked);
     }
     const handleClickDelete = () =>{
-
+        deletePublication();
     }
 
     return <div className="optionsDropDownPublication">

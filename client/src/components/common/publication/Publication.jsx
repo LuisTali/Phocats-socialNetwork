@@ -17,9 +17,9 @@ const Publication = ({id,textDescription,imgName,idUser,userCreator,madeIn}) =>{
       <div className='profilePublication'>
         <Link to={`/user/${idUser}`}>{userCreator}</Link> <h4>{madeIn}</h4>
       </div>
-      <div className="publicationContent" onClick={handleClick}>
+      <div className="publicationContent">
         <span className="textDescription">{textDescription}</span>
-        <img src={`http://localhost:5000/${imgName}`} />
+        <img src={`http://localhost:5000/${imgName}`}  onClick={handleClick}/>
       </div>
       {showPopUp && <PublicationPopUp id={id} imgsrc={`http://localhost:5000/${imgName}`} textDescription={textDescription} idUser={idUser} userCreator={userCreator} madeIn={madeIn} setShowPopUp={setShowPopUp}/>}
     </article>
