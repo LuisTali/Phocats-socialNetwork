@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {useParams} from 'react-router-dom';
+import {useParams, useNavigate} from 'react-router-dom';
 import Publication from "../../common/publication/Publication";
 import axios from "axios";
 import ButtonBack from "../../common/buttonBack/ButtonBack";
@@ -10,10 +10,15 @@ const PublicationsPerTag = () =>{
     const {nameTag} = useParams();
     const [publications,setPublications] = useState([]);
     const {baseUrl,lastLocation} = React.useContext(AppContext);
+    const navigate = useNavigate();
 
     const getPublication = async() =>{
         const response = await axios.get(`${baseUrl}publication/publicationsByTag/${nameTag}`);
-        setPublications(response.data.publications)
+        if(response.data.publications) setPublications(response.data.publications);
+        else{
+            navigate('/');
+            window.location.reload(true);
+        } 
     }
 
     useEffect(()=>{

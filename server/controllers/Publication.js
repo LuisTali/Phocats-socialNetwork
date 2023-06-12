@@ -136,11 +136,9 @@ export const deletePublication = async(req,res) =>{
     try {
         const pool = await getConnection();
         if(getArrayTags(textDescription)){
-            const response = await pool.request().input("id",sql.Int,id).query(querys.deletePxT);
-            console.log(response);
+            await pool.request().input("id",sql.Int,id).query(querys.deletePxT);
         }
         const response2 = await pool.request().input("id",sql.Int,id).query(querys.deletePublication);
-        console.log(response2);
         res.status(200).json({success:true,response:id});
     } catch (error) {
         res.status(200).json({success:false,error:error.message});
