@@ -5,13 +5,15 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import './Login.css'
 
 import Modal from '../../common/modal/Modal.jsx'
+import { AppContext } from "../../../Index.jsx";
 
-const Login = ({setLogged}) => {
+const Login = () => {
     const [user,setUser] = useState({username:'',password:''});
     const [isModalOpen,setModalOpen] = useState(false);
     const [modalContent,setModalContent] = useState('');
     const [succesModal,setSuccessModal] = useState(false);
     const [showPass,setShowPass] = useState(false);
+    const {setLogged} = React.useContext(AppContext);
     const baseUrl = 'http://localhost:5000/';
     const refPass = useRef('');
     const navigate = useNavigate();

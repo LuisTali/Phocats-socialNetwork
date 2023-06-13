@@ -7,13 +7,13 @@ import ModifyProfile from '../modifyProfile/ModifyProfile.jsx'
 import './UserProfile.css'
 
 
-const UserProfile = ({idUserLogged}) =>{
+const UserProfile = () =>{
     const {id} = useParams();
     const [user,setUser] = useState({});
     const [publications,setPublications] = useState([]);
     const [showModifyProfile,setShowModifyProfile] = useState(false);
     const [following,setFollowing] = useState(false);
-    const {lastLocation,setLastLocation} = React.useContext(AppContext);
+    const {lastLocation,setLastLocation,idUserLogged} = React.useContext(AppContext);
     let location = useLocation();
     const baseUrl = 'http://localhost:5000/';
     let loggedUser = idUserLogged == id ? true : false; //Para setear si al cliquear mi foto puedo editar mi perfil o no

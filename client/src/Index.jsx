@@ -30,30 +30,34 @@ const App = () =>{
         return <Router>
             <Navbar/>
             <Routes>
-                <Route path='/' element={<Login setLogged={setLogged}/>}/>
+                <Route path='/' element={<AppContext.Provider value={{baseUrl:baseUrl,setLogged}}>
+                    <Login/>
+                </AppContext.Provider>}/>
                 <Route path='/register' element={<Register/>}/>
             </Routes>
         </Router>
     }else{
-        return(
-            <Router>
+        return <Router>
                 <Navbar {...user} setUser={setUser} setLogged={setLogged}/>
                 <Routes>
-                    <Route exact path='/' element={<AppContext.Provider value={{baseUrl:baseUrl,idLogged:user.id,lastLocation,setLastLocation}}>
-                        <Home {...user}/>
+                    <Route exact path='/' element={<AppContext.Provider value={{baseUrl:baseUrl,idLogged:user.id,lastLocation,setLastLocation,...user}}>
+                        <Home/>
                     </AppContext.Provider> }/>
-                    <Route path='/user/:id' element={<AppContext.Provider value={{baseUrl:baseUrl,idLogged:user.id,lastLocation,setLastLocation}}>
-                        <UserProfile idUserLogged={user.id}/>
+                    <Route path='/user/:id' element={<AppContext.Provider value={{baseUrl:baseUrl,idUserLogged:user.id,lastLocation,setLastLocation}}>
+                        <UserProfile/>
                     </AppContext.Provider>}/>
                     <Route path='/tags/:nameTag' element={<AppContext.Provider value={{baseUrl:baseUrl,idLogged:user.id,lastLocation,setLastLocation}}>
                         <PublicationsPerTag/>
                     </AppContext.Provider>}/>
-                    <Route path='/friends' element={<Friends {...user}/>}/>
-                    <Route path='/login' element={<Login setLogged={setLogged}/>}/>
+                    <Route path='/friends' element={<AppContext.Provider value={{baseUrl:baseUrl,idLogged:user.id,lastLocation,setLastLocation,...user}}>
+                        <Friends/>
+                    </AppContext.Provider>}/>
+                    <Route path='/login' element={<AppContext.Provider value={{baseUrl:baseUrl,setLogged}}>
+                        <Login/>
+                    </AppContext.Provider>}/>
                     <Route path='/register' element={<Register/>}/>
                 </Routes>
             </Router>
-        )
     }
     
 }

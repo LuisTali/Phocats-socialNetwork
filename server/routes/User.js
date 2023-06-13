@@ -11,7 +11,6 @@ const storage = multer.diskStorage({
         cb(null, path.resolve('./server/image/profilePictures'));
     },
     filename: (req, file, cb) => {
-        console.log(file.originalname);
         req.encryptedName = Date.now()+'-'+file.originalname; //En Middleware puedo modificar Res y Req, por lo tanto agrego como parametro el nombre del archivo ya encriptado para luego guardarlo asi en SQL Server
         cb(null, Date.now()+'-'+file.originalname);
     }

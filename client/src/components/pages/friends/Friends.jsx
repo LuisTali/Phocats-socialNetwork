@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 import axios from 'axios';
 import FriendsPresentational from "./FriendsPresentational.jsx";
 import './Friends.css'
+import { AppContext } from "../../../Index.jsx";
 
 
-const Friends = ({id}) =>{
+const Friends = () =>{
     const [friends,setFriends] = useState([]);
     const [followers,setFollowers] = useState([]);
     const [following,setFollowing] = useState([]);
+    const {id} = React.useContext(AppContext);
     
     const baseUrl = 'http://localhost:5000/';
 

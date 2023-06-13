@@ -8,13 +8,13 @@ import Footer from '../../layout/footer/Footer';
 import './Home.css'
 import { AppContext } from '../../../Index.jsx';
 
-function Home({username,id}) {
+function Home() {
   const [publi,setPublis] = useState([]); //publications in the feed
   const [tags,setTags] = useState([]); //top3 most used tags
   const [loading,setLoading] = useState(true);
   const [empty,setEmpty] = useState(false); 
   const [forceRender,setForceRender] = useState(0); //sumo 1 para forzar re-render
-  const {baseUrl,setLastLocation,lastLocation} = React.useContext(AppContext);
+  const {baseUrl,setLastLocation,lastLocation,username,id} = React.useContext(AppContext);
   const location = useLocation();
 
   const uploadPubli = (publication) =>{
