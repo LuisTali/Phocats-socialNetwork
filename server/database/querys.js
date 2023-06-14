@@ -1,12 +1,15 @@
 export const querys = {
     getAllUsers: 'SELECT * FROM Users',
-    insertNewUser: 'INSERT INTO Users VALUES (@email,@username,@password,@completename,GETDATE(),null,@birthdate,null)',
+    insertNewUser: 'INSERT INTO Users VALUES (@email,@username,@password,@completename,GETDATE(),null,@birthdate,null,DEFAULT)',
     authenticateUser: 'SELECT * FROM Users WHERE username = @username AND password = @password',
     getUserById: 'SELECT * FROM Users WHERE id = @id',
     getUserByUsername: 'SELECT * FROM Users WHERE username = @username',
     newPublication: 'INSERT INTO Publications VALUES (@idUser,@textDescription,@imgSrc,GETDATE())',
     getLastPublication: 'SELECT top 1 * FROM Publications ORDER BY madeIN DESC',
     
+    getTokenAuth: 'SELECT * FROM ValidateToken WHERE idUser = @idUser',
+    execProcedureToken: 'exec insertToken "@idUser" = @idUser, "@token" = @token;',
+
     //Probar, recien creada
     editProfile: 'UPDATE Users SET username = @username, completename = @completename, userDescription = @userDescription, profileImg = @profileImg WHERE id = @idUser',
 

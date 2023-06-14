@@ -52,6 +52,7 @@ const Navbar = ({username,setLogged,setUser,id,notifications,newFollowers}) =>{
         setClicked(!clicked);
       }else setClicked(!clicked);
     }
+
     if(username){
       return <nav>
       <Link to='/' id="imageLogo"><img src={'/black-cat-logo.jpg'}/></Link>
@@ -75,30 +76,10 @@ const Navbar = ({username,setLogged,setUser,id,notifications,newFollowers}) =>{
     </nav>
     }else{
       return <nav className="unloggedNavbar">
-          <Link to='/' id="imageLogo"><img src={'/black-cat-logo.jpg'}/></Link>
-          <Link to='/'>Log In</Link>
+          <Link to='/' onClick={()=>window.location.reload(true)} id="imageLogo"><img src={'/black-cat-logo.jpg'}/></Link>
+          <Link to='/' onClick={()=>window.location.reload(true)}>Log In</Link>
       </nav>
     }
-    return <nav>
-      <Link to='/' id="imageLogo"><img src='./black-cat-logo.jpg'/></Link>
-      {isModalOpen && <Modal setModalOpen={setModalOpen} modalContent={modalContent}/>}
-      <SearchInput setModalOpen={setModalOpen} setModalContent={setModalContent}/>
-      <div id={username ? 'links' : 'linksNotLogged'} className={clicked ? '' : 'inactive'}>
-        <Link onClick={handleClick} to='/'>Home</Link>
-        <Link onClick={handleClick} to='/friends'>Friends</Link>
-        {username && <Link onClick={handleClick} to={`/user/${id}`}>MyProfile</Link>}
-        {username && <a onClick={(e)=>handleNotificationsClick(e)}>
-          Notifications {areNewFollowers && <label id="newFollowers"/>} 
-        </a>}
-        {username ? <Link onClick={(e)=>logOut(e)}>Log Out</Link> : <Link to='/login'>Log In</Link>}
-      </div>
-      {username && <Notifications isNotificacionsOpen={isNotificacionsOpen} notifications={notifications} idAccount={id} checkNotNotified={checkNotNotified}/>}
-
-      <div id="mobile">
-        <i onClick={()=>handleClick()} className={clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
-      </div>
-
-    </nav>
   }
 
   export default Navbar;

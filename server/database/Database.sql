@@ -10,7 +10,8 @@ CREATE TABLE Users(
 	madeIn datetime,
 	userDescription varchar(200),
 	birthDate date,
-	profileImg varchar(1000)
+	profileImg varchar(1000),
+	validated bit default 0 //Added recently
 );
 
 CREATE TABLE Followers(
@@ -46,3 +47,9 @@ if UPDATE(textDescription)
 BEGIN
 DELETE Publications_X_Tag FROM Publications_X_Tag INNER JOIN INSERTED ON INSERTED.id = Publications_X_Tag.idPublication;
 END
+
+//Al generar nuevo token de autentificacion de usuario, se ejecuta el procedimiento almacenado eliminando el token anterior asociado a ese usuario y generando uno nuevo;
+CREATE PROCEDURE insertToken @idUser int, @token varchar(10)
+AS 
+DELETE FROM ValidateToken WHERE idUser = @idUser;
+INSERT INTO ValidateToken VALUES (@idUser,@token,GETDATE());

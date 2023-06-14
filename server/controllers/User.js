@@ -41,8 +41,14 @@ export const authLogin = async(req,res) =>{
     try {
         const pool = await getConnection();
         const response = await pool.request().input("username",sql.VarChar,username).input("password",sql.VarChar,password).query(querys.authenticateUser);
+
+        console.log(response);
         
         if(response.recordset.length >= 1){
+            if(response.recordset[0].validated == false){
+                res.status(200).json({success:false,msg:'Valide su cuenta primero'});
+                return;
+            }
             let user = response.recordset[0];
             const responseNotis = await pool.request().input("idUser",sql.Int,user.id).query(querys.makeNotificacionsForUser); //Obtengo los nuevos seguidores y los paso como notificaciones
             const notifications= responseNotis.recordset;
@@ -185,6 +191,23 @@ export const editProfile = async(req,res)=>{
     }
 }
 
+export const sendValidationToken = async(req,res) =>{
+    const {id} = req.params;
+    try {
+        const pool = await getConnection() 
+        const response = await pool.request().input("idUser",sql.Int,id).query(querys.getTokenAuth);
+        let dateLastToken = new Date(response.recordset[0].createdIn);
+        
+        //Comprobar si entre dateLastToken y fechaActual no pasaron mas de 3 minutos, de ser asi, ejecutar store procedure para generar un nuevo token y enviarselo al usuario a traves de mail
+
+        let token = makeid(10);
+        res.status(200).json({success:true,token});
+    } catch (error) {
+        
+    }
+    
+}
+
 //Usada por otros controladores del lado servidor
 
 export const getById = async(id)=>{
@@ -209,5 +232,17 @@ export const formatDate = (date) =>{
 }
 
 const esCorreoElectronico = correoElectronico => /\S+@\S+/.test(correoElectronico);
+
+function makeid(length) {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      counter += 1;
+    }
+    return result;
+}
 
 

@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import ValidationUser from "../../common/validationUser/ValidationUser.jsx";
 import './Login.css'
 
 import Modal from '../../common/modal/Modal.jsx'
@@ -13,8 +14,9 @@ const Login = () => {
     const [modalContent,setModalContent] = useState('');
     const [succesModal,setSuccessModal] = useState(false);
     const [showPass,setShowPass] = useState(false);
-    const {setLogged} = React.useContext(AppContext);
-    const baseUrl = 'http://localhost:5000/';
+    const [showBtnValidation,setShowBtnValidation] = useState(false);
+    const [showValidationUser,setShowValidationUser] = useState(false);
+    const {setLogged,baseUrl} = React.useContext(AppContext);
     const refPass = useRef('');
     const navigate = useNavigate();
 
@@ -24,6 +26,11 @@ const Login = () => {
         const value = e.target.value;
         setUser({...user, [name]:value});
     } 
+
+    const handleValidateClick = async(e) =>{
+        e.preventDefault();
+        setShowValidationUser(true);
+    }
 
     const handleSubmit = async(e) =>{
         e.preventDefault();
@@ -35,6 +42,9 @@ const Login = () => {
         let user2 = {username:user.username,password:user.password};
         const response = await axios.post(`${baseUrl}user/auth`,{...user2});
         if(!response.data.success){
+            if(response.data.msg == 'Valide su cuenta primero'){
+                setShowBtnValidation(true);
+            }
             setModalContent(response.data.msg);
             setSuccessModal(false);
             setModalOpen(true);
@@ -43,15 +53,15 @@ const Login = () => {
         user2 = response.data.user;
         localStorage.setItem('user',JSON.stringify(user2));
         setModalContent(`Bienvenido nuevamente ${user2.username}`);
-            setSuccessModal(true);
-            setModalOpen(true);
+        setSuccessModal(true);
+        setModalOpen(true);
         setTimeout(()=>{
             setLogged(true);
             navigate('/')
         },3000);
     }
-
-    return <div className="accountsForms">
+    if(showValidationUser) return <ValidationUser setShowValidationUser={setShowValidationUser}/>
+    else return <div className="accountsForms">
         <form>
         <h2>Log In</h2>
             <div className="inputGroup">
@@ -65,7 +75,8 @@ const Login = () => {
                     <VisibilityIcon onClick={()=>setShowPass(!showPass)}/>
                 </div>
             </div>
-            <button className="btn" onClick={handleSubmit}>submit</button>
+            {!showBtnValidation && <button className="btn" onClick={handleSubmit}>submit</button>}
+            {showBtnValidation && <button className="btn" onClick={(e)=>{handleValidateClick(e)}}>validate</button>}
         </form>
         {isModalOpen && <Modal modalContent={modalContent} setModalOpen={setModalOpen} successModal={succesModal}/>}
         <h3>Do not you have an account?</h3>

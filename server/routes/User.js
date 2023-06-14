@@ -4,7 +4,7 @@ import path from 'path';
 const router = Router();
 
 
-import { showUsers, registerUser, authLogin, getUserById, getByUsername, followAccount, unfollowAccount, checkFollow, updateNotificatedStatus, poblateFriendsPage, editProfile } from "../controllers/User.js";
+import { showUsers, registerUser, authLogin, getUserById, getByUsername, followAccount, unfollowAccount, checkFollow, updateNotificatedStatus, poblateFriendsPage, editProfile, sendValidationToken } from "../controllers/User.js";
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -43,5 +43,7 @@ router.post('/auth',authLogin);
 router.post('/edit',upload.single('profileImg'),editProfile);
 //Arriba Ruta para actualizar info y foto, Abajo Ruta para actualizar info.
 router.post('/editNoPhoto',editProfile);
+
+router.get('/validateToken/:id',sendValidationToken);
 
 export default router;
