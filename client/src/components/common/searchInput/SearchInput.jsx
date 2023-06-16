@@ -13,10 +13,8 @@ const SearchInput = ({setModalOpen,setModalContent}) =>{
         if(search == '') return;
         e.preventDefault();
         if(search.charAt(0) == '#'){
-            console.log(search.slice(1));
             const nameTag = search.slice(1);
             const response = await axios.get(`${baseUrl}publication/publicationsByTag/${nameTag}`);
-            console.log(response);
             if(response.data.success){
                 navigate(`/tags/${nameTag}`);
                 setSearch('');

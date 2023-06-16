@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {useParams, useNavigate} from 'react-router-dom';
 import Publication from "../../common/publication/Publication";
 import axios from "axios";
 import ButtonBack from "../../common/buttonBack/ButtonBack";
 import './PublicationsPerTag.css'
 import { AppContext } from "../../../Index.jsx";
+import { LocationContext } from "../../../context/locationContext/LocationContext";
 
 const PublicationsPerTag = () =>{
     const {nameTag} = useParams();
     const [publications,setPublications] = useState([]);
-    const {baseUrl,lastLocation} = React.useContext(AppContext);
+    const {baseUrl} = React.useContext(AppContext);
+    const {lastLocation,setLastLocation} = useContext(LocationContext);
     const navigate = useNavigate();
 
     const getPublication = async() =>{

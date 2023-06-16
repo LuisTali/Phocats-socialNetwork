@@ -1,19 +1,20 @@
-import React,{useState, useRef} from "react";
+import React,{useState, useRef, useContext} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import OptionsDropdown from "../optionsDropdown/OptionsDropdown.jsx";
 import { AppContext } from "../../../Index.jsx";
 import axios from "axios";
 import './PublicationPopUp.css';
+import { LocationContext } from "../../../context/locationContext/LocationContext.jsx";
 
 const PublicationPopUp = ({id,imgsrc,madeIn,idUser,userCreator,textDescription,setShowPopUp}) =>{
-
+    const {baseUrl,idUserLogged} = useContext(AppContext); //Obtiene el Id del usuario loggeado para comprobar y habilitar el boton Edit
+    const {lastLocation,setLastLocation} = useContext(LocationContext);
     const [showInfo,setShowInfo] = useState(false);
     const [showEdit,setShowEdit] = useState(false);
     const [textPublication,setTextPublication] = useState(textDescription);
     const refInput = useRef(textDescription);
     const navigate = useNavigate();
 
-    const {baseUrl,idLogged,lastLocation} = React.useContext(AppContext); //Obtiene el Id del usuario loggeado para comprobar y habilitar el boton Edit
 
     const handleEditClick = async() =>{
         //Logica al finalizar de editar la descripcion, enviarla con axios al server y cerrar showEdit
@@ -35,7 +36,6 @@ const PublicationPopUp = ({id,imgsrc,madeIn,idUser,userCreator,textDescription,s
     }
     const deletePublication = async() =>{
         try {
-            console.log(`${baseUrl}publication/delete/${id}`);
             const response = await axios.post(`${baseUrl}publication/delete/${id}`,{textDescription});
             window.location.reload(true);
         } catch (error) {
@@ -45,7 +45,7 @@ const PublicationPopUp = ({id,imgsrc,madeIn,idUser,userCreator,textDescription,s
 
     return <div className="popUp" >
         <button className="popUpBack" onClick={()=>setShowPopUp(false)}>{`<-- back`}</button>
-        {idLogged == idUser && <OptionsDropdown setShowEdit={setShowEdit} setShowInfo={setShowInfo} deletePublication={deletePublication}/>}
+        {idUserLogged == idUser && <OptionsDropdown setShowEdit={setShowEdit} setShowInfo={setShowInfo} deletePublication={deletePublication}/>}
         <div className="imgContainer" onClick={()=>handleClickShowInfo()}>
             <img src={imgsrc}/>
         </div>

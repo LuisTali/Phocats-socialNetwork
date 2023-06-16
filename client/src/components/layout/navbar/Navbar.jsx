@@ -1,16 +1,17 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Modal from '../../common/modal/Modal.jsx';
 import SearchInput from '../../common/searchInput/SearchInput.jsx';
 import Notifications from "../../common/notifications/Notifications.jsx";
 
 import './Navbar.css'
+import { ModalContext } from "../../../context/modalContext/ModalContext.jsx";
+import { AppContext } from "../../../Index.jsx";
 
-const Navbar = ({username,setLogged,setUser,id,notifications,newFollowers}) =>{
+const Navbar = () =>{
+    const {isModalOpen,setModalOpen,modalContent,setModalContent,succesModal,setSuccessModal} = useContext(ModalContext);
+    const {username,setLogged,setUser,id,notifications,newFollowers} = useContext(AppContext);
     const navigate = useNavigate();
-    const [isModalOpen,setModalOpen] = useState(false);
-    const [modalContent,setModalContent] = useState('');
-    const [succesModal,setSuccessModal] = useState(false);
     const [isNotificacionsOpen,setNotificacionsOpen] = useState(false);
     const [areNewFollowers,setNewFollowers] = useState(undefined);
 

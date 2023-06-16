@@ -1,14 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {useNavigate} from 'react-router-dom'
 import axios from "axios";
 import './Register.css'
 import Modal from "../../common/modal/Modal.jsx";
+import { ModalContext } from "../../../context/modalContext/ModalContext";
 
 const Register = () =>{
+    const {isModalOpen,setModalOpen,modalContent,setModalContent,succesModal,setSuccessModal} = useContext(ModalContext);
     const [user,setUser] = useState({username:'',email:'',password:'',completeName:'',birthDate:''});
-    const [isModalOpen,setModalOpen] = useState(false);
-    const [modalContent,setModalContent] = useState('');
-    const [succesModal,setSuccessModal] = useState(false);
     const baseUrl = 'http://localhost:5000/';
     const navigate = useNavigate();
 

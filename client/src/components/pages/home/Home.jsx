@@ -1,4 +1,4 @@
-import React,{ useEffect, useState, useRef } from 'react'
+import React,{ useEffect, useState, useRef, useContext } from 'react'
 import axios from 'axios';
 import {useLocation} from 'react-router-dom';
 import MakePubli from '../../common/makePublication/MakePublication.jsx';
@@ -7,6 +7,7 @@ import Tag from '../../common/tag/Tag.jsx';
 import Footer from '../../layout/footer/Footer';
 import './Home.css'
 import { AppContext } from '../../../Index.jsx';
+import { LocationContext } from '../../../context/locationContext/LocationContext.jsx';
 
 function Home() {
   const [publi,setPublis] = useState([]); //publications in the feed
@@ -14,7 +15,8 @@ function Home() {
   const [loading,setLoading] = useState(true);
   const [empty,setEmpty] = useState(false); 
   const [forceRender,setForceRender] = useState(0); //sumo 1 para forzar re-render
-  const {baseUrl,setLastLocation,lastLocation,username,id} = React.useContext(AppContext);
+  const {baseUrl,username,id} = useContext(AppContext);
+  const {lastLocation,setLastLocation} = useContext(LocationContext);
   const location = useLocation();
 
   const uploadPubli = (publication) =>{
@@ -44,9 +46,9 @@ function Home() {
   }
 
   useEffect(()=>{
+    setLastLocation(location.pathname);
     useFetch();
     getMostUsedTags();
-    setLastLocation(location.pathname);
   },[forceRender,id])
 
   return (

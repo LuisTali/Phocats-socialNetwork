@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -7,13 +7,12 @@ import './Login.css'
 
 import Modal from '../../common/modal/Modal.jsx'
 import { AppContext } from "../../../Index.jsx";
+import { ModalContext } from "../../../context/modalContext/ModalContext.jsx";
 
 const Login = () => {
+    const {isModalOpen,setModalOpen,modalContent,setModalContent,succesModal,setSuccessModal} = useContext(ModalContext);
     const [user,setUser] = useState({username:'',password:''});
     const [idlogging,setIdLogging] = useState(0);
-    const [isModalOpen,setModalOpen] = useState(false);
-    const [modalContent,setModalContent] = useState('');
-    const [succesModal,setSuccessModal] = useState(false);
     const [showPass,setShowPass] = useState(false);
     const [showBtnValidation,setShowBtnValidation] = useState(false);
     const [showValidationUser,setShowValidationUser] = useState(false);
