@@ -13,15 +13,15 @@
     right: 0;
     margin: 3rem 1rem 0rem 0rem;
     background-color: black;
-    padding: 0.5rem;
+    border-radius: 5px;
+    padding: 1rem;
 }
 .optionsPubli li{
-    display: flex;
+    display: list-item;
     margin: 0rem 1rem;
-    padding: 0.50rem 1rem;
+    padding: 0.50rem ;
     align-items: center;
     cursor: pointer;
-    border-bottom: 1px solid white;
 }
 .show{
     display: flex;
