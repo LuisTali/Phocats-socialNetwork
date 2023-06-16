@@ -10,6 +10,7 @@ import { AppContext } from "../../../Index.jsx";
 
 const Login = () => {
     const [user,setUser] = useState({username:'',password:''});
+    const [idlogging,setIdLogging] = useState(0);
     const [isModalOpen,setModalOpen] = useState(false);
     const [modalContent,setModalContent] = useState('');
     const [succesModal,setSuccessModal] = useState(false);
@@ -43,6 +44,7 @@ const Login = () => {
         const response = await axios.post(`${baseUrl}user/auth`,{...user2});
         if(!response.data.success){
             if(response.data.msg == 'Valide su cuenta primero'){
+                setIdLogging(response.data.userId);
                 setShowBtnValidation(true);
             }
             setModalContent(response.data.msg);
@@ -60,7 +62,7 @@ const Login = () => {
             navigate('/')
         },3000);
     }
-    if(showValidationUser) return <ValidationUser setShowValidationUser={setShowValidationUser}/>
+    if(showValidationUser) return <ValidationUser idUser={idlogging} setShowValidationUser={setShowValidationUser}/>
     else return <div className="accountsForms">
         <form>
         <h2>Log In</h2>

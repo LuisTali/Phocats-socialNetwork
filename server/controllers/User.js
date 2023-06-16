@@ -1,5 +1,6 @@
 import { query, response } from 'express';
 import {getConnection,sql} from '../database/Connection.js';
+import nodemailer from 'nodemailer';
 import { querys } from '../database/querys.js';
 
 export const showUsers = async(req,res) =>{
@@ -37,16 +38,13 @@ export const registerUser = async(req,res) =>{
 
 export const authLogin = async(req,res) =>{
     const {username,password} = req.body;
-    
     try {
         const pool = await getConnection();
         const response = await pool.request().input("username",sql.VarChar,username).input("password",sql.VarChar,password).query(querys.authenticateUser);
 
-        console.log(response);
-        
         if(response.recordset.length >= 1){
             if(response.recordset[0].validated == false){
-                res.status(200).json({success:false,msg:'Valide su cuenta primero'});
+                res.status(200).json({success:false,userId:response.recordset[0].id,msg:'Valide su cuenta primero'});
                 return;
             }
             let user = response.recordset[0];
@@ -194,18 +192,51 @@ export const editProfile = async(req,res)=>{
 export const sendValidationToken = async(req,res) =>{
     const {id} = req.params;
     try {
-        const pool = await getConnection() 
-        const response = await pool.request().input("idUser",sql.Int,id).query(querys.getTokenAuth);
-        let dateLastToken = new Date(response.recordset[0].createdIn);
+        const pool = await getConnection();
+        const responseMail = await pool.request().input("id",sql.Int,id).query(querys.getUserById);
         
-        //Comprobar si entre dateLastToken y fechaActual no pasaron mas de 3 minutos, de ser asi, ejecutar store procedure para generar un nuevo token y enviarselo al usuario a traves de mail
-
         let token = makeid(10);
+        //Para StoredProcedures debo utilizar .execute en vez de .query como venia haciendo
+        const responseProcedure = await pool.request().input("idUser",sql.VarChar,id).input("token",sql.VarChar,token).execute('insertToken');
+        
+        let transporter = nodemailer.createTransport({
+            host: "sandbox.smtp.mailtrap.io",
+            port: 2525,
+            secure: false, // true for 465, false for other ports
+            auth: {
+              user: '04b9d5bc387636', // generated ethereal user
+              pass: '49a236d54ddf82', // generated ethereal password
+            },
+          });
+          let info = await transporter.sendMail({
+            from: '"Phocats" <taliercioluis1@gmail.com>', // sender address
+            to: `${responseMail.recordset[0].email}`, // list of receivers
+            subject: "Validate your account in Phocats", // Subject line
+            text: `Here is your token ${token}`, // plain text body
+             // html: "<b>Hello world?</b>",html body
+          });
+          console.log("Message sent: %s", info.messageId);
+
         res.status(200).json({success:true,token});
     } catch (error) {
-        
+        console.log(error);
     }
-    
+}
+
+export const checkValidationToken = async(req,res) =>{
+    const {token} = req.body;
+    try {
+        const pool = await getConnection();
+        const response = await pool.request().input("token",sql.VarChar,token).query(querys.checkToken);
+        console.log(response);
+        if(response.rowsAffected[0] != 0){
+            res.status(200).json({success:true,msg:'User validated, you are being redirected to login page'});
+        }else{
+            res.status(200).json({success:false,msg:'Algo fallo'});
+        }
+    } catch (error) {
+        res.status(200).json({success:false,error});
+    }
 }
 
 //Usada por otros controladores del lado servidor

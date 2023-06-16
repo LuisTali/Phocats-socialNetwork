@@ -9,7 +9,8 @@ export const querys = {
     
     getTokenAuth: 'SELECT * FROM ValidateToken WHERE idUser = @idUser',
     execProcedureToken: 'exec insertToken "@idUser" = @idUser, "@token" = @token;',
-
+    checkToken: 'UPDATE Users Set validated = 1 FROM Users AS u INNER JOIN ValidateToken AS vT ON vT.idUser = u.id WHERE vt.token = @token',
+    
     //Probar, recien creada
     editProfile: 'UPDATE Users SET username = @username, completename = @completename, userDescription = @userDescription, profileImg = @profileImg WHERE id = @idUser',
 

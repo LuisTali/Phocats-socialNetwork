@@ -76,8 +76,14 @@ const Navbar = ({username,setLogged,setUser,id,notifications,newFollowers}) =>{
     </nav>
     }else{
       return <nav className="unloggedNavbar">
-          <Link to='/' onClick={()=>window.location.reload(true)} id="imageLogo"><img src={'/black-cat-logo.jpg'}/></Link>
-          <Link to='/' onClick={()=>window.location.reload(true)}>Log In</Link>
+          <Link to='/' onClick={()=>{
+            navigate('/')
+            window.location.reload(true);
+          }} id="imageLogo"><img src={'/black-cat-logo.jpg'}/></Link>
+          <Link to='/' onClick={()=>{
+            navigate('/');
+            window.location.reload(true)
+          }}>Log In</Link>
       </nav>
     }
   }
