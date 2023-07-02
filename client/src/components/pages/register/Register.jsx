@@ -4,9 +4,12 @@ import axios from "axios";
 import './Register.css'
 import Modal from "../../common/modal/Modal.jsx";
 import { ModalContext } from "../../../context/modalContext/ModalContext";
+import ShowPass from "../../common/showPass/ShowPass.jsx";
+import { useShowPass } from "../../hooks/useShowPass.jsx";
 
 const Register = () =>{
     const {isModalOpen,setModalOpen,modalContent,setModalContent,succesModal,setSuccessModal} = useContext(ModalContext);
+    const {showPass,showPassword} = useShowPass();
     const [user,setUser] = useState({username:'',email:'',password:'',completeName:'',birthDate:''});
     const baseUrl = 'http://localhost:5000/';
     const navigate = useNavigate();
@@ -75,7 +78,10 @@ const Register = () =>{
         </div>
         <div className="inputGroup">
             <label>Password</label>
-            <input type="password" name="password" onChange={(e)=>handleChange(e)}/>
+            <div className="inputPassword">
+                <input type={showPass ? 'text' : 'password'} name="password" onChange={(e)=>handleChange(e)}/>
+                <ShowPass showPass={showPass} showPassword={showPassword}/>
+            </div>
         </div>
         <div className="inputGroup">
             <label>Complete Name</label>

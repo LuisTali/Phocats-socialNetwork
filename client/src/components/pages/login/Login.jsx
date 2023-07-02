@@ -6,18 +6,19 @@ import ValidationUser from "../../common/validationUser/ValidationUser.jsx";
 import './Login.css'
 
 import Modal from '../../common/modal/Modal.jsx'
+import ShowPass from "../../common/showPass/ShowPass.jsx";
 import { AppContext } from "../../../Index.jsx";
 import { ModalContext } from "../../../context/modalContext/ModalContext.jsx";
+import { useShowPass } from "../../hooks/useShowPass.jsx";
 
 const Login = () => {
     const {isModalOpen,setModalOpen,modalContent,setModalContent,succesModal,setSuccessModal} = useContext(ModalContext);
     const [user,setUser] = useState({username:'',password:''});
     const [idlogging,setIdLogging] = useState(0);
-    const [showPass,setShowPass] = useState(false);
+    const {showPass,showPassword} = useShowPass();
     const [showBtnValidation,setShowBtnValidation] = useState(false);
     const [showValidationUser,setShowValidationUser] = useState(false);
     const {setLogged,baseUrl} = React.useContext(AppContext);
-    const refPass = useRef('');
     const navigate = useNavigate();
 
     const handleChange = (e) =>{
@@ -73,7 +74,7 @@ const Login = () => {
                 <label>Password</label>
                 <div className="inputPassword">
                     <input type={showPass ? 'text' : 'password'} name="password" onChange={(e)=>handleChange(e)}/>
-                    <VisibilityIcon onClick={()=>setShowPass(!showPass)}/>
+                    <ShowPass showPass={showPass} showPassword={showPassword}/>
                 </div>
             </div>
             {!showBtnValidation && <button className="btn" onClick={handleSubmit}>submit</button>}

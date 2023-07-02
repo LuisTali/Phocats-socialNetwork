@@ -13,7 +13,6 @@ import Footer from './components/layout/footer/Footer';
 
 import ModalContextProvider from './context/modalContext/ModalContext';
 import LocationContextProvider, { LocationContext } from './context/locationContext/LocationContext';
-import { UserContext } from './context/userContext/UserContext';
 
 export const AppContext = React.createContext(); //Creo context, luego a cada elemento se lo paso con los valores deseados, lo importo en ese componente y lo utilizo, como hice en PublicationPopUp.
 

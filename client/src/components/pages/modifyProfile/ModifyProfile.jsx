@@ -24,10 +24,11 @@ const ModifyProfile = ({user,setShowModifyProfile}) =>{
         e.preventDefault();
         try {
             if(file){
+                let description = infoUser.userDescription == null ? 'No hubo tiempo de reflexion' :  infoUser.userDescription;
                 let formData = new FormData();
                 formData.append('profileImg',file);
                 formData.append('username',infoUser.username);
-                formData.append('userDescription',infoUser.userDescription);
+                formData.append('userDescription',description);
                 formData.append('completeName',infoUser.completeName);
                 formData.append('id',infoUser.id);
                 const config = {
@@ -40,7 +41,9 @@ const ModifyProfile = ({user,setShowModifyProfile}) =>{
                 if(response.data.success == true) setShowModifyProfile(false);  
                 else alert('algo anduvo mal')
             }else{
-                const response = await axios.post(`${baseUrl}user/editNoPhoto`,{encryptedName:infoUser.profileImg,username:infoUser.username,userDescription:infoUser.userDescription,completeName:infoUser.completeName,id:infoUser.id});
+                let description = infoUser.userDescription == 'null' ? 'No hubo tiempo de reflexion' :  infoUser.userDescription;
+                console.log(description);
+                const response = await axios.post(`${baseUrl}user/editNoPhoto`,{encryptedName:infoUser.profileImg,username:infoUser.username,userDescription:description,completeName:infoUser.completeName,id:infoUser.id});
                 if(response.data.success == true) setShowModifyProfile(false); 
             }
             
