@@ -17,7 +17,9 @@ app.use(express.static(path.resolve('./server/image'))); //Con resolve accedo a 
 app.use('/tag',tagRoutes);
 app.use('/user',userRoutes);
 app.use('/publication',publicationRoutes);
-
+app.get('/home',(req,res)=>{
+    res.send('Trying server on Render');
+})
 app.listen(config.port,()=>{
     console.log(`Port listening on ${config.port}`);
 })
