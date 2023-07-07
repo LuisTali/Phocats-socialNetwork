@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { AppContext } from "../../../Index.jsx";
 import axios from "axios";
 import Modal from "../modal/Modal.jsx";
+import './validationUser.css';
 
 const ValidationUser = ({idUser}) =>{
     const [tokenToCheck,setTokenToCheck] = useState(null);
@@ -36,6 +37,7 @@ const ValidationUser = ({idUser}) =>{
     }
     
     useEffect(()=>{
+        console.log('effecto');
         generateToken();
         setTimeout(()=>{
             window.location.reload(true);

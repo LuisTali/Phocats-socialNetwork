@@ -60,14 +60,14 @@ function Home() {
         <hr id="lineaMoviles"/>
         <div className='feedMobile'>
           {(loading && !empty) && <h2 style={{marginTop:'2rem'}}>Loading...</h2>}
-          {publi.map((publication) => <Publication {...publication}/>)}
+          {publi.map((publication) => <Publication {...publication} key={publication.id}/>)}
           {empty && <h2 style={{marginTop:'2rem'}}>Looks quite over here</h2>}
         </div>
         </div>
         <div className='groupsDiv'>
           <h3 style={{fontWeight:'500'}}>Top 3 Most Used Tags</h3>
           <ul>
-            {tags.map((tag) => <Tag {...tag}/>)}
+            {tags.map((tag) => <Tag {...tag} key={tag.nameTag}/>)}
           </ul>
       </div>
     </div>

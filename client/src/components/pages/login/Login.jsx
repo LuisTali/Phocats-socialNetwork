@@ -77,8 +77,8 @@ const Login = () => {
                     <ShowPass showPass={showPass} showPassword={showPassword}/>
                 </div>
             </div>
-            {!showBtnValidation && <button className="btn" onClick={handleSubmit}>submit</button>}
-            {showBtnValidation && <button className="btn" onClick={(e)=>{handleValidateClick(e)}}>validate</button>}
+            {!showBtnValidation && <button className="btn" onClick={handleSubmit}>login</button>}
+            {showBtnValidation && <button className="btn validateBtn" onClick={(e)=>{handleValidateClick(e)}}>validate</button>}
         </form>
         {isModalOpen && <Modal modalContent={modalContent} setModalOpen={setModalOpen} successModal={succesModal}/>}
         <h3>Do not you have an account?</h3>

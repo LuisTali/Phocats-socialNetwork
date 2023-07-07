@@ -194,7 +194,7 @@ export const sendValidationToken = async(req,res) =>{
     try {
         const pool = await getConnection();
         const responseMail = await pool.request().input("id",sql.Int,id).query(querys.getUserById);
-        
+        console.log('entro');
         let token = makeid(10);
         //Para StoredProcedures debo utilizar .execute en vez de .query como venia haciendo
         const responseProcedure = await pool.request().input("idUser",sql.VarChar,id).input("token",sql.VarChar,token).execute('insertToken');
@@ -228,11 +228,10 @@ export const checkValidationToken = async(req,res) =>{
     try {
         const pool = await getConnection();
         const response = await pool.request().input("token",sql.VarChar,token).query(querys.checkToken);
-        console.log(response);
         if(response.rowsAffected[0] != 0){
             res.status(200).json({success:true,msg:'User validated, you are being redirected to login page'});
         }else{
-            res.status(200).json({success:false,msg:'Algo fallo'});
+            res.status(200).json({success:false,msg:'Something went wrong'});
         }
     } catch (error) {
         res.status(200).json({success:false,error});

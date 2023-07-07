@@ -13,7 +13,7 @@ const Publication = ({id,textDescription,imgName,idUser,userCreator,madeIn}) =>{
     const handleClick = () =>{
       setShowPopUp(!showPopUp);
     }
-    return <article className='publication' key={id} >
+    return <article className='publication'>
       <div className='profilePublication'>
         <Link to={`/user/${idUser}`}>{userCreator}</Link> <h4>{madeIn}</h4>
       </div>

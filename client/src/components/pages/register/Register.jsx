@@ -11,6 +11,7 @@ const Register = () =>{
     const {isModalOpen,setModalOpen,modalContent,setModalContent,succesModal,setSuccessModal} = useContext(ModalContext);
     const {showPass,showPassword} = useShowPass();
     const [user,setUser] = useState({username:'',email:'',password:'',completeName:'',birthDate:''});
+    const [passwordValidation,setPasswordValidation] = useState('');
     const baseUrl = 'http://localhost:5000/';
     const navigate = useNavigate();
 
@@ -23,7 +24,8 @@ const Register = () =>{
 
     const handleSubmit = async(e) =>{
         e.preventDefault();
-        if(!user.username || !user.password || !user.email || !user.completeName || !user.birthDate){
+        setSuccessModal(false);
+        if(!user.username || !user.password || !user.email || !user.completeName || !user.birthDate || !passwordValidation){
             setModalContent('Llene todos los campos');
             setModalOpen(true);
             return; 
@@ -43,6 +45,11 @@ const Register = () =>{
             setModalOpen(true);
             return;
         }
+        if(user.password != passwordValidation){
+            setModalContent('Tus contraseñas no coinciden');
+            setModalOpen(true);
+            return;
+        }
 
         //Formateo la fecha ingresada para pasarla al formato que posee SQL Server respecto a la variable Date
         let birthDateFormat = `${new Date(user.birthDate).getFullYear()}-${new Date(user.birthDate).getMonth() + 1}-${new Date(user.birthDate).getDate()+1}`;
@@ -53,7 +60,6 @@ const Register = () =>{
 
         if(!response.data.success){
             setModalContent(response.data.msg);
-            setSuccessModal(false);
             setModalOpen(true);
             return;
         }
@@ -80,6 +86,13 @@ const Register = () =>{
             <label>Password</label>
             <div className="inputPassword">
                 <input type={showPass ? 'text' : 'password'} name="password" onChange={(e)=>handleChange(e)}/>
+                <ShowPass showPass={showPass} showPassword={showPassword}/>
+            </div>
+        </div>
+        <div className="inputGroup">
+            <label>Password Check</label>
+            <div className="inputPassword">
+                <input type={showPass ? 'text' : 'password'} name="passwordValidate" onChange={(e)=>setPasswordValidation(e.target.value)}/>
                 <ShowPass showPass={showPass} showPassword={showPassword}/>
             </div>
         </div>

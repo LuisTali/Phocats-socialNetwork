@@ -9,7 +9,7 @@ const Tag = ({nameTag,cantUsados}) =>{
     navigate(`/tags/${nameTag}`);
   }
 
-  return <li className='liTag' onClick={handleClick}><h3 className="nameTag">{nameTag}</h3> - <h3 className="cantUsados">{cantUsados}</h3></li>
+  return <li key={nameTag} className='liTag' onClick={handleClick}><h3 className="nameTag">{nameTag}</h3> - <h3 className="cantUsados">{cantUsados}</h3></li>
 }
 
 export default Tag;

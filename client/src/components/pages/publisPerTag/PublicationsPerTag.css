@@ -8,8 +8,8 @@
 }
 .publicationsPerTag button{
     grid-column: 1/4;
-    width: 15%;
-    margin-left: 42.5%;
+    width: 20%;
+    margin-left: 40%;
     margin-top: 2rem;
     margin-bottom: 2rem;
     padding: 0.8rem 1.2rem;

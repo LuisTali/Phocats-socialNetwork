@@ -22,7 +22,7 @@ export const getPublications = async(req,res) =>{
 
 export const newPublication = async(req,res) =>{
     try {
-        console.log(req.encryptedName); //Llega desde la funcion storage en el router Publication
+        //console.log(req.encryptedName); //Llega desde la funcion storage en el router Publication
         const {textDescription,idUser} = req.body;
         const pool = await getConnection();
         const response = await pool.request().input("idUser",sql.Int,idUser).input("textDescription",sql.VarChar,textDescription).input("imgSrc",sql.VarChar,req.encryptedName).query(querys.newPublication);
@@ -132,9 +132,7 @@ export const editPublication = async(req,res)=>{
 
 export const deletePublication = async(req,res) =>{
     const {id} = req.params;
-    console.log(id);
     const {textDescription} = req.body;
-    console.log(textDescription);
     try {
         const pool = await getConnection();
         if(textDescription){
@@ -143,7 +141,6 @@ export const deletePublication = async(req,res) =>{
             }
         }
         const response2 = await pool.request().input("id",sql.Int,id).query(querys.deletePublication);
-        console.log(response2);
         res.status(200).json({success:true,response:id});
     } catch (error) {
         res.status(200).json({success:false,error:error.message});

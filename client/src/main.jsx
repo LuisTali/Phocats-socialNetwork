@@ -5,7 +5,5 @@ import App from './Index.jsx';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
     <App />
-  </React.StrictMode>,
 )

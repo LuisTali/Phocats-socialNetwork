@@ -53,9 +53,11 @@ const ModifyProfile = ({user,setShowModifyProfile}) =>{
         //Enviar info user y que actualice todos los parametros, al tener los datos anteriores, si alguno no se modifico se actualizara pero quedaran iguales en la base de datos
     }
 
-    return <div id="editProfile">
-        <button onClick={()=>setShowModifyProfile(false)}>back</button>
-        <form>
+    return <div className="editProfileFormContainer">
+        
+        <button className="unshowModifyForm" onClick={()=>setShowModifyProfile(false)}>back</button>
+        <div id="editProfile">
+        <form className="modifyProfileForm">
             <div className="inputGroup inputFile">
                 <label>ProfileImg</label>
                 <input type="file" name="profileImg" onChange={(e)=>handleChange(e)} accept="image/*"/>
@@ -78,6 +80,7 @@ const ModifyProfile = ({user,setShowModifyProfile}) =>{
             </div>
             <button className="confirmEdit" onClick={(e)=>handleSubmit(e)}>Edit</button>
         </form>
+    </div>
     </div>
 }
 

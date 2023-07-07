@@ -67,7 +67,12 @@
 .userContainer .dateDiv .date{
     font-weight: 500;
 }
+.publicationInfoDiv{
+    width: 100%;
+}
+.publicationInfoDiv h3{
 
+}
 @media screen and ( max-width:768px ){
    .popUp{
         flex-direction: column;
@@ -81,12 +86,14 @@
    }
    .popUp .userContainer.showInfo{
         position: absolute;
+        bottom: 0;
         width: fit-content;
         display: flex;
-        margin-top: 16rem;
         justify-content: center;
         text-align: left;
-        width: 60%;
+        width: 100%;
+        background: grey;
+        height: max-content;
    }
     .popUp .userContainer.showInfo .date{
         white-space: nowrap;

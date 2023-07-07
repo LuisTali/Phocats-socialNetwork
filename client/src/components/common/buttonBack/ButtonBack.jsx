@@ -9,7 +9,7 @@ const ButtonBack = ({previousUrl}) =>{
         navigate(previousUrl);
     }
 
-    return <button onClick={handleClick}>back</button>
+    return <button className="backBtn" onClick={handleClick}>back</button>
 }
 
 export default ButtonBack;
