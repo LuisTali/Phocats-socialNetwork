@@ -27,6 +27,7 @@ const MakePubli = ({uploadPubli, id, username}) =>{
       try {
         const formData = new FormData();
         if(file)
+        console.log(URL.createObjectURL(file));
         formData.append('img',file);
         formData.append('textDescription',textDescription);
         formData.append('imgName',imgName);

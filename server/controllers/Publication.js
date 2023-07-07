@@ -2,6 +2,8 @@ import { getConnection, sql } from "../database/Connection.js";
 import {getById} from './User.js'
 import {querys} from '../database/querys.js';
 import { formatDate } from "./User.js";
+import { uploadImg } from "../Cloudinary.js";
+
 
 export const getPublications = async(req,res) =>{
     try {

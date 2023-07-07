@@ -17,6 +17,8 @@ app.use(express.static(path.resolve('./server/image'))); //Con resolve accedo a 
 app.use('/tag',tagRoutes);
 app.use('/user',userRoutes);
 app.use('/publication',publicationRoutes);
+
+//Prueba deploy en Render
 app.get('/home',(req,res)=>{
     res.send('Trying server on Render');
 })

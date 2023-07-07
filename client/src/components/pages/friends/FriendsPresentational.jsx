@@ -5,7 +5,7 @@ const FriendsPresentational = ({title,users}) =>{ //Users get Friends, Followers
     return <div className="containerFriendsPage" id="followers">
     <h3 className="title">{title}</h3>
     <ul>
-        {users.map((users)=> <li><Link to={`/user/${users.id}`}>{users.username}</Link></li>)}
+        {users.map((users)=> <li key={users.id}><Link to={`/user/${users.id}`}>{users.username}</Link></li>)}
     </ul>
 </div>
 }
