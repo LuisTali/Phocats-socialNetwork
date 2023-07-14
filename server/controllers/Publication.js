@@ -2,8 +2,6 @@ import { getConnection, sql } from "../database/Connection.js";
 import {getById} from './User.js'
 import {querys} from '../database/querys.js';
 import { formatDate } from "./User.js";
-import { uploadImg } from "../Cloudinary.js";
-
 
 export const getPublications = async(req,res) =>{
     try {
@@ -24,10 +22,9 @@ export const getPublications = async(req,res) =>{
 
 export const newPublication = async(req,res) =>{
     try {
-        //console.log(req.encryptedName); //Llega desde la funcion storage en el router Publication
-        const {textDescription,idUser} = req.body;
+        const {textDescription,idUser,imgSrc} = req.body;
         const pool = await getConnection();
-        const response = await pool.request().input("idUser",sql.Int,idUser).input("textDescription",sql.VarChar,textDescription).input("imgSrc",sql.VarChar,req.encryptedName).query(querys.newPublication);
+        const response = await pool.request().input("idUser",sql.Int,idUser).input("textDescription",sql.VarChar,textDescription).input("imgSrc",sql.VarChar,imgSrc).query(querys.newPublication);
         if(response.rowsAffected >= 1){
 
             const responseLastPublication = await pool.request().query(querys.getLastPublication); //Obtener la ultima publication insertada
@@ -43,7 +40,7 @@ export const newPublication = async(req,res) =>{
             res.status(200).json({success:true,response,publication:publi});
         }
     } catch (error) {
-        res.status(200).json({success:false,error:error});
+        
     }
 }
 

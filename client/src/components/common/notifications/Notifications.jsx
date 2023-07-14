@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import './Notifications.css'
 
-const Notifications = ({isNotificacionsOpen,notifications,idAccount,checkNotNotified}) =>{
+const Notifications = ({isNotificacionsOpen,notifications,idAccount,checkNotNotified,setClicked,setNotificacionsOpen}) =>{
     const baseUrl = 'http://localhost:5000/';
 
     if(notifications.length == 0){
@@ -13,6 +13,8 @@ const Notifications = ({isNotificacionsOpen,notifications,idAccount,checkNotNoti
     const handleClick = async(idFollower) =>{
         checkNotNotified();
         const response = await axios.post(`${baseUrl}user/updateNotificated`,{idAccount,idFollower});
+        setClicked(false);
+        setNotificacionsOpen(false);
     }
 
     useEffect(()=>{

@@ -14,43 +14,32 @@ const ModifyProfile = ({user,setShowModifyProfile}) =>{
             const value = e.target.value;
             setInfoUser({...infoUser,[name]:value});  
         }else{
-            console.log(e.target.files[0]);
             setFile(e.target.files[0]);
-            console.log(infoUser);
         }
     }
 
     const handleSubmit = async(e) =>{
         e.preventDefault();
         try {
+            let imgSrc = infoUser.profileImg;
             if(file){
+                const formData = new FormData();
+                formData.append("file",file);
+                formData.append("upload_preset","vz9nfppp");
+                let res = await axios.post("https://api.cloudinary.com/v1_1/dvcmeanik/image/upload",formData);
+                imgSrc = res.data.secure_url;
+            }
                 let description = infoUser.userDescription == null ? 'No hubo tiempo de reflexion' :  infoUser.userDescription;
-                let formData = new FormData();
-                formData.append('profileImg',file);
-                formData.append('username',infoUser.username);
-                formData.append('userDescription',description);
-                formData.append('completeName',infoUser.completeName);
-                formData.append('id',infoUser.id);
-                const config = {
-                    headers: {
-                        'content-type': 'multipart/form-data'
-                    }
-                };
-                const response = await axios.post(`${baseUrl}user/edit`,formData,config);
-                console.log(response);
+
+                const response = await axios.post(`${baseUrl}user/edit`,{username:infoUser.username,completeName:infoUser.completeName,userDescription:description,id:infoUser.id,imgSrc:imgSrc});
+
                 if(response.data.success == true) setShowModifyProfile(false);  
                 else alert('algo anduvo mal')
-            }else{
-                let description = infoUser.userDescription == 'null' ? 'No hubo tiempo de reflexion' :  infoUser.userDescription;
-                console.log(description);
-                const response = await axios.post(`${baseUrl}user/editNoPhoto`,{encryptedName:infoUser.profileImg,username:infoUser.username,userDescription:description,completeName:infoUser.completeName,id:infoUser.id});
-                if(response.data.success == true) setShowModifyProfile(false); 
-            }
             
         } catch (error) {
             console.log(error);
         }
-        //Enviar info user y que actualice todos los parametros, al tener los datos anteriores, si alguno no se modifico se actualizara pero quedaran iguales en la base de datos
+        //Enviar info user y que actualice todos los parametros, al tener los datos anteriores, si alguno no se modifico se actualizara pero
     }
 
     return <div className="editProfileFormContainer">

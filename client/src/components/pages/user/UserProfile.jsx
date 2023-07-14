@@ -14,10 +14,9 @@ const UserProfile = () =>{
     const [publications,setPublications] = useState([]);
     const [showModifyProfile,setShowModifyProfile] = useState(false);
     const [following,setFollowing] = useState(false);
-    const {idUserLogged} = useContext(AppContext);
+    const {baseUrl,idUserLogged} = useContext(AppContext);
     const {lastLocation,setLastLocation} = useContext(LocationContext);
     let location = useLocation();
-    const baseUrl = 'http://localhost:5000/';
     let loggedUser = idUserLogged == id ? true : false; //Para setear si al cliquear mi foto puedo editar mi perfil o no
     
     window.addEventListener(onclick,(e)=>{
@@ -78,7 +77,7 @@ const UserProfile = () =>{
         return <ModifyProfile user={user} setShowModifyProfile={setShowModifyProfile}/>
     }
     return <div id="userPageId" className="userProfile" key={id}>
-        <img title="Click para Editar" id="profilePic" src={user.profileImg ? `${baseUrl}profilePictures/${user.profileImg}` : "/user-avatar.png"} onClick={()=>{loggedUser ? setShowModifyProfile(true) : null}}/>
+        <img title="Click para Editar" id="profilePic" src={user.profileImg ? user.profileImg : "/user-avatar.png"} onClick={()=>{loggedUser ? setShowModifyProfile(true) : null}}/>
         {!loggedUser && <button className="followBtn" onClick={handleFollow}>{following ? 'Unfollow' : 'Follow'}</button>}
         <h2>{user.username}</h2>
         <h3>{user.completeName}</h3>

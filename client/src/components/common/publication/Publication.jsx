@@ -9,8 +9,8 @@ const Publication = ({id,textDescription,imgName,idUser,userCreator,madeIn}) =>{
   const navigate = useNavigate();
   const [showPopUp,setShowPopUp] = useState(false);
   if(textDescription == 'undefined') textDescription = null;
-    
-    const handleClick = () =>{
+
+  const handleClick = () =>{
       setShowPopUp(!showPopUp);
     }
     return <article className='publication'>
@@ -19,9 +19,9 @@ const Publication = ({id,textDescription,imgName,idUser,userCreator,madeIn}) =>{
       </div>
       <div className="publicationContent">
         <span className="textDescription">{textDescription}</span>
-        <img src={`http://localhost:5000/publicationPictures/${imgName}`}  onClick={handleClick}/>
+        <img src={`${imgName}`}  onClick={handleClick}/>
       </div>
-      {showPopUp && <PublicationPopUp id={id} imgsrc={`http://localhost:5000/publicationPictures/${imgName}`} textDescription={textDescription} idUser={idUser} userCreator={userCreator} madeIn={madeIn} setShowPopUp={setShowPopUp}/>}
+      {showPopUp && <PublicationPopUp id={id} imgsrc={imgName} textDescription={textDescription} idUser={idUser} userCreator={userCreator} madeIn={madeIn} setShowPopUp={setShowPopUp}/>}
     </article>
 }
 

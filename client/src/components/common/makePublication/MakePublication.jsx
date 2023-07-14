@@ -3,7 +3,7 @@ import axios from 'axios';
 import './MakePublication.css'
 import Modal from '../modal/Modal.jsx'
 
-const MakePubli = ({uploadPubli, id, username}) =>{
+const MakePubli = ({uploadPubli, id, username,baseUrl}) =>{
     const[file,setFile] = useState();
     const[description,setDescription] = useState();
     const [isModalOpen,setModalOpen] = useState(false);
@@ -11,7 +11,6 @@ const MakePubli = ({uploadPubli, id, username}) =>{
     const [succesModal,setSuccessModal] = useState(false);
     const refFile = useRef(null);
     const refDescription = useRef(null);
-    const baseUrl = 'http://localhost:5000/publication';
   
     const handleUploadClick = () =>{
       if(!refFile.current.files[0]){
@@ -22,27 +21,23 @@ const MakePubli = ({uploadPubli, id, username}) =>{
       if(refDescription.current.value) setDescription(refDescription.current.value);
       if(refFile.current.files[0]) setFile(refFile.current.files[0]);
     }
-  
-    const uploadPublication = async({textDescription,file,imgName,idUser}) => { 
+
+    const uploadPublication = async() =>{
       try {
-        const formData = new FormData();
-        if(file)
-        console.log(URL.createObjectURL(file));
-        formData.append('img',file);
-        formData.append('textDescription',textDescription);
-        formData.append('imgName',imgName);
-        formData.append('idUser',idUser);
-        const config = {
-          headers: {
-              'content-type': 'multipart/form-data'
-          }
-        };
-        const response = await axios.post(`${baseUrl}/add`,formData,config);
-        const data = await response.data.publication
-        return data;
-        } catch (error) {
-          console.log(error);
+        if(file){
+          console.log(file);
+          const formData = new FormData();
+          formData.append("file",file);
+          formData.append("upload_preset","sdsftg7i")
+          const res = await axios.post("https://api.cloudinary.com/v1_1/dvcmeanik/image/upload",formData);
+          const response = await axios.post(`${baseUrl}publication/add`,{idUser:id,imgSrc:res.data.secure_url,textDescription:description});
+          const data = await response.data.publication;
+          return data;
         }
+      } catch (error) {
+        console.log(error);
+      }
+
     }
   
     useEffect(()=>{
@@ -50,17 +45,9 @@ const MakePubli = ({uploadPubli, id, username}) =>{
           setFile(undefined);
           return;
       }
-      //const fileUrl = URL.createObjectURL(file); //Si paso esto visualizo la imagen al subirla
-  
-      let newPubli = {
-        textDescription: description,
-        imgName: file.name,
-        file:file,
-        idUser: id //Modificarlo luego cuando cree User
-      }
-      
-      uploadPublication({...newPubli}).then((publi) => uploadPubli(publi));
-  
+
+      uploadPublication().then((publi) => uploadPubli(publi));
+
       setFile(undefined);
       setDescription('');
       refFile.current.value = '';

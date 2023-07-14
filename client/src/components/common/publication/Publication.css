@@ -40,7 +40,8 @@
     align-items: center;
   }
   .publicationContent .textDescription{
-    padding: 0rem 0.5rem;
+    padding: 0.25rem 0.5rem;
+    font-weight: 500;
   }
 
   @media screen and (max-width:1140px){

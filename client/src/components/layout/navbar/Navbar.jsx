@@ -68,7 +68,7 @@ const Navbar = () =>{
         </a>
         <Link onClick={(e)=>logOut(e)}>Log Out</Link>
       </div>
-      <Notifications isNotificacionsOpen={isNotificacionsOpen} notifications={notifications} idAccount={id} checkNotNotified={checkNotNotified}/>
+      <Notifications isNotificacionsOpen={isNotificacionsOpen} setNotificacionsOpen={setNotificacionsOpen} setClicked={setClicked} notifications={notifications} idAccount={id} checkNotNotified={checkNotNotified}/>
 
       <div id="mobile">
         <i onClick={()=>handleClick()} className={clicked ? 'fas fa-times' : 'fas fa-bars'}></i>

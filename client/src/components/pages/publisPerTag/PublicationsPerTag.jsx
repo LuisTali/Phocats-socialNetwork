@@ -31,7 +31,7 @@ const PublicationsPerTag = () =>{
         <div className="publicationsPerTag">
             <ButtonBack previousUrl={lastLocation}/>
             {publications.map((publication) =>
-                <Publication {...publication}/>
+                <Publication key={publication.id} {...publication}/>
             )}
         </div>
     </div>;

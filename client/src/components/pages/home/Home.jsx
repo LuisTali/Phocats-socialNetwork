@@ -55,7 +55,7 @@ function Home() {
     <>
     <div className='homePage'>
       <div className='feed'>
-        <MakePubli uploadPubli={uploadPubli} id={id} username={username}/>
+        <MakePubli uploadPubli={uploadPubli} id={id} username={username} baseUrl={baseUrl}/>
 
         <hr id="lineaMoviles"/>
         <div className='feedMobile'>
