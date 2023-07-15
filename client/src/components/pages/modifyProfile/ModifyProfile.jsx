@@ -44,7 +44,7 @@ const ModifyProfile = ({user,setShowModifyProfile}) =>{
 
     return <div className="editProfileFormContainer">
         
-        <button className="unshowModifyForm" onClick={()=>setShowModifyProfile(false)}>back</button>
+        <button className="unshowModifyForm" onClick={()=>setShowModifyProfile(false)}>X</button>
         <div id="editProfile">
         <form className="modifyProfileForm">
             <div className="inputGroup inputFile">

@@ -15,14 +15,23 @@
     word-wrap: break-word;
     font-weight: 500;
   }
-  .makePublication .multimediaOptions li{
+  .makePublication .multimediaOptions{
+    background-color: #452c63;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.5rem 0rem;
+    border-radius: 5px;
+    z-index: 10;
+    width: 30%;
+  }
+  .makePublication .multimediaOptions #fileInput{
     display: inline-block;
     padding: 0.5rem 1rem;
-    margin: 0rem 1rem;
+    opacity: 1;
+    z-index: -1;
   }
-  .makePublication .multimediaOptions li #fileInput{
-    width: 100%;
-  }
+ 
   .makePublication .btn{
     border-radius: 5px;
     padding: 0.5rem 1rem;
@@ -30,7 +39,8 @@
     width: 20%;
     font-weight: 500;
     transform: translate(-50%); 
-    border: 3px solid #452c63;
+    border: 1.5px solid #452c63;
+    text-align: center;
   }
   .makePublication .failureModal{
     margin-left: 50%;

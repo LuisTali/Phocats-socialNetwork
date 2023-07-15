@@ -1,7 +1,8 @@
 import React,{useEffect,useState,useRef} from 'react';
 import axios from 'axios';
 import './MakePublication.css'
-import Modal from '../modal/Modal.jsx'
+import Modal from '../modal/Modal.jsx';
+import UploadIcon from '@mui/icons-material/Upload';
 
 const MakePubli = ({uploadPubli, id, username,baseUrl}) =>{
     const[file,setFile] = useState();
@@ -56,11 +57,10 @@ const MakePubli = ({uploadPubli, id, username,baseUrl}) =>{
   
     return <div className='makePublication' id='makePublicationDiv'>
       <input type='text' id='inputText' ref={refDescription} placeholder='Para añadir hashtags, coloquelos al final con un espacio entre tag y tag. Ej: This is my cat #cat #photo'/>
-      <ul className='multimediaOptions'>
-        <li>
+      <div className='multimediaOptions'>
+          <UploadIcon/>
           {username ? <input id='fileInput' type='file' accept="image/*" ref={refFile}/> : <input id='fileInput' type='file' accept="image/*" disabled ref={refFile}/>}
-        </li>
-      </ul>
+      </div>
       {username ? <button className='btn' onClick={handleUploadClick}>Send It</button> : <h2 style={{margin:'0 auto'}}>Inicia sesion para realizar publicaciones</h2>}
       {isModalOpen && <Modal setModalOpen={setModalOpen} modalContent={modalContent} successModal={succesModal}/>}
     </div>

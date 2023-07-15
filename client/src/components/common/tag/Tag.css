@@ -5,14 +5,15 @@
   align-items: center;
   margin-top: 1rem;
   background-color:  rgb(83, 89, 89);
-  padding: 0.25rem 1rem;
+  padding: 0.5rem 1rem;
   border-radius: 10px;
 }
 .liTag h3{
   width: 45%;
 }
 .liTag .nameTag{
-  text-align: start;
+  display: flex;
+  align-items: center;
 }
 .liTag h3{
   text-align: end;

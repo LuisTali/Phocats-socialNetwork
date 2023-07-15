@@ -35,17 +35,17 @@ form .confirmEdit{
     text-transform: uppercase;
 }
 .unshowModifyForm{
-    padding: 0.5rem 0.8rem;
-    width: 20%;
+    padding: 0.5rem 1rem;
+    width: 150px;
     margin-top: 2rem;
     margin-left: 2rem;
     border-radius: 10px;
 }
 
-@media screen and (max-width:650px) {
+@media screen and (max-width:700px) {
     .unshowModifyForm{
-        padding: 0.5rem 0.8rem;
-        width: 150px;
+        padding: 0.5rem 1rem;
+        width: 100px;
         margin-top: 2rem;
         margin-left: 2rem;
     }
