@@ -52,7 +52,7 @@
     .homePage .feed{
       width: 100%;
       flex-direction: column-reverse;
-      padding: 0.5rem 0rem;
+      padding: 0.5rem 0.5rem;
     }
     .groupsDiv{
       width: 100%;

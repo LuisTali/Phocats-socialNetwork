@@ -36,14 +36,14 @@ const Login = () => {
     const handleSubmit = async(e) =>{
         e.preventDefault();
         if(!user.username || !user.password){
-            setModalContent('Llene todos los campos');
+            setModalContent('Fill all the fields');
             setModalOpen(true);
             return; 
         }
         let user2 = {username:user.username,password:user.password};
         const response = await axios.post(`${baseUrl}user/auth`,{...user2});
         if(!response.data.success){
-            if(response.data.msg == 'Valide su cuenta primero'){
+            if(response.data.msg == 'Validate your account first'){
                 setIdLogging(response.data.userId);
                 setShowBtnValidation(true);
             }
@@ -54,7 +54,7 @@ const Login = () => {
         }
         user2 = response.data.user;
         localStorage.setItem('user',JSON.stringify(user2));
-        setModalContent(`Bienvenido nuevamente ${user2.username}`);
+        setModalContent(`Welcome back ${user2.username}`);
         setSuccessModal(true);
         setModalOpen(true);
         setTimeout(()=>{
@@ -77,8 +77,8 @@ const Login = () => {
                     <ShowPass showPass={showPass} showPassword={showPassword}/>
                 </div>
             </div>
-            {!showBtnValidation && <button className="btn" onClick={handleSubmit}>login</button>}
-            {showBtnValidation && <button className="btn validateBtn" onClick={(e)=>{handleValidateClick(e)}}>validate</button>}
+            {!showBtnValidation && <button className="btn" onClick={handleSubmit}>Login</button>}
+            {showBtnValidation && <button className="btn validateBtn" onClick={(e)=>{handleValidateClick(e)}}>Validate</button>}
         </form>
         {isModalOpen && <Modal modalContent={modalContent} setModalOpen={setModalOpen} successModal={succesModal}/>}
         <h3>Do not you have an account?</h3>

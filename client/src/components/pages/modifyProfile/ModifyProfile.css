@@ -25,7 +25,7 @@
     color: black;
 }
 .modifyProfileForm{
-    margin-top: 4rem;
+    margin-top: 2rem;
 }
 form .confirmEdit{
     padding: 0.5rem 1rem;
@@ -35,18 +35,28 @@ form .confirmEdit{
     text-transform: uppercase;
 }
 .unshowModifyForm{
+margin-left: 8rem;
+margin-top: 2rem;
+width: fit-content;
+padding: 0.6rem 1.12rem;
+border: 2px solid grey;
+font-weight: 700;
+white-space: nowrap;
+border-radius: 50%;
+background-color: black;
+color: aliceblue;
+}
+/*.unshowModifyForm{
     padding: 0.5rem 1rem;
     width: 150px;
     margin-top: 2rem;
     margin-left: 2rem;
     border-radius: 10px;
-}
+    
+}*/
 
 @media screen and (max-width:700px) {
     .unshowModifyForm{
-        padding: 0.5rem 1rem;
-        width: 100px;
-        margin-top: 2rem;
         margin-left: 2rem;
     }
 }

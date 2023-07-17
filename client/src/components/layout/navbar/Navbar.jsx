@@ -3,14 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import Modal from '../../common/modal/Modal.jsx';
 import SearchInput from '../../common/searchInput/SearchInput.jsx';
 import Notifications from "../../common/notifications/Notifications.jsx";
-
 import './Navbar.css'
-import { ModalContext } from "../../../context/modalContext/ModalContext.jsx";
-import { AppContext } from "../../../Index.jsx";
 
-const Navbar = () =>{
-    const {isModalOpen,setModalOpen,modalContent,setModalContent,succesModal,setSuccessModal} = useContext(ModalContext);
-    const {username,setLogged,setUser,id,notifications,newFollowers} = useContext(AppContext);
+const Navbar = ({isModalOpen,setModalOpen,modalContent,setModalContent,succesModal,setSuccessModal,username,setLogged,setUser,id,notifications,newFollowers}) =>{
+
     const navigate = useNavigate();
     const [isNotificacionsOpen,setNotificacionsOpen] = useState(false);
     const [areNewFollowers,setNewFollowers] = useState(undefined);
@@ -19,15 +15,16 @@ const Navbar = () =>{
 
     const logOut = (e) =>{
       e.preventDefault(); 
+      setClicked(clicked && false);
       setModalOpen(true);
       setSuccessModal(true);
-      setModalContent('Log Out exitoso');
+      setModalContent('Log Out successful');
       setTimeout(()=>{
         setUser({});
         localStorage.clear();
         setLogged(false);
         navigate('/');
-      },2000)
+      },3000)
     }
 
     const handleNotificationsClick = (e) =>{

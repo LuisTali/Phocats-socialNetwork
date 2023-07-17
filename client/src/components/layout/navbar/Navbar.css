@@ -93,6 +93,9 @@ nav a #newFollowers{
     background-color: rgb(20, 20, 20);
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
+    border-left: 3px solid #452c63;
+    border-right: 3px solid #452c63;
+    border-bottom: 3px solid #452c63;
   }
   nav #linksNotLogged{
     flex-direction: column;

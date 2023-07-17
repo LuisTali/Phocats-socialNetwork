@@ -63,7 +63,7 @@ export const authLogin = async(req,res) =>{
             user.newFollowers = flag; //Seteo la prop del user al valor de la flag, si hay nuevos follows == true
             res.status(200).json({success:true,user:response.recordset[0]})
         }else{
-            res.status(200).json({success:false,msg:'No hubo coincidencias, compruebe sus datos'});
+            res.status(200).json({success:false,msg:'There were not coincidences, check your credentials'});
         }
     } catch (error) {
         res.status(200).json({success:false,error:error});

@@ -20,8 +20,16 @@
     display: list-item;
     margin: 0rem 1rem;
     padding: 0.50rem ;
+    font-weight: 600;
     align-items: center;
     cursor: pointer;
+}
+.optionsPubli .separator{
+    width: 70%;
+    padding: 0;
+    display: flex;
+    height: 1px;
+    background-color: whitesmoke;
 }
 .show{
     display: flex;

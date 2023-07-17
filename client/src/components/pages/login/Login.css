@@ -83,7 +83,13 @@
       width: 100%;
     }
   }
-
+  @media screen and (max-width: 600px){
+    .failureModal{
+      min-width: 50%;
+      max-width: 80%;
+      text-align: center;
+    }
+  }
   @media screen and (max-width: 320px){
     .inputGroup .inputPassword svg{
       width: 15px;

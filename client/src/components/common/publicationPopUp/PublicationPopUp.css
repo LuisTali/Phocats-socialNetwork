@@ -10,6 +10,7 @@
     transform: translate(-50%, -50%);
     padding: 1.5rem;
     align-items: center;
+    border-radius: 10px;
 }
 .popUp .popUpBack{
     position: absolute;
@@ -17,11 +18,13 @@
     width: fit-content;
     top: 0;
     margin-top: 0.5rem;
-    border-radius: 5px;
-    padding: 0.8rem 1.2rem;
-    border: 2px solid black;
-    font-weight: 600;
+    padding: 0.6rem 1.12rem;
+    border: 2px solid grey;
+    font-weight: 700;
     white-space: nowrap;
+    border-radius: 50%;
+    background-color: black;
+    color: aliceblue;
 }
 .popUp .imgContainer{
     height: 90%;
@@ -58,11 +61,13 @@
     font-weight: 500;
 }
 .publicationInfoDiv .confirmEdit{
-    width: 40%;
-    margin-left: 30%;
-    font-weight: 500;
-    padding: 0.25rem 0.8rem;
-    text-transform: uppercase;
+    width: 30%;
+    margin-left: 35%;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    text-transform: capitalize;
+    border-radius: 5px;
+
 }
 .userContainer .dateDiv .date{
     font-weight: 500;
@@ -70,8 +75,8 @@
 .publicationInfoDiv{
     width: 100%;
 }
-.publicationInfoDiv h3{
-
+.publicationInfoDiv h2{
+    text-decoration: underline;
 }
 @media screen and ( max-width:768px ){
    .popUp{
@@ -92,8 +97,10 @@
         justify-content: center;
         text-align: left;
         width: 100%;
-        background: grey;
+        background: rgb(102, 102, 102);
         height: max-content;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
    }
     .popUp .userContainer.showInfo .date{
         white-space: nowrap;

@@ -4,8 +4,9 @@ import './MakePublication.css'
 import Modal from '../modal/Modal.jsx';
 import UploadIcon from '@mui/icons-material/Upload';
 
-const MakePubli = ({uploadPubli, id, username,baseUrl}) =>{
+const MakePubli = ({uploadPubli, id, username,baseUrl,setUploadOpen,uploadOpen,forceRender,setForceRender}) =>{
     const[file,setFile] = useState();
+    const [urlPreview,setUrlPreview] = useState(null)
     const[description,setDescription] = useState();
     const [isModalOpen,setModalOpen] = useState(false);
     const [modalContent,setModalContent] = useState('');
@@ -13,14 +14,30 @@ const MakePubli = ({uploadPubli, id, username,baseUrl}) =>{
     const refFile = useRef(null);
     const refDescription = useRef(null);
   
-    const handleUploadClick = () =>{
-      if(!refFile.current.files[0]){
-        setModalContent('Cargue una imagen previamente');
-        setModalOpen(true);
-        return;
+    const handleChange = (e) =>{
+      if(e.target.type == 'file'){
+        console.log(e.target.files);
+        if(refFile.current.files[0]){
+          setFile(e.target.files[0]);
+          const objectURL = URL.createObjectURL(e.target.files[0]);
+          setUrlPreview(objectURL);
+        } 
+      }else{
+        setDescription(refDescription.current.value)
       }
-      if(refDescription.current.value) setDescription(refDescription.current.value);
-      if(refFile.current.files[0]) setFile(refFile.current.files[0]);
+    }
+
+    const handleUploadClick = () =>{
+      //uploadPublication().then((publi) => uploadPubli(publi));
+      uploadPublication();
+      setFile(undefined);
+      setUrlPreview(null);
+      setDescription('');
+      refFile.current.value = '';
+      refDescription.current.value = '';
+      setUploadOpen(false);
+      window.location.reload(true);
+      setForceRender(forceRender+1);
     }
 
     const uploadPublication = async() =>{
@@ -38,30 +55,22 @@ const MakePubli = ({uploadPubli, id, username,baseUrl}) =>{
       } catch (error) {
         console.log(error);
       }
-
     }
   
-    useEffect(()=>{
-      if(!file){
-          setFile(undefined);
-          return;
-      }
-
-      uploadPublication().then((publi) => uploadPubli(publi));
-
-      setFile(undefined);
-      setDescription('');
-      refFile.current.value = '';
-      refDescription.current.value = '';
-    },[file]);
-  
-    return <div className='makePublication' id='makePublicationDiv'>
-      <input type='text' id='inputText' ref={refDescription} placeholder='Para añadir hashtags, coloquelos al final con un espacio entre tag y tag. Ej: This is my cat #cat #photo'/>
+    return <div className={uploadOpen ? 'makePublication show' : 'makePublication'} id='makePublicationDiv'>
+      <button className='backBtnMobile' onClick={()=>setUploadOpen(false)}>X</button>
+      <input type='text' id='inputText' ref={refDescription} onChange={(e)=>handleChange(e)}  placeholder='Para añadir hashtags, coloquelos al final con un espacio entre tag y tag. Ej: This is my cat #cat #photo'/>
       <div className='multimediaOptions'>
-          <UploadIcon/>
-          {username ? <input id='fileInput' type='file' accept="image/*" ref={refFile}/> : <input id='fileInput' type='file' accept="image/*" disabled ref={refFile}/>}
+          <div className='inputFileDiv'>
+            <UploadIcon/>
+            {username ? <input id='fileInput' type='file' accept="image/*" onChange={(e)=>handleChange(e)} ref={refFile}/> : <input id='fileInput' type='file' accept="image/*" disabled ref={refFile}/>}
+          </div>
+          {urlPreview && <button className='removeFile' onClick={()=>{setFile(null);setUrlPreview(null);}}>Discard</button>}
       </div>
-      {username ? <button className='btn' onClick={handleUploadClick}>Send It</button> : <h2 style={{margin:'0 auto'}}>Inicia sesion para realizar publicaciones</h2>}
+      <div className='previewImg'>
+        {urlPreview && <img src={urlPreview}/>}
+      </div>
+      {username ? <button className='btn' onClick={handleUploadClick}>Upload</button> : <h2 style={{margin:'0 auto'}}>Inicia sesion para realizar publicaciones</h2>}
       {isModalOpen && <Modal setModalOpen={setModalOpen} modalContent={modalContent} successModal={succesModal}/>}
     </div>
   }

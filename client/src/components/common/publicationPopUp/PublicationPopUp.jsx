@@ -44,14 +44,14 @@ const PublicationPopUp = ({id,imgsrc,madeIn,idUser,userCreator,textDescription,s
     }
 
     return <div className="popUp" >
-        <button className="popUpBack" onClick={()=>setShowPopUp(false)}>{`<-- back`}</button>
-        {idUserLogged == idUser && <OptionsDropdown setShowEdit={setShowEdit} setShowInfo={setShowInfo} deletePublication={deletePublication}/>}
+        <button className="popUpBack" onClick={()=>setShowPopUp(false)}>{`X`}</button>
+        {idUserLogged == idUser && <OptionsDropdown setShowEdit={setShowEdit} setShowInfo={setShowInfo} deletePublication={deletePublication} showEdit={showEdit}/>}
         <div className="imgContainer" onClick={()=>handleClickShowInfo()}>
             <img src={imgsrc}/>
         </div>
         <div className={showInfo ? "userContainer showInfo" : "userContainer"} >
             <div className="publicationInfoDiv">
-                <Link to={`/user/${idUser}`}><h2>{userCreator}</h2></Link>
+                <Link onClick={()=>setShowPopUp(false)} to={`/user/${idUser}`}><h2>{userCreator}</h2></Link>
                 {showEdit ? <input ref={refInput} className="editPublicationInput" placeholder={textDescription}/> : <h3>{textPublication}</h3> }
                 {showEdit && <button className="confirmEdit" onClick={handleEditClick}>edit</button>}
             </div>

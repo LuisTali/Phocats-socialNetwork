@@ -10,15 +10,20 @@ import UserProfile from './components/pages/user/UserProfile.jsx';
 import Friends from './components/pages/friends/Friends.jsx';
 import PublicationsPerTag from './components/pages/publisPerTag/PublicationsPerTag';
 import Footer from './components/layout/footer/Footer';
+import Layout from './components/layout/Layout.jsx';
+
+import { menuRoutes } from './routes/menuRoutes.js';
 
 import ModalContextProvider from './context/modalContext/ModalContext';
 import LocationContextProvider, { LocationContext } from './context/locationContext/LocationContext';
+import UploadContextProvider from './context/uploadContext/UploadContext.jsx';
 
 export const AppContext = React.createContext(); //Creo context, luego a cada elemento se lo paso con los valores deseados, lo importo en ese componente y lo utilizo, como hice en PublicationPopUp.
 
 const App = () =>{
     const [user,setUser] = useState({});
     const [logged,setLogged] = useState(false);
+    const [forceRender,setForceRender] = useState(0);
     const baseUrl = 'http://localhost:5000/';
 
     let dataContext = {
@@ -27,7 +32,9 @@ const App = () =>{
         logged,
         setLogged,
         baseUrl,
-        idUserLogged:user.id
+        idUserLogged:user.id,
+        setForceRender,
+        forceRender
     };
 
     useEffect(()=>{
@@ -35,7 +42,7 @@ const App = () =>{
         if(loggedInUser){
             setUser(JSON.parse(loggedInUser));
         }
-    },[logged]);
+    },[logged,forceRender]);
 
     if(Object.entries(user).length === 0){ //Si user no tiene pares clave-valor esta vacio
         return <Router>
@@ -55,16 +62,17 @@ const App = () =>{
         return <Router>
                 <ModalContextProvider>
                 <LocationContextProvider>
+                <UploadContextProvider>
                 <AppContext.Provider value={dataContext}>
-                <Navbar/>
                 <Routes>
-                    <Route exact path='/' element={ <Home/> }/>
-                    <Route path='/user/:id' element={ <UserProfile/> }/>
-                    <Route path='/tags/:nameTag' element={ <PublicationsPerTag/> }/>
-                    <Route path='/friends' element={ <Friends/> }/>
-                    <Route path='/register' element={ <Register/> }/>
+                    <Route element={<Layout/>}>
+                        {menuRoutes.map(({id,path,Element})=>{
+                            return <Route key={id} path={path} element={<Element/>} />
+                        })}
+                    </Route>
                 </Routes>
                 </AppContext.Provider>
+                </UploadContextProvider>
                 </LocationContextProvider>
                 </ModalContextProvider>
             </Router>

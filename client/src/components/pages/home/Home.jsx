@@ -8,6 +8,7 @@ import Footer from '../../layout/footer/Footer';
 import './Home.css'
 import { AppContext } from '../../../Index.jsx';
 import { LocationContext } from '../../../context/locationContext/LocationContext.jsx';
+import { UploadContext } from '../../../context/uploadContext/UploadContext.jsx';
 
 function Home() {
   const [publi,setPublis] = useState([]); //publications in the feed
@@ -17,14 +18,17 @@ function Home() {
   const [forceRender,setForceRender] = useState(0); //sumo 1 para forzar re-render
   const {baseUrl,username,id} = useContext(AppContext);
   const {lastLocation,setLastLocation} = useContext(LocationContext);
+  const {uploadOpen,setUploadOpen} = useContext(UploadContext);
   const location = useLocation();
 
-  const uploadPubli = (publication) =>{
+  /*const uploadPubli = (publication) =>{
     let newPublis = [publication,...publi];
     setPublis(newPublis);
     setEmpty(false);
     setForceRender(forceRender + 1);
-  }
+  }*/
+
+
 
   const useFetch = async() =>{
     if(id){
@@ -55,9 +59,7 @@ function Home() {
     <>
     <div className='homePage'>
       <div className='feed'>
-        <MakePubli uploadPubli={uploadPubli} id={id} username={username} baseUrl={baseUrl}/>
-
-        <hr id="lineaMoviles"/>
+        <MakePubli id={id} username={username} baseUrl={baseUrl} uploadOpen={uploadOpen} setUploadOpen={setUploadOpen}/>
         <div className='feedMobile'>
           {(loading && !empty) && <h2 style={{marginTop:'2rem'}}>Loading...</h2>}
           {publi.map((publication) => <Publication {...publication} key={publication.id}/>)}
@@ -71,7 +73,6 @@ function Home() {
           </ul>
       </div>
     </div>
-    <Footer/>
     </>
   )
 }
