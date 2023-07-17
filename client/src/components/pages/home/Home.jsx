@@ -15,8 +15,7 @@ function Home() {
   const [tags,setTags] = useState([]); //top3 most used tags
   const [loading,setLoading] = useState(true);
   const [empty,setEmpty] = useState(false); 
-  const [forceRender,setForceRender] = useState(0); //sumo 1 para forzar re-render
-  const {baseUrl,username,id} = useContext(AppContext);
+  const {baseUrl,username,id,forceRender,setForceRender} = useContext(AppContext);
   const {lastLocation,setLastLocation} = useContext(LocationContext);
   const {uploadOpen,setUploadOpen} = useContext(UploadContext);
   const location = useLocation();
@@ -27,8 +26,6 @@ function Home() {
     setEmpty(false);
     setForceRender(forceRender + 1);
   }*/
-
-
 
   const useFetch = async() =>{
     if(id){
@@ -59,7 +56,7 @@ function Home() {
     <>
     <div className='homePage'>
       <div className='feed'>
-        <MakePubli id={id} username={username} baseUrl={baseUrl} uploadOpen={uploadOpen} setUploadOpen={setUploadOpen}/>
+        <MakePubli id={id} setForceRender={setForceRender} forceRender={forceRender} username={username} baseUrl={baseUrl} uploadOpen={uploadOpen} setUploadOpen={setUploadOpen}/>
         <div className='feedMobile'>
           {(loading && !empty) && <h2 style={{marginTop:'2rem'}}>Loading...</h2>}
           {publi.map((publication) => <Publication {...publication} key={publication.id}/>)}

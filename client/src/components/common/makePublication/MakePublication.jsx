@@ -16,7 +16,6 @@ const MakePubli = ({uploadPubli, id, username,baseUrl,setUploadOpen,uploadOpen,f
   
     const handleChange = (e) =>{
       if(e.target.type == 'file'){
-        console.log(e.target.files);
         if(refFile.current.files[0]){
           setFile(e.target.files[0]);
           const objectURL = URL.createObjectURL(e.target.files[0]);
@@ -28,22 +27,27 @@ const MakePubli = ({uploadPubli, id, username,baseUrl,setUploadOpen,uploadOpen,f
     }
 
     const handleUploadClick = () =>{
-      //uploadPublication().then((publi) => uploadPubli(publi));
-      uploadPublication();
-      setFile(undefined);
-      setUrlPreview(null);
-      setDescription('');
-      refFile.current.value = '';
-      refDescription.current.value = '';
-      setUploadOpen(false);
-      window.location.reload(true);
-      setForceRender(forceRender+1);
+      if(file){
+        uploadPublication();
+        setFile(undefined);
+        setUrlPreview(null);
+        setDescription('');
+        refFile.current.value = '';
+        refDescription.current.value = '';
+        setUploadOpen(false);
+        let newForceRender = forceRender + 1;
+        setForceRender(newForceRender);
+        setTimeout(()=>window.location.reload(true),2000);
+      }else{
+        setModalContent('Select an image first');
+        setModalOpen(true);
+      }
+      
     }
 
     const uploadPublication = async() =>{
       try {
         if(file){
-          console.log(file);
           const formData = new FormData();
           formData.append("file",file);
           formData.append("upload_preset","sdsftg7i")
@@ -59,7 +63,7 @@ const MakePubli = ({uploadPubli, id, username,baseUrl,setUploadOpen,uploadOpen,f
   
     return <div className={uploadOpen ? 'makePublication show' : 'makePublication'} id='makePublicationDiv'>
       <button className='backBtnMobile' onClick={()=>setUploadOpen(false)}>X</button>
-      <input type='text' id='inputText' ref={refDescription} onChange={(e)=>handleChange(e)}  placeholder='Para añadir hashtags, coloquelos al final con un espacio entre tag y tag. Ej: This is my cat #cat #photo'/>
+      <input type='text' id='inputText' ref={refDescription} onChange={(e)=>handleChange(e)}  placeholder='To write hashtags, use the # before the word and then do a blank space'/>
       <div className='multimediaOptions'>
           <div className='inputFileDiv'>
             <UploadIcon/>

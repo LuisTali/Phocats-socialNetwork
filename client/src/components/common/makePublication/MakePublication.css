@@ -18,14 +18,16 @@
   .makePublication .multimediaOptions{
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    width: 40%;
+    justify-content: center;
+    width: fit-content;
   }
   .makePublication .multimediaOptions .removeFile{
-    width: 50px;
+    width: fit-content;
     height: 37px;
     font-weight: 600;
     border-radius: 5px;
+    margin-left: 2rem;
+    padding: 0.5rem 1rem;
   }
   .makePublication .multimediaOptions .inputFileDiv{
     background-color: #452c63;
@@ -34,7 +36,7 @@
     justify-content: center;
     margin: 0.5rem 0rem;
     border-radius: 5px;
-    width: 30%;
+    width: 50px;
   }
   .makePublication .multimediaOptions .inputFileDiv #fileInput{
     display: inline-block;
@@ -78,44 +80,6 @@
 
   @media screen and (max-width:1140px){
     .makePublication{
-      width: 90%;
-      margin-left: 5%;
-      margin: 1rem;
-      height: 100%;
-    }
-    .makePublication #inputText{
-      margin-left: 0%;
-      width: 100%;
-    }
-    .makePublication .multimediaOptions li{
-      width: 100%;
-      margin-left: 0%;
-      margin-right: 0%;
-    }
-    .makePublication .multimediaOptions li #fileInput{
-      width: 100%;
-      margin-left: 0%;
-      margin-right: 0%;
-    }
-    .makePublication .btn{
-      width: 100%;
-      margin-left: 0%;
-      transform: none;
-    }
-    .makePublication .failureModal{
-      margin-left: 50%;
-      transform: translate(-50%);
-      margin-bottom: 1rem;
-      font-size: 1.2rem;
-    }
-    .makePublication .failureModal h2{
-      font-size: 1rem;
-      white-space: nowrap;
-    }
-  }
-
-  @media screen and (max-width:1140px){
-    .makePublication{
       display: none;
       pointer-events: none;
       position: absolute;
@@ -140,5 +104,32 @@
       padding: 0.5rem 1rem;
       width: fit-content !important;
       border: 2px solid black;
+    }
+    .makePublication #inputText{
+      margin-left: 0%;
+      width: 100%;
+    }
+    .makePublication .multimediaOptions li{
+      width: 100%;
+      margin-left: 0%;
+      margin-right: 0%;
+    }
+    .makePublication .multimediaOptions li #fileInput{
+      width: 100%;
+      margin-left: 0%;
+      margin-right: 0%;
+    }
+    .makePublication .failureModal{
+      margin-left: 50%;
+      transform: translate(-50%);
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+    .makePublication .failureModal h2{
+      font-size: 1rem;
+      white-space: nowrap;
+    }
+    .previewImg img{
+      width: 70%;
     }
   }

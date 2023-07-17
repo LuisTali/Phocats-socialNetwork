@@ -7,8 +7,6 @@ import './Footer.css';
 const Footer = ({lastLocation,uploadOpen,setUploadOpen}) =>{
     const {id,username,baseUrl,forceRender,setForceRender} = useContext(AppContext);
 
-    console.log(uploadOpen);
-
     return <div id="footer">
         {uploadOpen && <MakePubli forceRender={forceRender} setForceRender={setForceRender} id={id} username={username} baseUrl={baseUrl} setUploadOpen={setUploadOpen} uploadOpen={uploadOpen}/>}
         <button className="openMakePubli" onClick={()=>setUploadOpen(!uploadOpen)}><FileUploadIcon/>Upload</button>
