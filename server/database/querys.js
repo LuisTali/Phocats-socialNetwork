@@ -14,7 +14,7 @@ export const querys = {
     //Probar, recien creada
     editProfile: 'UPDATE Users SET username = @username, completename = @completename, userDescription = @userDescription, profileImg = @profileImg WHERE id = @idUser',
 
-    makeFeed: 'SELECT  p.id, p.idUser, textDescription, imgName, p.madeIn, username as userCreator FROM Publications AS p INNER JOIN Users AS u ON u.id = p.idUser INNER JOIN Followers AS f ON f.idUser2 = p.idUser WHERE f.idUser1 = @idUser UNION SELECT p.id, p.idUser, textDescription, imgName, p.madeIn, username as userCreator FROM Publications AS p INNER JOIN Users AS u ON u.id = p.idUser WHERE p.idUSer = @idUser ORDER BY madeIn DESC',
+    makeFeed: 'SELECT  p.id, p.idUser, textDescription, imgName, p.madeIn, u.profileImg, username as userCreator FROM Publications AS p INNER JOIN Users AS u ON u.id = p.idUser INNER JOIN Followers AS f ON f.idUser2 = p.idUser WHERE f.idUser1 = @idUser UNION SELECT p.id, p.idUser, textDescription, imgName, p.madeIn, u.profileImg, username as userCreator FROM Publications AS p INNER JOIN Users AS u ON u.id = p.idUser WHERE p.idUSer = @idUser ORDER BY madeIn DESC',
     /*Pase a usar makeFeed ya que incluye los posts del usuario loggeado*/
     getPostsFromFollowedUsers: 'SELECT p.id, p.idUser, textDescription, imgName, p.madeIn, username as userCreator, followSince FROM Publications AS p INNER JOIN Followers AS f ON f.idUser2 = p.idUser INNER JOIN Users AS u ON u.id = p.idUser WHERE f.idUser1 = @idUser',
     

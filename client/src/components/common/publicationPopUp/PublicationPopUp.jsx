@@ -37,7 +37,7 @@ const PublicationPopUp = ({id,imgsrc,madeIn,idUser,userCreator,textDescription,s
     const deletePublication = async() =>{
         try {
             const response = await axios.post(`${baseUrl}publication/delete/${id}`,{textDescription});
-            window.location.reload(true);
+            setTimeout(()=>window.location.reload(true),2000);
         } catch (error) {
             console.log(error);
         }

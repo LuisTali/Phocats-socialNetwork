@@ -1,18 +1,20 @@
-import React,{useEffect,useState,useRef} from 'react';
+import React,{useEffect,useState,useRef,useContext} from 'react';
 import axios from 'axios';
 import './MakePublication.css'
 import Modal from '../modal/Modal.jsx';
 import UploadIcon from '@mui/icons-material/Upload';
+import { ModalContext } from '../../../context/modalContext/ModalContext.jsx';
 
 const MakePubli = ({uploadPubli, id, username,baseUrl,setUploadOpen,uploadOpen,forceRender,setForceRender}) =>{
     const[file,setFile] = useState();
     const [urlPreview,setUrlPreview] = useState(null)
     const[description,setDescription] = useState();
-    const [isModalOpen,setModalOpen] = useState(false);
-    const [modalContent,setModalContent] = useState('');
-    const [succesModal,setSuccessModal] = useState(false);
     const refFile = useRef(null);
+    const [uploading,setUploading] = useState(false);
     const refDescription = useRef(null);
+    const [warning,setWarning] = useState(false);
+    const [isModalOpen,setIsModalOpen] = useState(false); //Debo crearlo si o si ya que si no se abren todos los modals globales
+    const {modalContent,setModalContent,succesModal,setSuccessModal} = useContext(ModalContext);
   
     const handleChange = (e) =>{
       if(e.target.type == 'file'){
@@ -26,9 +28,12 @@ const MakePubli = ({uploadPubli, id, username,baseUrl,setUploadOpen,uploadOpen,f
       }
     }
 
-    const handleUploadClick = () =>{
+    const handleUploadClick = async() =>{
       if(file){
-        uploadPublication();
+        setUploading(true);
+        //let btn = document.getElementsByClassName('btn');
+        //btn[0].setAttribute('disabled','true');
+        let data = await uploadPublication();
         setFile(undefined);
         setUrlPreview(null);
         setDescription('');
@@ -37,12 +42,12 @@ const MakePubli = ({uploadPubli, id, username,baseUrl,setUploadOpen,uploadOpen,f
         setUploadOpen(false);
         let newForceRender = forceRender + 1;
         setForceRender(newForceRender);
-        setTimeout(()=>window.location.reload(true),2000);
+        setUploading(false);
+        //setTimeout(()=>window.location.reload(true),2000);
       }else{
         setModalContent('Select an image first');
-        setModalOpen(true);
+        setIsModalOpen(true);
       }
-      
     }
 
     const uploadPublication = async() =>{
@@ -74,8 +79,9 @@ const MakePubli = ({uploadPubli, id, username,baseUrl,setUploadOpen,uploadOpen,f
       <div className='previewImg'>
         {urlPreview && <img src={urlPreview}/>}
       </div>
-      {username ? <button className='btn' onClick={handleUploadClick}>Upload</button> : <h2 style={{margin:'0 auto'}}>Inicia sesion para realizar publicaciones</h2>}
-      {isModalOpen && <Modal setModalOpen={setModalOpen} modalContent={modalContent} successModal={succesModal}/>}
+      {!uploading ? <button className='btn' onClick={handleUploadClick}>Upload</button> : <button className='btn' onClick={handleUploadClick} disabled>Upload</button>}
+      {warning && <h2 style={{textAlign:'center', width:'100%', color:'red'}}>Select an image first</h2>}
+      {isModalOpen && <Modal setModalOpen={setIsModalOpen} modalContent={modalContent} successModal={succesModal}/>}
     </div>
   }
 

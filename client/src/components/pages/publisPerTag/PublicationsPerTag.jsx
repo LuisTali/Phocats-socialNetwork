@@ -30,6 +30,7 @@ const PublicationsPerTag = () =>{
     return <div className="tagPage">
         <div className="publicationsPerTag">
             <ButtonBack previousUrl={lastLocation}/>
+            <h3 className="headerTag">Search by Hashtag: #{nameTag}</h3>
             {publications.map((publication) =>
                 <Publication key={publication.id} {...publication}/>
             )}

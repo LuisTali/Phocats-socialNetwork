@@ -18,6 +18,13 @@
     font-weight: 600;
     white-space: nowrap;
 }
+.publicationsPerTag .headerTag{
+    grid-column: 1/4;
+    width: 100%;
+    text-align: center;
+    color: black;
+    font-weight: 600;
+}
 .publicationsPerTag .publication{
     margin-left: 10%;
     /*transform: translate(-50%);*/

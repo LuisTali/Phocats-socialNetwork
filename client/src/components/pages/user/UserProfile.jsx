@@ -83,7 +83,7 @@ const UserProfile = () =>{
         <h3>{user.completeName}</h3>
         <h3>{user.userDescription ? user.userDescription : 'No hubo tiempo de reflexion'}</h3>
         <h3>{user.birthDate}</h3>
-        {publications.map((publi) => <Publication key={publi.id} {...publi} userCreator={user.username}/>)}
+        {publications.map((publi) => <Publication key={publi.id} profileImg={user.profileImg} {...publi} userCreator={user.username}/>)}
     </div>
 }
 export default UserProfile;

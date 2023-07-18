@@ -37,7 +37,7 @@ const SearchInput = ({setModalOpen,setModalContent}) =>{
 
     return <form onSubmit={handleSubmit} id='searchForm'>
         <div id="searchGroup">
-        <input type="text" id="searchInput" value={search} onChange={(e)=>setSearch(e.target.value)}/>
+        <input type="text" id="searchInput" value={search} placeholder="By Username or #Hashtag" onChange={(e)=>setSearch(e.target.value)}/>
         <label onClick={handleSubmit}><SearchIcon/></label>
         </div>
     </form> 

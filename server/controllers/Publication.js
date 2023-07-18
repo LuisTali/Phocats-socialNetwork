@@ -13,6 +13,7 @@ export const getPublications = async(req,res) =>{
             let formatedDate = formatDate(publi.madeIn)
             publi.madeIn = formatedDate;
             publi.userCreator = userCreator.username; //Se lo añado antes de enviarle la respuesta al cliente
+            publi.imgUser = userCreator.profileImg;
         }
         res.json({success:true,data})
     } catch (error) {
@@ -37,6 +38,7 @@ export const newPublication = async(req,res) =>{
             let formatedDate = formatDate(publi.madeIn)
             publi.madeIn = formatedDate;
             publi.userCreator = userCreator.username; //Se lo añado antes de enviarle la respuesta al cliente
+            publi.profileImg = userCreator.profileImg;
             res.status(200).json({success:true,response,publication:publi});
         }
     } catch (error) {
@@ -71,6 +73,7 @@ export const getPublicationsByNameTag = async(req,res) =>{
                 let formatedDate = formatDate(publi.madeIn)
                 publi.madeIn = formatedDate;
                 publi.userCreator = userCreator.username; //Se lo añado antes de enviarle la respuesta al cliente
+                publi.profileImg = userCreator.profileImg;
             }
             res.status(200).json({success:true,publications:response.recordset});
         }else{
@@ -113,6 +116,7 @@ export const getPublicationsFromFollowedUsers = async(req,res) =>{
         }
         res.json({success:true,data:response.recordset});
     } catch (error) {
+        console.log(error);
         res.status(200).json({success:false,error:error});
     }
 }

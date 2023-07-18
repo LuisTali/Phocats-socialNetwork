@@ -1,23 +1,26 @@
 #searchForm{
     all: unset !important; 
+    display: flex !important;
+    align-items: center !important;
 }
 
 #searchGroup{
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 3px solid whitesmoke;
-    margin-top: 15px;
+    border: 2px solid black;
     border-radius: 10px;
+    height: fit-content;
 }
 
 #searchGroup label{
     height: 30px;
     border-left: 1px solid whitesmoke;
-    background-color: rgb(83, 89, 89);
+    background-color: whitesmoke;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     padding: 0.25rem 1rem;
+    color: rgb(90,90,90);
 }
 
 #searchInput{
@@ -25,11 +28,11 @@
     padding: 0.25rem 1rem;
     font-weight: 500;
     height: 30px;
-    background-color: rgb(83, 89, 89);
+    background-color: whitesmoke;
     border: 0px;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
-    color: white;
+    color: rgb(90,90,90);
 }
 
 @media screen and (max-width:1140px) {

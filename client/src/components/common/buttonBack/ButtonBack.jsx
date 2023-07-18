@@ -8,7 +8,6 @@ const ButtonBack = ({previousUrl}) =>{
     const navigate = useNavigate();
 
     const handleClick = () =>{
-        console.log(previousUrl);
         navigate(previousUrl);
     }
 

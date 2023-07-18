@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import Swal from 'sweetalert2'
 import './OptionsDropdown.css';
 
 const OptionsDropdown = ({setShowEdit,setShowInfo,deletePublication,showEdit}) =>{
@@ -14,7 +15,21 @@ const OptionsDropdown = ({setShowEdit,setShowInfo,deletePublication,showEdit}) =
         setClicked(false);
     }
     const handleClickDelete = () =>{
-        deletePublication();
+        Swal.fire({
+            title: 'Do you want to delete the publication?',
+            showDenyButton: true,
+            confirmButtonText: 'Delete',
+            denyButtonText: `Don't delete`,
+          }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                deletePublication();
+                Swal.fire('Deleted!', '', 'success')
+            } else if (result.isDenied) {
+                Swal.fire('Not deleted!', '', 'error')
+            }
+          })
+        
     }
 
     return <div className="optionsDropDownPublication">
