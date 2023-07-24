@@ -7,6 +7,7 @@
     /*margin-left: 50%;
     transform: translate(-50%,50%); -50% Eje X, 50% Eje Y*/
     margin-top: 2rem;
+    z-index: 999;
   }
   .successModal{
     width: fit-content;
@@ -18,4 +19,5 @@
     /*margin-left: 50%;
     transform: translate(-50%,50%); -50% Eje X, 50% Eje Y*/
     margin-top: 2rem;
+    z-index: 999;
   }  

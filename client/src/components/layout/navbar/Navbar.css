@@ -91,7 +91,7 @@ nav a #newFollowers{
     position: absolute;
     /*Si quito width:100% y dejo right, se crea una mini ventana a la derecha; right: 10px;*/
     width: 100%;
-    margin-top: 350px;
+    margin-top: 349px;
     background-color: rgb(20, 20, 20);
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;

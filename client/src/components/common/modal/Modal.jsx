@@ -3,9 +3,9 @@ import './Modal.css';
 
 const Modal = ({modalContent,setModalOpen,successModal}) =>{
     useEffect(()=>{
-        setTimeout(()=>{
+        /*setTimeout(()=>{
             setModalOpen(false);
-        },3000)
+        },3000)*/
     })
 
     return <div className={successModal ? 'successModal' : "failureModal"}>
