@@ -2,10 +2,12 @@ import React,{useContext} from "react";
 import MakePubli from "../../common/makePublication/MakePublication.jsx";
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import { AppContext } from "../../../Index.jsx";
+import { ScreenSizeContext } from "../../../context/screenSizeContext/ScreenSizeContext.jsx";
 import './Footer.css';
 
 const Footer = ({lastLocation,uploadOpen,setUploadOpen}) =>{
     const {id,username,baseUrl,forceRender,setForceRender} = useContext(AppContext);
+    const {mobile} = useContext(ScreenSizeContext);
 
     return <div id="footer">
         {uploadOpen && <MakePubli forceRender={forceRender} setForceRender={setForceRender} id={id} username={username} baseUrl={baseUrl} setUploadOpen={setUploadOpen} uploadOpen={uploadOpen}/>}

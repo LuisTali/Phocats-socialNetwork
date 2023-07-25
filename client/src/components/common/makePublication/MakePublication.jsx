@@ -17,11 +17,12 @@ const MakePubli = ({uploadPubli, id, username,baseUrl,setUploadOpen,uploadOpen,f
     const {modalContent,setModalContent,succesModal,setSuccessModal} = useContext(ModalContext);
   
     const handleChange = (e) =>{
+      console.log(e.target.type);
       if(e.target.type == 'file'){
         if(refFile.current.files[0]){
-          setFile(e.target.files[0]);
           const objectURL = URL.createObjectURL(e.target.files[0]);
           setUrlPreview(objectURL);
+          setFile(e.target.files[0]);
         } 
       }else{
         setDescription(refDescription.current.value)
@@ -65,15 +66,13 @@ const MakePubli = ({uploadPubli, id, username,baseUrl,setUploadOpen,uploadOpen,f
         console.log(error);
       }
     }
-  
+
     return <div className={uploadOpen ? 'makePublication show' : 'makePublication'} id='makePublicationDiv'>
       <button className='backBtnMobile' onClick={()=>setUploadOpen(false)}>X</button>
       <input type='text' id='inputText' ref={refDescription} onChange={(e)=>handleChange(e)}  placeholder='To write hashtags, use the # before the word and then do a blank space'/>
       <div className='multimediaOptions'>
-          <div className='inputFileDiv'>
-            <UploadIcon/>
+            <label id='labelInputF' htmlFor='fileInput'><UploadIcon/>Choose a file...</label>
             {username ? <input id='fileInput' type='file' accept="image/*" onChange={(e)=>handleChange(e)} ref={refFile}/> : <input id='fileInput' type='file' accept="image/*" disabled ref={refFile}/>}
-          </div>
           {urlPreview && <button className='removeFile' onClick={()=>{setFile(null);setUrlPreview(null);}}>Discard</button>}
       </div>
       <div className='previewImg'>

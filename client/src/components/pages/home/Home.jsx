@@ -9,6 +9,7 @@ import './Home.css'
 import { AppContext } from '../../../Index.jsx';
 import { LocationContext } from '../../../context/locationContext/LocationContext.jsx';
 import { UploadContext } from '../../../context/uploadContext/UploadContext.jsx';
+import { ScreenSizeContext } from '../../../context/screenSizeContext/ScreenSizeContext.jsx';
 
 function Home() {
   const [publi,setPublis] = useState([]); //publications in the feed
@@ -18,6 +19,7 @@ function Home() {
   const {baseUrl,username,id,forceRender,setForceRender} = useContext(AppContext);
   const {lastLocation,setLastLocation} = useContext(LocationContext);
   const {uploadOpen,setUploadOpen} = useContext(UploadContext);
+  const {mobile} = useContext(ScreenSizeContext);
   const location = useLocation();
 
   /*const uploadPubli = (publication) =>{
@@ -50,13 +52,14 @@ function Home() {
     setLastLocation(location.pathname);
     useFetch();
     getMostUsedTags();
-  },[forceRender,id])
+    console.log(mobile);
+  },[forceRender,id,mobile])
 
   return (
     <>
     <div className='homePage'>
       <div className='feed'>
-        <MakePubli id={id} setForceRender={setForceRender} forceRender={forceRender} username={username} baseUrl={baseUrl} uploadOpen={uploadOpen} setUploadOpen={setUploadOpen}/>
+        {!mobile &&<MakePubli id={id} setForceRender={setForceRender} forceRender={forceRender} username={username} baseUrl={baseUrl} uploadOpen={uploadOpen} setUploadOpen={setUploadOpen}/>}
         <div className='feedMobile'>
           {(loading && !empty) && <h2 style={{marginTop:'2rem'}}>Loading...</h2>}
           {publi.map((publication) => <Publication {...publication} key={publication.id}/>)}

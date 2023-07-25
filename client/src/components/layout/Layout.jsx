@@ -8,7 +8,7 @@ import { LocationContext } from '../../context/locationContext/LocationContext.j
 import { UploadContext } from '../../context/uploadContext/UploadContext.jsx';
 
 const Layout = ({}) =>{
-    const {username,setLogged,setUser,id,notifications,newFollowers,baseUrl} = useContext(AppContext);
+    const {username,setLogged,setUser,id,notifications,newFollowers,baseUrl,setForceRender,forceRender} = useContext(AppContext);
     const {isModalOpen,setModalOpen,modalContent,setModalContent,succesModal,setSuccessModal} = useContext(ModalContext);
     const {lastLocation} = useContext(LocationContext);
     const {uploadOpen,setUploadOpen} = useContext(UploadContext);

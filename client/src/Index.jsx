@@ -17,6 +17,7 @@ import { menuRoutes } from './routes/menuRoutes.js';
 import ModalContextProvider from './context/modalContext/ModalContext';
 import LocationContextProvider, { LocationContext } from './context/locationContext/LocationContext';
 import UploadContextProvider from './context/uploadContext/UploadContext.jsx';
+import ScreenSizeContextProvider from './context/screenSizeContext/ScreenSizeContext.jsx';
 
 export const AppContext = React.createContext(); //Creo context, luego a cada elemento se lo paso con los valores deseados, lo importo en ese componente y lo utilizo, como hice en PublicationPopUp.
 
@@ -48,6 +49,7 @@ const App = () =>{
         return <Router>
             <ModalContextProvider>
             <LocationContextProvider>
+            <ScreenSizeContextProvider>
             <AppContext.Provider value={{baseUrl:baseUrl,setLogged}}>
             <Navbar/>
             <Routes>
@@ -55,6 +57,7 @@ const App = () =>{
                 <Route path='/register' element={ <Register/> }/>
             </Routes>
             </AppContext.Provider>
+            </ScreenSizeContextProvider>
             </LocationContextProvider>
             </ModalContextProvider>
         </Router>
@@ -63,6 +66,7 @@ const App = () =>{
                 <ModalContextProvider>
                 <LocationContextProvider>
                 <UploadContextProvider>
+                <ScreenSizeContextProvider>
                 <AppContext.Provider value={dataContext}>
                 <Routes>
                     <Route element={<Layout/>}>
@@ -72,6 +76,7 @@ const App = () =>{
                     </Route>
                 </Routes>
                 </AppContext.Provider>
+                </ScreenSizeContextProvider>
                 </UploadContextProvider>
                 </LocationContextProvider>
                 </ModalContextProvider>
