@@ -16,15 +16,12 @@ const Navbar = ({isModalOpen,setModalOpen,modalContent,setModalContent,succesMod
     const logOut = (e) =>{
       e.preventDefault(); 
       setClicked(clicked && false);
-      setModalOpen(true);
-      setSuccessModal(true);
-      setModalContent('Log Out successful');
       setTimeout(()=>{
         setUser({});
         localStorage.clear();
         setLogged(false);
         navigate('/');
-      },3000)
+      },1500)
     }
 
     const handleNotificationsClick = (e) =>{

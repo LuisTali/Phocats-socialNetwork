@@ -7,9 +7,7 @@ const ScreenSizeContextProvider = ({children}) =>{
     const [mobile,setMobile] = useState(false);
 
     useEffect(()=>{
-        console.log(size);
         if(size < 1140){
-            
             setMobile(true) 
         } 
         else setMobile(false);

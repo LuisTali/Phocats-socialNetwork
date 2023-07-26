@@ -1,9 +1,8 @@
-.failureModal{
+  .failureModal{
     width: fit-content;
     padding: 0.5rem 1rem;
     background: red;
     border-radius: 10px;
-    font-weight: 600;
     /*margin-left: 50%;
     transform: translate(-50%,50%); -50% Eje X, 50% Eje Y*/
     margin-top: 2rem;
@@ -15,9 +14,25 @@
     background: greenyellow;
     color: black;
     border-radius: 10px;
-    font-weight: 600;
     /*margin-left: 50%;
     transform: translate(-50%,50%); -50% Eje X, 50% Eje Y*/
     margin-top: 2rem;
     z-index: 999;
   }  
+  .failureModal h2,.successModal h2{
+    width: fit-content;
+    font-weight: 600;
+
+  }
+
+  @media screen and (max-width:420px){
+    .failureModal,.successModal{
+      font-size: 0.8rem !important;
+    }
+  }
+  @media screen and (max-width:350px){
+    .failureModal h2,.successModal h2{ 
+      width: 100%;
+      white-space: normal;
+    }
+  }
